@@ -421,7 +421,7 @@ export default function BookingWidget() {
                   autoComplete="name"
                   required
                   maxLength={120}
-                  className="mt-3 h-12 w-full rounded-xl border border-white/15 bg-white/5 px-4 text-sm text-white outline-none focus:border-brand"
+                  className="mt-3 h-12 w-full rounded-xl border border-white/15 bg-white/5 px-4 text-base sm:text-sm text-white outline-none focus:border-brand"
                 />
                 <input
                   aria-label={t.phone}

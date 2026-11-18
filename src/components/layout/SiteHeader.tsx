@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { useLocation } from "@tanstack/react-router";
-import { Menu, Phone, X } from "lucide-react";
+import { Phone } from "lucide-react";
 import { L, useLocale } from "@/components/site/L";
 import { Logo } from "./Logo";
 import { SITE } from "@/lib/site";
@@ -135,11 +135,17 @@ export function SiteHeader() {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     addEventListener("keydown", onKey);
-    return () => removeEventListener("keydown", onKey);
+    // Like an iOS sheet: the page behind stays put while the menu is open.
+    const root = document.documentElement;
+    root.classList.add("menu-open");
+    return () => {
+      removeEventListener("keydown", onKey);
+      root.classList.remove("menu-open");
+    };
   }, [open]);
 
   return (
-    <header className="site-header sticky top-0 z-40">
+    <header className="site-header sticky top-0 z-40" data-menu={open}>
       <div className="glass-bar vt-header">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:h-16 sm:px-6 lg:h-20 lg:px-8">
           <Logo />
@@ -180,13 +186,13 @@ export function SiteHeader() {
               aria-expanded={open}
               aria-controls="mobile-nav"
               onClick={() => setOpen((v) => !v)}
-              className="glass-chip flex size-9 items-center justify-center rounded-full text-white sm:size-10 lg:hidden"
+              className="menu-btn glass-chip flex size-10 items-center justify-center rounded-full text-white lg:hidden"
             >
-              {open ? (
-                <X className="size-5" aria-hidden="true" />
-              ) : (
-                <Menu className="size-5" aria-hidden="true" />
-              )}
+              <span className="burger" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </span>
               <span className="sr-only">{open ? t.close : t.open}</span>
             </button>
           </div>
@@ -198,12 +204,17 @@ export function SiteHeader() {
           <div className="scroll-progress h-full bg-gradient-to-r from-brand to-brand-bright" />
         </div>
       </div>
-      <div className="mnav lg:hidden" data-open={open}>
-        <div>
-          <nav id="mobile-nav" aria-label={t.mobile} className="glass-bar">
+      <div
+        className="nav-scrim lg:hidden"
+        data-open={open}
+        aria-hidden="true"
+        onClick={() => setOpen(false)}
+      />
+      <div className="mnav lg:hidden" data-open={open} inert={!open}>
+        <nav id="mobile-nav" aria-label={t.mobile} className="glass-bar">
             <ul className="flex flex-col p-3">
-              {nav.map((n) => (
-                <li key={n.path}>
+              {nav.map((n, i) => (
+                <li key={n.path} style={{ "--i": i } as CSSProperties}>
                   <L
                     to={n.path}
                     onClick={() => setOpen(false)}
@@ -213,10 +224,13 @@ export function SiteHeader() {
                   </L>
                 </li>
               ))}
-              <li className="flex items-center justify-center gap-4 pt-3 text-sm font-bold">
+              <li
+                className="flex items-center justify-center gap-4 pt-3 text-sm font-bold"
+                style={{ "--i": nav.length } as CSSProperties}
+              >
                 <LangLinks current={locale} path={path} compact />
               </li>
-              <li className="pt-2">
+              <li className="pt-2" style={{ "--i": nav.length + 1 } as CSSProperties}>
                 <a
                   href={SITE.phoneHref}
                   className="flex items-center justify-center gap-2 rounded-full bg-brand py-3.5 text-base font-bold text-ink shadow-[inset_0_1px_0_0_oklch(1_0_0/45%),0_10px_24px_-12px_oklch(0.684_0.185_44.9/80%)] transition-transform active:scale-[0.98]"
@@ -226,8 +240,7 @@ export function SiteHeader() {
                 </a>
               </li>
             </ul>
-          </nav>
-        </div>
+        </nav>
       </div>
     </header>
   );

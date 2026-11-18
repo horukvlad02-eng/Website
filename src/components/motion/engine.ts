@@ -184,7 +184,7 @@ function onScrollFrame() {
   if (header) {
     header.classList.toggle("is-scrolled", y > 12);
     const d = y - lastY;
-    const menuOpen = !!document.querySelector('.mnav[data-open="true"]');
+    const menuOpen = document.documentElement.classList.contains("menu-open");
     // Phones (and in-app browsers like Telegram/Instagram, which add their own bars) have little
     // vertical room: tuck the header away almost immediately; desktop keeps the calmer threshold.
     const narrow = window.innerWidth < 1024;

@@ -419,7 +419,7 @@ export function EstimateSection() {
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                             placeholder={t.phonePh}
-                            className="mt-2 h-12 w-full rounded-xl border border-white/15 bg-white/5 px-4 text-white"
+                            className="mt-2 h-12 w-full rounded-xl border border-white/15 bg-white/5 px-4 text-base text-white"
                           />
                         </label>
                         <label className="mt-3 block text-sm">
@@ -430,7 +430,7 @@ export function EstimateSection() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder={t.emailPh}
-                            className="mt-2 h-12 w-full rounded-xl border border-white/15 bg-white/5 px-4 text-white"
+                            className="mt-2 h-12 w-full rounded-xl border border-white/15 bg-white/5 px-4 text-base text-white"
                           />
                         </label>
                         <label className="mt-4 flex items-start gap-2 text-xs leading-relaxed text-white/60">

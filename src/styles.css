@@ -434,30 +434,136 @@
   mask-composite: exclude;
   pointer-events: none;
 }
-/* Mobile menu: a floating liquid-glass sheet (iOS 26 style) under the header. Denser tint than
-   the bar so the links stay readable over light sections. */
+/* Mobile menu: a floating liquid-glass sheet (iOS 26 style) over a dimmed page. It is an
+   overlay (absolute, under the bar), so opening it never reflows the page; only transform and
+   opacity animate. Tint is lighter than a solid panel, so the dimmed page glows through. */
+.mnav {
+  position: absolute;
+  inset-inline: 0;
+  top: 100%;
+  pointer-events: none;
+}
+.mnav[data-open="true"] {
+  pointer-events: auto;
+}
 .mnav .glass-bar {
-  margin: 0.5rem 0.75rem 1rem;
+  margin: 0.5rem 0.75rem 0;
   border: 0;
   border-radius: 1.75rem;
-  background-color: oklch(0.19 0.027 243.4 / 80%);
-  -webkit-backdrop-filter: blur(32px) saturate(210%) brightness(1.04);
-  backdrop-filter: blur(32px) saturate(210%) brightness(1.04);
+  max-height: calc(100dvh - 6rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background-color: oklch(0.21 0.03 243.4 / 60%);
+  background-image:
+    radial-gradient(90% 60% at 18% 0%, oklch(1 0 0 / 16%) 0%, oklch(1 0 0 / 0) 60%),
+    radial-gradient(70% 50% at 100% 100%, oklch(0.75 0.17 50 / 10%) 0%, oklch(1 0 0 / 0) 70%),
+    linear-gradient(180deg, oklch(1 0 0 / 8%) 0%, oklch(1 0 0 / 0) 35%);
+  -webkit-backdrop-filter: blur(30px) saturate(220%) brightness(1.08);
+  backdrop-filter: blur(30px) saturate(220%) brightness(1.08);
   box-shadow:
-    inset 0 1px 0 0 oklch(1 0 0 / 30%),
-    inset 0 -1px 0 0 oklch(1 0 0 / 6%),
-    0 30px 60px -24px oklch(0.08 0.02 240 / 80%),
-    0 8px 18px -10px oklch(0.08 0.02 240 / 50%);
-  transform-origin: 50% 0;
-  transform: translate3d(0, -8px, 0) scale(0.97);
+    inset 0 1px 0 0 oklch(1 0 0 / 38%),
+    inset 1px 0 0 0 oklch(1 0 0 / 8%),
+    inset -1px 0 0 0 oklch(1 0 0 / 8%),
+    inset 0 -1px 0 0 oklch(1 0 0 / 10%),
+    0 30px 60px -24px oklch(0.06 0.02 240 / 85%),
+    0 8px 18px -10px oklch(0.06 0.02 240 / 55%);
+  transform-origin: calc(100% - 2rem) 0;
+  transform: translate3d(0, -10px, 0) scale(0.92);
   opacity: 0;
   transition:
-    transform 0.42s var(--ease-spring),
-    opacity 0.25s ease;
+    transform 0.5s var(--ease-spring),
+    opacity 0.22s ease;
 }
 .mnav[data-open="true"] .glass-bar {
   transform: none;
   opacity: 1;
+}
+/* Closing is quicker and without the overshoot, like an iOS menu dismissing. */
+.mnav:not([data-open="true"]) .glass-bar {
+  transition:
+    transform 0.28s var(--ease-io),
+    opacity 0.2s ease;
+}
+.mnav[data-open="true"] li {
+  animation: menu-item 0.42s var(--ease-out-expo) both;
+  animation-delay: calc(60ms + var(--i, 0) * 28ms);
+}
+@keyframes menu-item {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -6px, 0);
+  }
+}
+/* Dimmed, softly blurred page behind the sheet: one colour edge to edge, no white strips. */
+.nav-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: oklch(0.13 0.02 243 / 52%);
+  -webkit-backdrop-filter: blur(6px) saturate(140%);
+  backdrop-filter: blur(6px) saturate(140%);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s ease,
+    visibility 0s linear 0.3s;
+}
+.nav-scrim[data-open="true"] {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease;
+}
+html.menu-open,
+html.menu-open body {
+  overflow: hidden;
+}
+/* Hamburger that folds into an X (and back) with a spring. */
+.burger {
+  position: relative;
+  display: block;
+  width: 18px;
+  height: 12px;
+}
+.burger > span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition:
+    transform 0.5s var(--ease-spring),
+    opacity 0.2s ease;
+}
+.burger > span:nth-child(1) {
+  top: 0;
+}
+.burger > span:nth-child(2) {
+  top: 5px;
+}
+.burger > span:nth-child(3) {
+  top: 10px;
+}
+.menu-btn[aria-expanded="true"] .burger > span:nth-child(1) {
+  transform: translate3d(0, 5px, 0) rotate(45deg);
+}
+.menu-btn[aria-expanded="true"] .burger > span:nth-child(2) {
+  transform: scaleX(0.2);
+  opacity: 0;
+}
+.menu-btn[aria-expanded="true"] .burger > span:nth-child(3) {
+  transform: translate3d(0, -5px, 0) rotate(-45deg);
+}
+.menu-btn {
+  transition:
+    transform 0.25s var(--ease-out-expo),
+    background-color 0.25s ease;
+}
+.menu-btn:active {
+  transform: scale(0.92);
+}
+.menu-btn[aria-expanded="true"] {
+  background-color: oklch(1 0 0 / 20%);
 }
 .glass-panel {
   position: relative;
@@ -474,7 +580,7 @@
 header.site-header > .glass-bar {
   transition: background-color 0.4s ease;
 }
-header.site-header:not(.is-scrolled) > .glass-bar {
+header.site-header:not(.is-scrolled):not([data-menu="true"]) > .glass-bar {
   background-color: oklch(0.215 0.029 243.4 / 97%);
 }
 /* Small labels sitting on photos. */
@@ -482,6 +588,11 @@ header.site-header:not(.is-scrolled) > .glass-bar {
   background-color: oklch(0.18 0.025 243 / 42%);
   -webkit-backdrop-filter: blur(10px) saturate(160%);
   backdrop-filter: blur(10px) saturate(160%);
+}
+html.lite .nav-scrim {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background-color: oklch(0.13 0.02 243 / 70%);
 }
 html.lite :is(.glass-bar, .glass-panel, .mnav .glass-bar) {
   background-color: oklch(0.215 0.029 243.4 / 97%);
@@ -624,24 +735,6 @@ html.lite .glass-chip.on-photo {
   transform: rotate(45deg);
 }
 
-.mnav {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.4s var(--ease-drawer);
-}
-.mnav[data-open="true"] {
-  grid-template-rows: 1fr;
-}
-.mnav > div {
-  min-height: 0;
-  overflow: hidden;
-  visibility: hidden;
-  transition: visibility 0s linear 0.4s;
-}
-.mnav[data-open="true"] > div {
-  visibility: visible;
-  transition: visibility;
-}
 
 @media (min-width: 1024px) {
   .how-steps > li:not(:last-child) .step-card::after {
@@ -1358,6 +1451,12 @@ html.ios header.site-header > .glass-bar {
     transform: none;
     transition: opacity 0.2s ease;
   }
+  .mnav[data-open="true"] li {
+    animation: none;
+  }
+  .burger > span {
+    transition: opacity 0.15s ease;
+  }
   html {
     scroll-behavior: auto;
   }
@@ -1408,5 +1507,52 @@ html.ios header.site-header > .glass-bar {
   .mnav > div,
   .gauge-fill {
     transition: none !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Phones: performance budget                                          */
+/* ------------------------------------------------------------------ */
+/* Every frame of scrolling re-blurs whatever sits under the sticky header and the bottom call
+   bar; blur cost grows with the radius, so touch devices get smaller radii that still read as
+   glass, and the dim scrim behind the menu drops its blur entirely. */
+@media (hover: none) and (pointer: coarse) {
+  .glass-bar {
+    -webkit-backdrop-filter: blur(18px) saturate(185%);
+    backdrop-filter: blur(18px) saturate(185%);
+  }
+  .mnav .glass-bar {
+    -webkit-backdrop-filter: blur(22px) saturate(210%) brightness(1.06);
+    backdrop-filter: blur(22px) saturate(210%) brightness(1.06);
+  }
+  .glass-panel {
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    backdrop-filter: blur(16px) saturate(160%);
+  }
+  .nav-scrim {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: oklch(0.13 0.02 243 / 62%);
+  }
+  /* Shorter, smaller scroll reveals: fewer frames of compositing per card on a fast fling. */
+  html.mv-js .reveal {
+    transition-duration: 0.45s, 0.5s;
+  }
+  html.mv-js .reveal[data-fx="card"] {
+    transform: translate3d(0, 20px, 0);
+  }
+}
+/* Long pages on phones: sections far below the fold skip layout and paint until they come close
+   to the viewport, so opening (or going back to) the home page renders a few sections, not 16.
+   `auto` remembers each section's real height once seen. html.cv-off renders everything for a
+   moment while jumping to an #anchor, so the jump lands exactly. */
+@media (max-width: 1023px) {
+  main > section:nth-of-type(n + 3),
+  main > div > section:nth-of-type(n + 3) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 900px;
+  }
+  html.cv-off main section {
+    content-visibility: visible;
   }
 }

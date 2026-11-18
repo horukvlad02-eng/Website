@@ -9,6 +9,7 @@ import { demoBanner, skipLink } from "@/content/pages";
 import { SITE } from "@/lib/site";
 import { splitLocale } from "@/lib/i18n";
 import { track } from "@/lib/track";
+import { isPhone } from "@/lib/device";
 
 // The chat/booking widget is split out and only loaded once the browser is idle.
 const BookingWidget = lazy(() => import("@/components/widgets/BookingWidget"));
@@ -53,8 +54,8 @@ function LocaleLayout() {
       return;
     }
     const el = mainRef.current;
-    // Browsers with View Transitions already animate the page change.
-    if (el && !("startViewTransition" in document)) {
+    // Browsers with View Transitions already animate the page change (desktop only, see router).
+    if (el && (!("startViewTransition" in document) || isPhone())) {
       el.classList.remove("page-enter");
       void el.offsetWidth;
       el.classList.add("page-enter");
@@ -74,11 +75,19 @@ function LocaleLayout() {
   // Hash links (#inspection, #services…) glide to their section after navigation.
   useEffect(() => {
     if (!hash) return;
+    // Render every section for the jump so skipped (content-visibility) ones have real heights.
+    const root = document.documentElement;
+    root.classList.add("cv-off");
     const t = setTimeout(
       () => document.getElementById(hash)?.scrollIntoView({ behavior: "smooth", block: "start" }),
       60,
     );
-    return () => clearTimeout(t);
+    const done = setTimeout(() => root.classList.remove("cv-off"), 1500);
+    return () => {
+      clearTimeout(t);
+      clearTimeout(done);
+      root.classList.remove("cv-off");
+    };
   }, [pathname, hash]);
 
   const { locale } = splitLocale(pathname);
