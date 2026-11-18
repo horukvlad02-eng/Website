@@ -1,0 +1,22 @@
+# Link-preview crawlers may read every page so shared links show a card.
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Slackbot
+Allow: /
+
+# Search engines stay out until the site runs on its own domain.
+User-agent: *
+Disallow: /
