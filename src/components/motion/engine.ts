@@ -18,6 +18,7 @@ const idle = (fn: () => void) => {
 
 let started = false;
 let reduce = false;
+let coarse = false;
 let fine = false;
 let revealIO: IntersectionObserver | null = null;
 let wordsIO: IntersectionObserver | null = null;
@@ -454,9 +455,10 @@ function onPointerLeaveDoc() {
     depthEl = null;
   }
 }
-// Touch: cards lean under the finger until the page starts to scroll.
+// Touch: cards lean under the finger until the page starts to scroll (not on phones: the lean
+// starts a per-frame loop at the exact moment a scroll gesture begins).
 function onPointerDown(e: PointerEvent) {
-  if (reduce) return;
+  if (reduce || (coarse && e.pointerType !== "mouse")) return;
   const card = (e.target as Element | null)?.closest?.<HTMLElement>(".glass-interactive.group");
   const s = card ? depthFor(card) : null;
   if (!s) return;
@@ -490,7 +492,10 @@ export function startMotion() {
   const rq = window.matchMedia("(prefers-reduced-motion: reduce)");
   reduce = rq.matches;
   rq.addEventListener?.("change", (e) => (reduce = e.matches));
-  fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  // Mouse/trackpad only. Phones with a stylus (Galaxy S Ultra) report a fine pointer too, but
+  // their touch screen (any-pointer: coarse) must not run the per-move 3D card effects.
+  coarse = window.matchMedia("(any-pointer: coarse)").matches;
+  fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches && !coarse;
   try {
     supportsTimeline = CSS.supports("animation-timeline: scroll()");
   } catch {
@@ -540,11 +545,19 @@ export function startMotion() {
   document.addEventListener("load", onImgEvent, true);
   document.addEventListener("error", onImgEvent, true);
   window.addEventListener("scroll", onScroll, { passive: true });
+  // Mobile browsers fire resize every time the address bar slides in or out during a scroll;
+  // measuring (a forced layout) is batched into one frame instead of running on each event.
+  let resizeQueued = false;
   window.addEventListener(
     "resize",
     () => {
-      measure();
-      onScroll();
+      if (resizeQueued) return;
+      resizeQueued = true;
+      raf(() => {
+        resizeQueued = false;
+        measure();
+        onScroll();
+      });
     },
     { passive: true },
   );

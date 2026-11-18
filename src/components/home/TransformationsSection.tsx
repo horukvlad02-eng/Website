@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 import { ChevronsLeftRight } from "lucide-react";
 import { useLocale } from "@/components/site/L";
 import { Img } from "@/components/site/Img";
@@ -61,11 +61,51 @@ const copy = {
 };
 export function TransformationsSection() {
   const t = copy[useLocale()];
-  const [position, setPosition] = useState(50);
-  function update(x: number, element: HTMLElement) {
-    const rect = element.getBoundingClientRect();
-    setPosition(Math.max(0, Math.min(100, ((x - rect.left) / rect.width) * 100)));
+  // The slider never re-renders React while dragging: the position lives in a ref and one
+  // requestAnimationFrame per frame moves four layers with compositor-only transforms (no
+  // clip-path, no left/width), so the photos are never repainted mid-drag.
+  const box = useRef<HTMLDivElement>(null);
+  const clip = useRef<HTMLDivElement>(null);
+  const inner = useRef<HTMLDivElement>(null);
+  const line = useRef<HTMLDivElement>(null);
+  const handle = useRef<HTMLDivElement>(null);
+  const input = useRef<HTMLInputElement>(null);
+  const pos = useRef(50);
+  const raf = useRef(0);
+  const rect = useRef<{ left: number; width: number } | null>(null);
+
+  function paint() {
+    raf.current = 0;
+    const el = box.current;
+    if (!el) return;
+    const w = el.clientWidth;
+    const x = (w * pos.current) / 100;
+    if (clip.current) clip.current.style.transform = `translate3d(${x - w}px,0,0)`;
+    if (inner.current) inner.current.style.transform = `translate3d(${w - x}px,0,0)`;
+    const shift = `translate3d(${x - w / 2}px,0,0)`;
+    if (line.current) line.current.style.transform = shift;
+    if (handle.current) handle.current.style.transform = shift;
+    if (input.current) input.current.value = String(Math.round(pos.current));
   }
+  function set(value: number) {
+    pos.current = Math.max(0, Math.min(100, value));
+    if (!raf.current) raf.current = requestAnimationFrame(paint);
+  }
+  function fromPointer(clientX: number) {
+    const r = rect.current;
+    if (r && r.width > 0) set(((clientX - r.left) / r.width) * 100);
+  }
+  useEffect(() => {
+    paint();
+    const el = box.current;
+    if (!el || !("ResizeObserver" in window)) return;
+    const ro = new ResizeObserver(() => paint());
+    ro.observe(el);
+    return () => {
+      ro.disconnect();
+      cancelAnimationFrame(raf.current);
+    };
+  }, []);
   return (
     <section
       id="transformations"
@@ -90,13 +130,19 @@ export function TransformationsSection() {
           </p>
         </div>
         <div
+          ref={box}
           onPointerDown={(e) => {
             e.currentTarget.setPointerCapture(e.pointerId);
-            update(e.clientX, e.currentTarget);
+            // Measure once per drag, not on every move (getBoundingClientRect forces layout).
+            const r = e.currentTarget.getBoundingClientRect();
+            rect.current = { left: r.left, width: r.width };
+            fromPointer(e.clientX);
           }}
           onPointerMove={(e) => {
-            if (e.currentTarget.hasPointerCapture(e.pointerId)) update(e.clientX, e.currentTarget);
+            if (e.currentTarget.hasPointerCapture(e.pointerId)) fromPointer(e.clientX);
           }}
+          onPointerUp={() => (rect.current = null)}
+          onPointerCancel={() => (rect.current = null)}
           className="relative mt-14 aspect-[4/3] cursor-ew-resize touch-pan-y select-none overflow-hidden rounded-3xl border border-white/10 shadow-2xl shadow-black/60 sm:aspect-[16/9]"
         >
           <Img
@@ -107,25 +153,35 @@ export function TransformationsSection() {
             loading="lazy"
             className="object-cover"
           />
-          <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}>
-            <Img
-              src="roof-before"
-              fill
-              alt={t.altBefore}
-              draggable="false"
-              loading="lazy"
-              className="object-cover"
-            />
+          <div
+            ref={clip}
+            className="absolute inset-0 overflow-hidden will-change-transform"
+            style={{ transform: "translate3d(-50%,0,0)" }}
+          >
+            <div
+              ref={inner}
+              className="absolute inset-0 will-change-transform"
+              style={{ transform: "translate3d(50%,0,0)" }}
+            >
+              <Img
+                src="roof-before"
+                fill
+                alt={t.altBefore}
+                draggable="false"
+                loading="lazy"
+                className="object-cover"
+              />
+            </div>
           </div>
-          <span className="glass-chip on-photo absolute left-4 top-4 rounded-full px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-white">
+          <span className="absolute left-4 top-4 rounded-full bg-ink/70 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-white">
             {t.before}
           </span>
           <span className="absolute right-4 top-4 rounded-full bg-brand px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-ink">
             {t.after}
           </span>
           <div
-            className="pointer-events-none absolute inset-y-0 w-0.5 -translate-x-1/2 bg-white shadow-[0_0_20px_rgba(255,255,255,0.8)]"
-            style={{ left: `${position}%` }}
+            ref={line}
+            className="pointer-events-none absolute inset-y-0 left-1/2 w-0.5 -translate-x-1/2 bg-white shadow-[0_0_20px_rgba(255,255,255,0.8)] will-change-transform"
             aria-hidden="true"
           />
           <input
@@ -135,12 +191,13 @@ export function TransformationsSection() {
             aria-label={t.slider}
             className="peer pointer-events-none absolute inset-0 size-full opacity-0"
             role="slider"
-            value={position}
-            onChange={(e) => setPosition(Number(e.target.value))}
+            ref={input}
+            defaultValue={50}
+            onChange={(e) => set(Number(e.target.value))}
           />
           <div
-            className="pointer-events-none absolute top-1/2 flex size-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-4 border-white bg-brand text-ink shadow-[0_0_30px_rgba(242,107,29,0.7)] peer-focus-visible:ring-4 peer-focus-visible:ring-white/50"
-            style={{ left: `${position}%` }}
+            ref={handle}
+            className="pointer-events-none absolute left-1/2 top-1/2 flex size-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-4 border-white bg-brand text-ink shadow-[0_0_30px_rgba(242,107,29,0.7)] will-change-transform peer-focus-visible:ring-4 peer-focus-visible:ring-white/50"
             aria-hidden="true"
           >
             <ChevronsLeftRight className="size-6" aria-hidden="true" />

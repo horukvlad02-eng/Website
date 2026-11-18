@@ -75,19 +75,11 @@ function LocaleLayout() {
   // Hash links (#inspection, #services…) glide to their section after navigation.
   useEffect(() => {
     if (!hash) return;
-    // Render every section for the jump so skipped (content-visibility) ones have real heights.
-    const root = document.documentElement;
-    root.classList.add("cv-off");
     const t = setTimeout(
       () => document.getElementById(hash)?.scrollIntoView({ behavior: "smooth", block: "start" }),
       60,
     );
-    const done = setTimeout(() => root.classList.remove("cv-off"), 1500);
-    return () => {
-      clearTimeout(t);
-      clearTimeout(done);
-      root.classList.remove("cv-off");
-    };
+    return () => clearTimeout(t);
   }, [pathname, hash]);
 
   const { locale } = splitLocale(pathname);
