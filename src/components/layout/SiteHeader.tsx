@@ -6,6 +6,7 @@ import { Logo } from "./Logo";
 import { SITE } from "@/lib/site";
 import { LOCALES, localizePath, splitLocale, type Locale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
+import { revealHeader } from "@/components/motion/engine";
 
 const NAV: Record<Locale, { path: string; label: string }[]> = {
   en: [
@@ -138,6 +139,7 @@ export function SiteHeader() {
     // Like an iOS sheet: the page behind stays put while the menu is open.
     const root = document.documentElement;
     root.classList.add("menu-open");
+    revealHeader();
     return () => {
       removeEventListener("keydown", onKey);
       root.classList.remove("menu-open");

@@ -213,6 +213,12 @@ function onScrollFrame() {
     heroImg.style.transform = `translate3d(0,${(p * 6).toFixed(2)}vh,0)`;
   }
 }
+/** Bring the header back right away (e.g. the menu opens while it is tucked away). */
+export function revealHeader() {
+  acc = 0;
+  hidden = false;
+  document.querySelector("header.site-header")?.classList.remove("is-hidden");
+}
 function onScroll() {
   if (scrollQueued) return;
   scrollQueued = true;
