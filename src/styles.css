@@ -499,9 +499,9 @@
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-color: oklch(0.13 0.02 243 / 52%);
-  -webkit-backdrop-filter: blur(6px) saturate(140%);
-  backdrop-filter: blur(6px) saturate(140%);
+  background-color: oklch(0.13 0.02 243 / 55%);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
   opacity: 0;
   visibility: hidden;
   transition:
@@ -513,9 +513,12 @@
   visibility: visible;
   transition: opacity 0.3s ease;
 }
-html.menu-open,
-html.menu-open body {
+/* Scroll lock while the menu is open. Only on <html>: it propagates to the viewport, so the sticky
+   header keeps its place. Setting overflow on <body> as well turns body into its own scroll
+   container, and the sticky header (with the menu) jumps back to the top of the page. */
+html.menu-open {
   overflow: hidden;
+  overscroll-behavior: none;
 }
 /* Lift the header (and its scrim) above the demo banner and the leak bar so the dim covers the
    whole screen, edge to edge, while the menu is open. */
@@ -1521,7 +1524,7 @@ html.ios header.site-header > .glass-bar {
 /* Every frame of scrolling re-blurs whatever sits under the sticky header and the bottom call
    bar; blur cost grows with the radius, so touch devices get smaller radii that still read as
    glass, and the dim scrim behind the menu drops its blur entirely. */
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse), (any-pointer: coarse) and (max-width: 1023px) {
   .glass-bar {
     -webkit-backdrop-filter: blur(18px) saturate(185%);
     backdrop-filter: blur(18px) saturate(185%);
