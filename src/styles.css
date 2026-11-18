@@ -517,6 +517,11 @@ html.menu-open,
 html.menu-open body {
   overflow: hidden;
 }
+/* Lift the header (and its scrim) above the demo banner and the leak bar so the dim covers the
+   whole screen, edge to edge, while the menu is open. */
+html.menu-open header.site-header {
+  z-index: 60;
+}
 /* Hamburger that folds into an X (and back) with a spring. */
 .burger {
   position: relative;
