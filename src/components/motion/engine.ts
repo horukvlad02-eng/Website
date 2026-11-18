@@ -147,21 +147,38 @@ function scanDrawings() {
 }
 
 /* ------------------------------------------------------------ photos */
+// Once a photo is on screen its blurred SVG preview is never seen again, but it would still be
+// painted under the photo on every repaint (an SVG blur filter is costly to raster on phones):
+// drop it after the fade-in.
+function dropPreview(img: HTMLImageElement) {
+  const ph = img.previousElementSibling;
+  if (ph instanceof HTMLElement && ph.classList.contains("img-ph"))
+    setTimeout(() => (ph.style.display = "none"), 900);
+  if (img.style.backgroundImage) img.style.backgroundImage = "none";
+}
 function markLoaded(img: HTMLImageElement) {
   if (img.hasAttribute("data-loaded")) return;
-  const done = () => img.setAttribute("data-loaded", "");
+  const done = () => {
+    img.setAttribute("data-loaded", "");
+    dropPreview(img);
+  };
   // Decode off the main thread first so the fade never stalls on a big image.
   if (img.naturalWidth && typeof img.decode === "function") img.decode().then(done, done);
   else done();
 }
 function onImgEvent(e: Event) {
   const t = e.target;
-  if (t instanceof HTMLImageElement && t.hasAttribute("data-fade")) markLoaded(t);
+  if (!(t instanceof HTMLImageElement)) return;
+  if (t.hasAttribute("data-fade")) markLoaded(t);
+  else if (e.type === "load" && t.classList.contains("img-bg")) dropPreview(t);
 }
 function scanImages() {
   document
     .querySelectorAll<HTMLImageElement>("img[data-fade]:not([data-loaded])")
     .forEach((img) => img.complete && markLoaded(img));
+  document
+    .querySelectorAll<HTMLImageElement>("img.img-bg:not([data-fade])")
+    .forEach((img) => img.complete && img.naturalWidth && dropPreview(img));
 }
 
 /* ------------------------------------------------------------ header + scroll */
