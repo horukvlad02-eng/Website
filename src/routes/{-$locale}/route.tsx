@@ -5,7 +5,8 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { NotFoundPage } from "@/components/pages/NotFoundPage";
 import { scan, startMotion } from "@/components/motion/engine";
-import { skipLink } from "@/content/pages";
+import { demoBanner, skipLink } from "@/content/pages";
+import { SITE } from "@/lib/site";
 import { splitLocale } from "@/lib/i18n";
 import { track } from "@/lib/track";
 
@@ -87,6 +88,17 @@ function LocaleLayout() {
       <a href="#main" className="skip-link">
         {skipLink[locale]}
       </a>
+      {SITE.demo ? (
+        <div
+          role="note"
+          className="relative z-50 bg-brand px-4 py-2 text-center text-xs font-semibold leading-snug text-ink sm:text-sm"
+        >
+          {demoBanner[locale].text}{" "}
+          <a href="https://centurionroofing.net/" className="underline underline-offset-2">
+            {demoBanner[locale].link}
+          </a>
+        </div>
+      ) : null}
       <TopBar />
       <SiteHeader />
       <main ref={mainRef} id="main" tabIndex={-1} className="outline-none">

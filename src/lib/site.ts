@@ -21,4 +21,11 @@ export const SITE = {
    * two lines of public/robots.txt with "User-agent: *" / "Allow: /" and a Sitemap line.
    */
   indexable: false,
+  /**
+   * Concept-preview mode (before Centurion Roofing approves this site): shows a "concept
+   * redesign — not the official website" banner and does NOT send form data anywhere; visitors
+   * are pointed to the company's real phone. Set false only once the company owns the site
+   * and leads are routed to their own inbox (recipient in src/lib/notify.server.ts).
+   */
+  demo: true,
 } as const;
