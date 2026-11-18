@@ -141,7 +141,7 @@ export function SiteHeader() {
   return (
     <header className="site-header sticky top-0 z-40">
       <div className="glass-bar vt-header">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-20 lg:px-8">
+        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:h-16 sm:px-6 lg:h-20 lg:px-8">
           <Logo />
           <nav aria-label={t.primary} className="hidden lg:block">
             <ul className="flex items-center gap-3 xl:gap-4 2xl:gap-6">
@@ -180,7 +180,7 @@ export function SiteHeader() {
               aria-expanded={open}
               aria-controls="mobile-nav"
               onClick={() => setOpen((v) => !v)}
-              className="glass-chip flex size-10 items-center justify-center rounded-full text-white lg:hidden"
+              className="glass-chip flex size-9 items-center justify-center rounded-full text-white sm:size-10 lg:hidden"
             >
               {open ? (
                 <X className="size-5" aria-hidden="true" />

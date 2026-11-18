@@ -19,10 +19,11 @@ import { NotFoundPage } from "@/components/pages/NotFoundPage";
 
 // Runs before first paint: enables reveal states only when JS is alive, with a safety net
 // that shows everything if the app never boots.
+// Flags iPhone/iPad as `ios` (safe-area + compact header tweaks in styles.css).
 // Also flags low-end devices / data saver as `lite` (solid surfaces instead of frosted blur).
 // Off Lovable (i.e. on Vercel) it loads Vercel Web Analytics + Speed Insights (cookie-free; turn
 // both on in the Vercel project's Analytics / Speed Insights tabs, otherwise they stay silent).
-const BOOT = `(function(d){d.classList.add('mv-js');var n=navigator,c=n.connection;if((n.deviceMemory&&n.deviceMemory<=2)||(n.hardwareConcurrency&&n.hardwareConcurrency<=2)||(c&&c.saveData))d.classList.add('lite');setTimeout(function(){if(!window.__mv)d.classList.remove('mv-js')},3000);var h=location.hostname;if(!/lovable|localhost|127\\.0\\.0\\.1/.test(h)){window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};window.si=window.si||function(){(window.siq=window.siq||[]).push(arguments)};['/_vercel/insights/script.js','/_vercel/speed-insights/script.js'].forEach(function(u){var s=document.createElement('script');s.defer=true;s.src=u;document.head.appendChild(s)})}})(document.documentElement)`;
+const BOOT = `(function(d){d.classList.add('mv-js');var n=navigator,c=n.connection;if(/iP(hone|ad|od)/.test(n.userAgent)||(n.platform==='MacIntel'&&n.maxTouchPoints>1))d.classList.add('ios');if((n.deviceMemory&&n.deviceMemory<=2)||(n.hardwareConcurrency&&n.hardwareConcurrency<=2)||(c&&c.saveData))d.classList.add('lite');setTimeout(function(){if(!window.__mv)d.classList.remove('mv-js')},3000);var h=location.hostname;if(!/lovable|localhost|127\\.0\\.0\\.1/.test(h)){window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};window.si=window.si||function(){(window.siq=window.siq||[]).push(arguments)};['/_vercel/insights/script.js','/_vercel/speed-insights/script.js'].forEach(function(u){var s=document.createElement('script');s.defer=true;s.src=u;document.head.appendChild(s)})}})(document.documentElement)`;
 
 function ErrorComponent({ error, reset }: ErrorComponentProps) {
   const router = useRouter();

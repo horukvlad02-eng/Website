@@ -185,7 +185,11 @@ function onScrollFrame() {
     header.classList.toggle("is-scrolled", y > 12);
     const d = y - lastY;
     const menuOpen = !!document.querySelector('.mnav[data-open="true"]');
-    if (reduce || y < 420 || menuOpen || header.contains(document.activeElement)) {
+    // Phones (and in-app browsers like Telegram/Instagram, which add their own bars) have little
+    // vertical room: tuck the header away almost immediately; desktop keeps the calmer threshold.
+    const narrow = window.innerWidth < 1024;
+    const top = narrow ? 90 : 420;
+    if (reduce || y < top || menuOpen || header.contains(document.activeElement)) {
       acc = 0;
       if (hidden) {
         hidden = false;
@@ -193,10 +197,10 @@ function onScrollFrame() {
       }
     } else {
       acc = d > 0 === acc >= 0 ? acc + d : d;
-      if (!hidden && acc > 60) {
+      if (!hidden && acc > (narrow ? 12 : 60)) {
         hidden = true;
         header.classList.add("is-hidden");
-      } else if (hidden && acc < -24) {
+      } else if (hidden && acc < (narrow ? -48 : -24)) {
         hidden = false;
         header.classList.remove("is-hidden");
       }

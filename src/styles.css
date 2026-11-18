@@ -1242,6 +1242,20 @@ header.site-header.is-hidden {
   transform: translate3d(0, calc(-100% + 3px), 0);
   box-shadow: none;
 }
+/* Phones: faster glide so the header is out of the way the moment you start reading. */
+@media (max-width: 1023px) {
+  header.site-header {
+    transition:
+      transform 0.32s var(--ease-out-expo),
+      box-shadow 0.3s ease;
+  }
+}
+/* iPhone / iPad: respect the notch / Dynamic Island when the page runs edge-to-edge
+   (home-screen web app, landscape), and stop iOS from inflating text in the header. */
+html.ios header.site-header > .glass-bar {
+  padding-top: env(safe-area-inset-top);
+  -webkit-text-size-adjust: 100%;
+}
 
 .fab-pop {
   animation: mv-pop 0.8s var(--ease-spring) both 1.4s;
