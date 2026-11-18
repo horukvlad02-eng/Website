@@ -8,7 +8,6 @@ import {
   type LeadInput,
   type LeadResult,
 } from "./leads.schema";
-import { SITE } from "./site";
 
 export type { BookingInput, BookingResult, LeadInput, LeadResult } from "./leads.schema";
 
@@ -17,8 +16,6 @@ export const submitLead = createServerFn({ method: "POST" })
   .handler(async ({ data }): Promise<LeadResult> => {
     const p = parseLead(data);
     if (!p.ok) return p.bot ? { ok: true } : p.result; // bots are dropped silently
-    // Concept preview: never collect personal data; the form shows "please call us".
-    if (SITE.demo) return { ok: false, error: "server" };
     const core = await import("./leads.server");
     if (core.hasLocalBackend()) return core.saveLead(p.data);
     return core.relay<LeadResult>(
@@ -47,7 +44,6 @@ export const requestBooking = createServerFn({ method: "POST" })
   .handler(async ({ data }): Promise<BookingResult> => {
     const p = parseBooking(data);
     if (!p.ok) return p.result;
-    if (SITE.demo) return { ok: false, error: "server" };
     const core = await import("./leads.server");
     if (core.hasLocalBackend()) return core.saveBooking(p.data);
     return core.relay<BookingResult>(

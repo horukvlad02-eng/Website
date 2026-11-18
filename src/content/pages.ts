@@ -904,15 +904,15 @@ export const skipLink: Record<Locale, string> = {
 /** Concept-preview banner (shown while SITE.demo is true). */
 export const demoBanner: Record<Locale, { text: string; link: string }> = {
   en: {
-    text: "Concept redesign prepared for Centurion Roofing — not the company's official website. Forms here don't send data.",
+    text: "Concept redesign prepared for Centurion Roofing — not the company's official website. Requests sent from this demo go to the site's developer, not to Centurion Roofing.",
     link: "Official site: centurionroofing.net",
   },
   es: {
-    text: "Rediseño conceptual preparado para Centurion Roofing — no es el sitio oficial de la empresa. Los formularios no envían datos.",
+    text: "Rediseño conceptual preparado para Centurion Roofing — no es el sitio oficial de la empresa. Las solicitudes de esta demo llegan al desarrollador del sitio, no a Centurion Roofing.",
     link: "Sitio oficial: centurionroofing.net",
   },
   fr: {
-    text: "Refonte conceptuelle préparée pour Centurion Roofing — ce n'est pas le site officiel de l'entreprise. Les formulaires n'envoient aucune donnée.",
+    text: "Refonte conceptuelle préparée pour Centurion Roofing — ce n'est pas le site officiel de l'entreprise. Les demandes envoyées depuis cette démo parviennent au développeur du site, pas à Centurion Roofing.",
     link: "Site officiel : centurionroofing.net",
   },
 };

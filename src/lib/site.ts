@@ -22,10 +22,10 @@ export const SITE = {
    */
   indexable: false,
   /**
-   * Concept-preview mode (before Centurion Roofing approves this site): shows a "concept
-   * redesign — not the official website" banner and does NOT send form data anywhere; visitors
-   * are pointed to the company's real phone. Set false only once the company owns the site
-   * and leads are routed to their own inbox (recipient in src/lib/notify.server.ts).
+   * Concept-preview mode (before Centurion Roofing approves this site): shows a banner saying
+   * this is a concept, not the company's official website, and that form requests from this
+   * demo reach the developer (LEAD_EMAIL_TO in notify.server.ts), not the company.
+   * Set false once the company owns the site and leads go to their own inbox.
    */
   demo: true,
 } as const;
