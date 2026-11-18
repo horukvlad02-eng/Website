@@ -15,4 +15,10 @@ export const SITE = {
     [number, number]
   >,
   timeZone: "America/New_York",
+  /**
+   * Search-engine indexing. Keep false while the site runs on a temporary address
+   * (lovable.app / vercel.app). On launch at the real domain: set true AND replace the last
+   * two lines of public/robots.txt with "User-agent: *" / "Allow: /" and a Sitemap line.
+   */
+  indexable: false,
 } as const;

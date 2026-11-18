@@ -686,7 +686,7 @@ export const homeJsonLd = [
       url: "https://centurionroofing.net/",
       telephone: "+1-786-372-4754",
       email: "centurionroofingllc@gmail.com",
-      image: "https://centurionroofing.net/og/en",
+      image: "https://centurionroofing.net/og/en.jpg",
       logo: "https://centurionroofing.net/icon.svg",
       priceRange: "$$",
       currenciesAccepted: "USD",

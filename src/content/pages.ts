@@ -893,3 +893,10 @@ export const pages: Record<InfoPage, Record<Locale, PageCopy>> = {
     },
   },
 };
+
+/** Keyboard "skip to content" link shown at the top of every page. */
+export const skipLink: Record<Locale, string> = {
+  en: "Skip to content",
+  es: "Saltar al contenido",
+  fr: "Aller au contenu",
+};

@@ -5,6 +5,9 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { NotFoundPage } from "@/components/pages/NotFoundPage";
 import { scan, startMotion } from "@/components/motion/engine";
+import { skipLink } from "@/content/pages";
+import { splitLocale } from "@/lib/i18n";
+import { track } from "@/lib/track";
 
 // The chat/booking widget is split out and only loaded once the browser is idle.
 const BookingWidget = lazy(() => import("@/components/widgets/BookingWidget"));
@@ -57,6 +60,16 @@ function LocaleLayout() {
     }
   }, [pathname]);
 
+  // Phone taps are the main conversion: count every tel: link click in analytics.
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      const a = (e.target as Element | null)?.closest?.('a[href^="tel:"]');
+      if (a) track("phone_click", { page: window.location.pathname });
+    };
+    document.addEventListener("click", onClick, { capture: true, passive: true });
+    return () => document.removeEventListener("click", onClick, { capture: true });
+  }, []);
+
   // Hash links (#inspection, #services…) glide to their section after navigation.
   useEffect(() => {
     if (!hash) return;
@@ -67,11 +80,16 @@ function LocaleLayout() {
     return () => clearTimeout(t);
   }, [pathname, hash]);
 
+  const { locale } = splitLocale(pathname);
+
   return (
     <>
+      <a href="#main" className="skip-link">
+        {skipLink[locale]}
+      </a>
       <TopBar />
       <SiteHeader />
-      <main ref={mainRef} id="main">
+      <main ref={mainRef} id="main" tabIndex={-1} className="outline-none">
         <Outlet />
       </main>
       <SiteFooter />

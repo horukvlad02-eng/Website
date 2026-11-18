@@ -19,7 +19,12 @@ export function pageHead({ locale, path, title, description, ogTitle, ogDescript
     meta: [
       { title },
       { name: "description", content: description },
-      { name: "robots", content: "noindex, nofollow" },
+      {
+        name: "robots",
+        content: SITE.indexable
+          ? "index, follow, max-image-preview:large, max-snippet:-1"
+          : "noindex, nofollow",
+      },
       { property: "og:title", content: ogTitle ?? title },
       { property: "og:description", content: ogDescription ?? description },
       { property: "og:url", content: url },
