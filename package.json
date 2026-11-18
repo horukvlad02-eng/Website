@@ -53,5 +53,8 @@
     "vite": "8.1.5",
     "vitest": "^4.1.10"
   },
-  "version": "16.0.0"
+  "version": "16.0.0",
+  "engines": {
+    "node": "22.x"
+  }
 }
