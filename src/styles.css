@@ -387,31 +387,77 @@
 .hero-zone .glass-chip {
   background-color: oklch(0.2 0.03 243 / 55%);
 }
-/* Mobile menu: solid dark panel so it reads clearly over light sections. */
-.mnav .glass-bar {
-  background-color: oklch(0.19 0.027 243.4);
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-}
 /* Frosted bars and panels: one real blur layer each, kept small (bars, the chat panel), never on
    section cards. Low-end devices, reduced transparency and unsupported browsers get a solid fill. */
 .glass-bar {
   position: relative;
   isolation: isolate;
-  background-color: oklch(0.215 0.029 243.4 / 74%);
-  background-image: linear-gradient(
-    180deg,
-    oklch(1 0 0 / 7%) 0%,
-    oklch(1 0 0 / 0) 46%,
-    oklch(0.12 0.02 240 / 18%) 100%
-  );
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  backdrop-filter: blur(16px) saturate(180%);
-  border-bottom: 1px solid oklch(1 0 0 / 13%);
+  /* Liquid glass: lighter tint + strong blur/saturation so colour from behind bleeds through,
+     a specular sheen from the top and a lit edge (::before). Tint stays dark enough that white
+     text keeps contrast even over the white sections. */
+  background-color: oklch(0.2 0.028 243.4 / 70%);
+  background-image:
+    radial-gradient(120% 140% at 50% -40%, oklch(1 0 0 / 16%) 0%, oklch(1 0 0 / 0) 55%),
+    linear-gradient(
+      180deg,
+      oklch(1 0 0 / 10%) 0%,
+      oklch(1 0 0 / 2%) 42%,
+      oklch(0.1 0.02 240 / 22%) 100%
+    );
+  -webkit-backdrop-filter: blur(28px) saturate(200%) brightness(1.05);
+  backdrop-filter: blur(28px) saturate(200%) brightness(1.05);
+  border-bottom: 1px solid oklch(1 0 0 / 12%);
   box-shadow:
-    inset 0 1px 0 0 oklch(1 0 0 / 50%),
+    inset 0 1px 0 0 oklch(1 0 0 / 42%),
+    inset 0 -1px 0 0 oklch(1 0 0 / 8%),
+    0 16px 40px -24px oklch(0.1 0.02 240 / 85%);
+}
+/* Lit rim: a 1px gradient edge, bright on top and fading down, like light catching glass. */
+.glass-bar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    180deg,
+    oklch(1 0 0 / 38%) 0%,
+    oklch(1 0 0 / 6%) 38%,
+    oklch(1 0 0 / 4%) 70%,
+    oklch(1 0 0 / 16%) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+/* Mobile menu: a floating liquid-glass sheet (iOS 26 style) under the header. Denser tint than
+   the bar so the links stay readable over light sections. */
+.mnav .glass-bar {
+  margin: 0.5rem 0.75rem 1rem;
+  border: 0;
+  border-radius: 1.75rem;
+  background-color: oklch(0.19 0.027 243.4 / 80%);
+  -webkit-backdrop-filter: blur(32px) saturate(210%) brightness(1.04);
+  backdrop-filter: blur(32px) saturate(210%) brightness(1.04);
+  box-shadow:
+    inset 0 1px 0 0 oklch(1 0 0 / 30%),
     inset 0 -1px 0 0 oklch(1 0 0 / 6%),
-    0 18px 44px -26px oklch(0.13 0.02 240 / 90%);
+    0 30px 60px -24px oklch(0.08 0.02 240 / 80%),
+    0 8px 18px -10px oklch(0.08 0.02 240 / 50%);
+  transform-origin: 50% 0;
+  transform: translate3d(0, -8px, 0) scale(0.97);
+  opacity: 0;
+  transition:
+    transform 0.42s var(--ease-spring),
+    opacity 0.25s ease;
+}
+.mnav[data-open="true"] .glass-bar {
+  transform: none;
+  opacity: 1;
 }
 .glass-panel {
   position: relative;
@@ -437,7 +483,7 @@ header.site-header:not(.is-scrolled) > .glass-bar {
   -webkit-backdrop-filter: blur(10px) saturate(160%);
   backdrop-filter: blur(10px) saturate(160%);
 }
-html.lite :is(.glass-bar, .glass-panel) {
+html.lite :is(.glass-bar, .glass-panel, .mnav .glass-bar) {
   background-color: oklch(0.215 0.029 243.4 / 97%);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
@@ -1308,6 +1354,10 @@ html.ios header.site-header > .glass-bar {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .mnav .glass-bar {
+    transform: none;
+    transition: opacity 0.2s ease;
+  }
   html {
     scroll-behavior: auto;
   }

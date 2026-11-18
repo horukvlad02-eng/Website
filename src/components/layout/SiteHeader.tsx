@@ -200,14 +200,14 @@ export function SiteHeader() {
       </div>
       <div className="mnav lg:hidden" data-open={open}>
         <div>
-          <nav id="mobile-nav" aria-label={t.mobile} className="glass-bar border-t border-white/10">
-            <ul className="flex flex-col px-4 py-4">
+          <nav id="mobile-nav" aria-label={t.mobile} className="glass-bar">
+            <ul className="flex flex-col p-3">
               {nav.map((n) => (
                 <li key={n.path}>
                   <L
                     to={n.path}
                     onClick={() => setOpen(false)}
-                    className="block rounded-lg px-3 py-3 text-base font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+                    className="block rounded-2xl px-4 py-3 text-base font-medium text-white/85 transition-[background-color,color,transform] duration-200 hover:bg-white/10 hover:text-white active:scale-[0.98] active:bg-white/15"
                   >
                     {n.label}
                   </L>
@@ -219,7 +219,7 @@ export function SiteHeader() {
               <li className="pt-2">
                 <a
                   href={SITE.phoneHref}
-                  className="flex items-center justify-center gap-2 rounded-full bg-brand py-3.5 text-base font-bold text-ink"
+                  className="flex items-center justify-center gap-2 rounded-full bg-brand py-3.5 text-base font-bold text-ink shadow-[inset_0_1px_0_0_oklch(1_0_0/45%),0_10px_24px_-12px_oklch(0.684_0.185_44.9/80%)] transition-transform active:scale-[0.98]"
                 >
                   <Phone className="size-4" aria-hidden="true" />
                   {t.call} {SITE.phone}
