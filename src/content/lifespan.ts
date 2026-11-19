@@ -53,7 +53,7 @@ const copy: Record<Locale, LifespanCopy> = {
         label: "Asphalt shingle",
         min: 15,
         max: 25,
-        note: "The most common roof in Miami-Dade. Salt air and UV shorten it faster than inland.",
+        note: "The most common roof in Miami-Dade. Salt air and UV wear it out faster here than inland.",
       },
       {
         id: "tile",
@@ -110,7 +110,7 @@ const copy: Record<Locale, LifespanCopy> = {
         label: "Shingle de asfalto",
         min: 15,
         max: 25,
-        note: "El techo más común en Miami-Dade. El aire salado y los rayos UV lo acortan más rápido.",
+        note: "El techo más común en Miami-Dade. El aire salino y los rayos UV lo desgastan más rápido que tierra adentro.",
       },
       {
         id: "tile",

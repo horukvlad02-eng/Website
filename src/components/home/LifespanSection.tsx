@@ -101,6 +101,7 @@ export function LifespanSection() {
                 <output
                   htmlFor="lifespan-age"
                   className="font-display text-5xl font-black tabular-nums text-white"
+                  data-mvc="1"
                 >
                   {age}
                 </output>
@@ -129,7 +130,7 @@ export function LifespanSection() {
           {/* --- result --- */}
           <div className="glass glass-flat glass-dark relative overflow-hidden rounded-[28px] p-6 text-white shadow-2xl shadow-ink/40 sm:p-8">
             <p className="label-mono text-white/55">{t.resultLabel}</p>
-            <p className="mt-3 font-display text-4xl font-black leading-none text-white sm:text-5xl">
+            <p className="mt-3 font-display text-4xl font-black leading-none tabular-nums text-white sm:text-5xl">
               {material.min}–{material.max}
               <span className="ml-2 text-lg font-bold text-white/60">{t.ageUnit}</span>
             </p>
