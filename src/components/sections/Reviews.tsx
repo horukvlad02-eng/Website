@@ -33,7 +33,7 @@ const T: Record<
   en: {
     eyebrow: "Customer Reviews",
     title: "What Miami homeowners say.",
-    based: "Based on 65+ verified Google reviews",
+    based: "Based on 60+ verified Google reviews",
     hours: "Mon–Fri 7am–5pm · Sat 7am–2pm",
     source: "Google review",
     stars: "5 out of 5 stars",
@@ -42,7 +42,7 @@ const T: Record<
   es: {
     eyebrow: "Reseñas de clientes",
     title: "Lo que dicen los propietarios en Miami.",
-    based: "Basado en 65+ reseñas verificadas de Google",
+    based: "Basado en 60+ reseñas verificadas de Google",
     hours: "Lun–vie 7am–5pm · sáb 7am–2pm",
     source: "Reseña de Google",
     stars: "5 estrellas de 5",
@@ -51,7 +51,7 @@ const T: Record<
   fr: {
     eyebrow: "Avis clients",
     title: "Ce que disent les propriétaires à Miami.",
-    based: "Basé sur 65+ avis Google vérifiés",
+    based: "Basé sur 60+ avis Google vérifiés",
     hours: "Lun–ven 7 h–17 h · sam 7 h–14 h",
     source: "Avis Google",
     stars: "5 étoiles sur 5",

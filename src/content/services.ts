@@ -528,7 +528,7 @@ export const services = {
         ],
         items5: [
           { copy: ["Licensed CCC1331979"] },
-          { copy: ["4.9★ · 65+ Google reviews"] },
+          { copy: ["4.9★ · 60+ Google reviews"] },
           { copy: ["Free inspection"] },
         ],
       },
@@ -764,7 +764,7 @@ export const services = {
         ],
         items5: [
           { copy: ["Licenciado CCC1331979"] },
-          { copy: ["4.9★ · 65+ reseñas de Google"] },
+          { copy: ["4.9★ · 60+ reseñas de Google"] },
           { copy: ["Inspección gratis"] },
         ],
       },
@@ -997,7 +997,7 @@ export const services = {
         ],
         items5: [
           { copy: ["Licencié CCC1331979"] },
-          { copy: ["4,9★ · 65+ avis Google"] },
+          { copy: ["4,9★ · 60+ avis Google"] },
           { copy: ["Inspection gratuite"] },
         ],
       },
@@ -1253,7 +1253,7 @@ export const services = {
         ],
         items5: [
           { copy: ["Licensed CCC1331979"] },
-          { copy: ["4.9★ · 65+ Google reviews"] },
+          { copy: ["4.9★ · 60+ Google reviews"] },
           { copy: ["Free inspection"] },
         ],
       },
@@ -1502,7 +1502,7 @@ export const services = {
         ],
         items5: [
           { copy: ["Licenciado CCC1331979"] },
-          { copy: ["4.9★ · 65+ reseñas de Google"] },
+          { copy: ["4.9★ · 60+ reseñas de Google"] },
           { copy: ["Inspección gratis"] },
         ],
       },
@@ -1756,7 +1756,7 @@ export const services = {
         ],
         items5: [
           { copy: ["Licencié CCC1331979"] },
-          { copy: ["4,9★ · 65+ avis Google"] },
+          { copy: ["4,9★ · 60+ avis Google"] },
           { copy: ["Inspection gratuite"] },
         ],
       },
@@ -1972,7 +1972,7 @@ export const services = {
         ],
         items5: [
           { copy: ["Licensed CCC1331979"] },
-          { copy: ["4.9★ · 65+ Google reviews"] },
+          { copy: ["4.9★ · 60+ Google reviews"] },
           { copy: ["Free inspection"] },
         ],
       },
@@ -2204,7 +2204,7 @@ export const services = {
         ],
         items5: [
           { copy: ["Licenciado CCC1331979"] },
-          { copy: ["4.9★ · 65+ reseñas de Google"] },
+          { copy: ["4.9★ · 60+ reseñas de Google"] },
           { copy: ["Inspección gratis"] },
         ],
       },
@@ -2438,7 +2438,7 @@ export const services = {
         ],
         items5: [
           { copy: ["Licencié CCC1331979"] },
-          { copy: ["4,9★ · 65+ avis Google"] },
+          { copy: ["4,9★ · 60+ avis Google"] },
           { copy: ["Inspection gratuite"] },
         ],
       },
@@ -2733,7 +2733,7 @@ export const services = {
         ],
         items5: [
           { copy: ["Licensed CCC1331979"] },
-          { copy: ["4.9★ · 65+ Google reviews"] },
+          { copy: ["4.9★ · 60+ Google reviews"] },
           { copy: ["Free inspection"] },
         ],
       },
@@ -2995,7 +2995,7 @@ export const services = {
         ],
         items5: [
           { copy: ["Licenciado CCC1331979"] },
-          { copy: ["4.9★ · 65+ reseñas de Google"] },
+          { copy: ["4.9★ · 60+ reseñas de Google"] },
           { copy: ["Inspección gratis"] },
         ],
       },
@@ -3269,7 +3269,7 @@ export const services = {
         ],
         items5: [
           { copy: ["Licencié CCC1331979"] },
-          { copy: ["4,9★ · 65+ avis Google"] },
+          { copy: ["4,9★ · 60+ avis Google"] },
           { copy: ["Inspection gratuite"] },
         ],
       },

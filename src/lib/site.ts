@@ -8,7 +8,7 @@ export const SITE = {
   license: "CCC1331979",
   licenseExpires: "08/31/2028",
   rating: "4.9",
-  reviews: "65+",
+  reviews: "60+",
   /** Office hours in America/New_York, 24h clock. 0 = Sunday. */
   hours: { 1: [7, 17], 2: [7, 17], 3: [7, 17], 4: [7, 17], 5: [7, 17], 6: [7, 14] } as Record<
     number,
