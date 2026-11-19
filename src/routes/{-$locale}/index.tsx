@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { pageHead } from "@/lib/seo";
 import { toLocale } from "@/lib/i18n";
-import { META, HOME_JSON_LD } from "@/content/meta";
+import { META, homeJsonLd } from "@/content/meta";
 import { HeroSection } from "@/components/home/HeroSection";
 import { ValuesSection } from "@/components/home/ValuesSection";
 import { ServicesSection } from "@/components/home/ServicesSection";
@@ -17,6 +17,7 @@ import { Reviews } from "@/components/sections/Reviews";
 import { RoofCheckSection } from "@/components/home/RoofCheckSection";
 import { FaqSection } from "@/components/home/FaqSection";
 import { EstimateSection } from "@/components/home/EstimateSection";
+import { LifespanSection } from "@/components/home/LifespanSection";
 import { Inspection } from "@/components/sections/Inspection";
 
 export const Route = createFileRoute("/{-$locale}/")({
@@ -24,7 +25,7 @@ export const Route = createFileRoute("/{-$locale}/")({
     const locale = toLocale(params.locale);
     return {
       ...pageHead({ locale, path: "/", ...META.home[locale] }),
-      scripts: HOME_JSON_LD.map((data) => ({
+      scripts: homeJsonLd(locale).map((data) => ({
         type: "application/ld+json",
         children: JSON.stringify(data),
       })),
@@ -50,6 +51,7 @@ function HomePage() {
       <Reviews />
       <RoofCheckSection />
       <FaqSection />
+      <LifespanSection />
       <EstimateSection />
       <Inspection />
     </>

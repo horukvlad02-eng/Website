@@ -92,7 +92,15 @@ export function ProjectGallery() {
                   <div
                     className={`img-zoom relative overflow-hidden ${wide ? "aspect-[21/9]" : "aspect-[16/10]"}`}
                   >
-                    <Img src={p.image} fill alt={t.title} className="object-cover" loading="lazy" />
+                    <Img
+                      src={p.image}
+                      fill
+                      alt={t.title}
+                      className="object-cover"
+                      loading="lazy"
+                      // The first card can span the whole grid; the rest are half-width.
+                      sizes={wide ? "100vw" : "(min-width: 768px) 50vw, 100vw"}
+                    />
                     <button
                       aria-label={`${s.enlarge}: ${t.title}`}
                       onClick={() => setPhoto(i)}
@@ -223,6 +231,7 @@ export function ProjectGallery() {
               src={active.image}
               alt={active.locales[locale].title}
               className="max-h-[75vh] w-auto max-w-full rounded-2xl object-contain"
+              sizes="100vw"
             />
             <figcaption className="mt-4 text-center text-white">
               <p className="font-display text-xl font-extrabold">{active.locales[locale].title}</p>

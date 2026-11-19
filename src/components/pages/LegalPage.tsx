@@ -51,7 +51,7 @@ export function LegalPage({ page }: { page: "privacy" | "terms" }) {
               {copy.text[4]}
             </a>
           </div>
-          <p className="label-mono mt-8 text-white/35">{copy.text[5]}</p>
+          <p className="label-mono mt-8 text-white/55">{copy.text[5]}</p>
         </div>
       </section>
       <LegalBody blocks={copy.legal} />

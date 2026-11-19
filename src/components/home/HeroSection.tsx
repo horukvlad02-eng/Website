@@ -2,7 +2,7 @@ import { Blueprint } from "@/components/site/Blueprint";
 import type React from "react";
 import { useLocale, L } from "@/components/site/L";
 import { home } from "@/content/home";
-import { Img } from "@/components/site/Img";
+import { imageUrl } from "@/components/site/Img";
 import { HeroStatus } from "@/components/widgets/HeroStatus";
 import { ArrowRight, Check, Phone, ShieldCheck, Star } from "lucide-react";
 
@@ -10,14 +10,16 @@ export function HeroSection() {
   const t = home[useLocale()].hero;
   return (
     <section id="top" className="relative overflow-hidden isolate bg-ink hero-zone">
+      {/*
+        The hero photo is decorative texture behind a gradient, so it is painted as a CSS
+        background: a background image is not an LCP candidate, which lets the <h1> be the
+        Largest Contentful Paint instead of a 100 KB <img> (see src/content/meta.ts).
+      */}
       <div className="absolute inset-0 -z-20 overflow-hidden">
-        <Img
-          src="hero-roof"
-          priority
-          sizes="100vw"
-          fill
-          alt=""
-          className="object-cover opacity-55 lg:object-[70%_center]"
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-cover bg-center opacity-55 lg:[background-position:70%_50%]"
+          style={{ backgroundImage: `url(${imageUrl("hero-roof", 1376)})` }}
         />
       </div>
       <div className="absolute inset-0 -z-20 opacity-[0.16]" aria-hidden="true">
@@ -88,19 +90,19 @@ export function HeroSection() {
           <div className="rise" style={{ "--d": "400ms" } as React.CSSProperties}>
             <dl className="mt-12 grid max-w-2xl grid-cols-2 gap-x-6 gap-y-8 border-t border-white/10 pt-8 sm:grid-cols-4">
               <div>
-                <dt className="label-mono text-white/45">{t.text11}</dt>
+                <dt className="label-mono text-white/55">{t.text11}</dt>
                 <dd className="mt-2 font-display text-2xl font-extrabold text-white">{t.text12}</dd>
               </div>
               <div>
-                <dt className="label-mono text-white/45">{t.text13}</dt>
+                <dt className="label-mono text-white/55">{t.text13}</dt>
                 <dd className="mt-2 font-display text-2xl font-extrabold text-white">{t.text14}</dd>
               </div>
               <div>
-                <dt className="label-mono text-white/45">{t.text15}</dt>
+                <dt className="label-mono text-white/55">{t.text15}</dt>
                 <dd className="mt-2 font-display text-2xl font-extrabold text-white">{t.text16}</dd>
               </div>
               <div>
-                <dt className="label-mono text-white/45">{t.text17}</dt>
+                <dt className="label-mono text-white/55">{t.text17}</dt>
                 <dd className="mt-2 flex items-center gap-2 font-display text-2xl font-extrabold text-white">
                   <ShieldCheck className="size-5 text-brand" aria-hidden="true" />
                   {t.text18}

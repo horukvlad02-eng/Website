@@ -114,7 +114,7 @@
 @layer base {
   * {
     border-color: var(--color-border);
-    outline-color: color-mix(in oklab, var(--ring) 50%, transparent);
+    outline-color: var(--ring);
   }
   html {
     scroll-behavior: smooth;
@@ -122,6 +122,17 @@
     overflow-x: clip;
     scroll-padding-top: 96px;
     font-family: var(--font-sans);
+  }
+  /* WebKit 238497: `scroll-behavior: smooth` together with `overflow: hidden` breaks
+     scrollTo/scrollTop on iOS. The menu sets overflow:hidden on <html>, so smooth scrolling is
+     switched off while the menu is open. */
+  html.menu-open {
+    scroll-behavior: auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
   html,
   body {
@@ -146,6 +157,7 @@
     -webkit-tap-highlight-color: transparent;
   }
   :focus-visible {
+    outline: 2px solid var(--ring);
     outline-offset: 3px;
     transition: outline-offset 0.15s;
   }
@@ -449,9 +461,14 @@
   margin: 0.5rem 0.75rem 0;
   border: 0;
   border-radius: 1.75rem;
-  max-height: calc(100dvh - 6rem);
-  overflow-y: auto;
-  overscroll-behavior: contain;
+  /* svh, not dvh: on iOS the dynamic viewport height is debounced while the URL bar collapses,
+     so a dvh-based sheet visibly resizes mid-scroll. svh is the stable small viewport. */
+  max-height: calc(100vh - 6rem);
+  max-height: calc(100svh - 6rem);
+  /* The frosted layer is NOT the scroll container. WebKit 317443: a composited element that
+     combines border-radius + overflow clip + box-shadow drops to 1-6 FPS on iOS, and Safari
+     scrolls overflow:hidden containers on the main thread. The list scrolls inside it instead. */
+  overflow: hidden;
   background-color: oklch(0.21 0.03 243.4 / 60%);
   background-image:
     radial-gradient(90% 60% at 18% 0%, oklch(1 0 0 / 16%) 0%, oklch(1 0 0 / 0) 60%),
@@ -472,6 +489,14 @@
   transition:
     transform 0.5s var(--ease-spring),
     opacity 0.22s ease;
+}
+/* The scrolling list inside the sheet. */
+.mnav-scroll {
+  max-height: calc(100vh - 6rem);
+  max-height: calc(100svh - 6rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 .mnav[data-open="true"] .glass-bar {
   transform: none;
@@ -761,9 +786,39 @@ html.lite .glass-chip.on-photo {
   }
 }
 
+.scroll-progress-track {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 1;
+  height: 2px;
+  pointer-events: none;
+  background-color: oklch(1 0 0 / 5%);
+}
 .scroll-progress {
   transform-origin: 0 50%;
   transform: scaleX(0);
+}
+/* Scroll-driven progress bar.
+   Where the browser supports scroll-driven animations, the bar is driven entirely by CSS and
+   JavaScript never touches it. Writing `style.transform` on every scroll frame was the single
+   biggest source of main-thread work during scroll (measured 320 extra style recalcs per 9000px
+   on a 6x-throttled phone profile), because the bar lives inside a backdrop-filtered header.
+   Safari 15-18 has no scroll-driven animations, so those engines keep the throttled JS fallback
+   (~10Hz) from the motion engine. */
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: scroll-progress-grow linear both;
+    animation-timeline: scroll();
+  }
+}
+@keyframes scroll-progress-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 .gauge-fill {
   transition: width 1s var(--ease-out-expo);
@@ -1380,6 +1435,9 @@ header.site-header {
   transition:
     transform 0.55s var(--ease-out-expo),
     box-shadow 0.4s ease;
+  /* Safari 26+ enables scroll anchoring, which fights a sticky header that changes size.
+     The header only changes its shadow, but anchoring still nudges the page under it. */
+  overflow-anchor: none;
 }
 header.site-header.is-scrolled {
   box-shadow: 0 14px 34px -20px oklch(0.13 0.02 240 / 80%);

@@ -414,7 +414,7 @@ export function AnatomySection() {
                   </g>
                 </g>
               </svg>
-              <figcaption className="mt-auto flex items-start gap-2.5 border-t border-white/10 pt-4 text-xs leading-relaxed text-white/45">
+              <figcaption className="mt-auto flex items-start gap-2.5 border-t border-white/10 pt-4 text-xs leading-relaxed text-white/55">
                 <Ruler className="mt-0.5 size-3.5 shrink-0 text-brand" aria-hidden="true" />
                 {t.text12}
               </figcaption>

@@ -33,7 +33,7 @@ export function LocationPage({ data }: { data: LocationPageData }) {
               {data.copy[4]!}
             </a>
           </div>
-          <p className="label-mono mt-8 text-white/35">{data.copy[5]!}</p>
+          <p className="label-mono mt-8 text-white/55">{data.copy[5]!}</p>
         </div>
       </section>
       <section className="blueprint-paper relative overflow-hidden bg-white py-20 sm:py-28">

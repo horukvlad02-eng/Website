@@ -152,6 +152,7 @@ export function TransformationsSection() {
             draggable="false"
             loading="lazy"
             className="object-cover"
+            sizes="100vw"
           />
           <div
             ref={clip}
@@ -170,6 +171,7 @@ export function TransformationsSection() {
                 draggable="false"
                 loading="lazy"
                 className="object-cover"
+                sizes="100vw"
               />
             </div>
           </div>
@@ -203,7 +205,7 @@ export function TransformationsSection() {
             <ChevronsLeftRight className="size-6" aria-hidden="true" />
           </div>
         </div>
-        <p className="mt-5 text-center text-sm text-white/45">{t.note}</p>
+        <p className="mt-5 text-center text-sm text-white/55">{t.note}</p>
         <dl className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
           {t.stats.map((stat) => (
             <div

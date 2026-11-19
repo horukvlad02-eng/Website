@@ -8,7 +8,7 @@ type Props = {
   /** Delay in ms before the entrance starts. */
   delay?: number;
   className?: string;
-  as?: "div" | "li" | "article";
+  as?: "div" | "li" | "article" | "span";
 };
 
 /** Scroll-reveal wrapper. Content is always rendered; the motion engine only adds classes. */

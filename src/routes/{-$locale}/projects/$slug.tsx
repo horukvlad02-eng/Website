@@ -42,6 +42,7 @@ function ProjectPage() {
             alt={d.copy["attr0"]!}
             priority
             className="kenburns object-cover"
+            sizes="100vw"
           />
         </div>
         <div
@@ -300,6 +301,7 @@ function ProjectPage() {
                       alt={d.copy["attr46"]!}
                       className="object-cover"
                       loading="lazy"
+                      sizes="(min-width: 768px) 33vw, 100vw"
                     />
                   </div>
                   <div className="p-5">
@@ -327,6 +329,7 @@ function ProjectPage() {
                       alt={d.copy["attr52"]!}
                       className="object-cover"
                       loading="lazy"
+                      sizes="(min-width: 768px) 33vw, 100vw"
                     />
                   </div>
                   <div className="p-5">
@@ -354,6 +357,7 @@ function ProjectPage() {
                       alt={d.copy["attr58"]!}
                       className="object-cover"
                       loading="lazy"
+                      sizes="(min-width: 768px) 33vw, 100vw"
                     />
                   </div>
                   <div className="p-5">

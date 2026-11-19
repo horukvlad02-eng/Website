@@ -41,7 +41,7 @@ export function ServicesHub({ data }: { data: HubData }) {
               {data.hero.copy[4]!}
             </a>
           </div>
-          <p className="label-mono mt-8 text-white/35">{data.hero.copy[5]!}</p>
+          <p className="label-mono mt-8 text-white/55">{data.hero.copy[5]!}</p>
         </div>
       </section>
       <section className="bg-white py-20 sm:py-28 blueprint-paper">

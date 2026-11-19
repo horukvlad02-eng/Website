@@ -42,7 +42,7 @@ function ProjectsPage() {
               {d.copy["text18"]!}
             </a>
           </div>
-          <p className="label-mono mt-8 text-white/35">{d.copy["text20"]!}</p>
+          <p className="label-mono mt-8 text-white/55">{d.copy["text20"]!}</p>
         </div>
       </section>
       <ProjectGallery />

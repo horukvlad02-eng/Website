@@ -21,6 +21,8 @@ type FooterText = {
   hoursShort: string;
   callNow: string;
   freeInspection: string;
+  /** Discreet build tag: shows which concept revision is being presented. */
+  build: string;
 };
 
 const AREAS: [string, string][] = [
@@ -44,6 +46,8 @@ const T: Record<Locale, FooterText> = {
     ],
     services: "Services",
     serviceLinks: [
+      ["/services/", "All services"],
+      ["/#services", "Services on our homepage"],
       ["/services/metal-roofing/", "Metal Roofing"],
       ["/services/tile-shingle-replacement/", "Tile & Shingle Replacement"],
       ["/services/flat-commercial/", "Flat & Commercial"],
@@ -65,6 +69,7 @@ const T: Record<Locale, FooterText> = {
     hoursShort: "Mon–Fri 7am–5pm · Sat 7am–2pm",
     callNow: "Call now",
     freeInspection: "Free inspection",
+    build: "Concept build v17",
   },
   es: {
     about:
@@ -77,6 +82,8 @@ const T: Record<Locale, FooterText> = {
     ],
     services: "Servicios",
     serviceLinks: [
+      ["/services/", "Todos los servicios"],
+      ["/#services", "Servicios en nuestra página de inicio"],
       ["/services/metal-roofing/", "Techo de metal"],
       ["/services/tile-shingle-replacement/", "Reemplazo de tejas y shingle"],
       ["/services/flat-commercial/", "Techo plano y comercial"],
@@ -98,6 +105,7 @@ const T: Record<Locale, FooterText> = {
     hoursShort: "Lun–vie 7am–5pm · sáb 7am–2pm",
     callNow: "Llamar",
     freeInspection: "Inspección gratis",
+    build: "Concepto v17",
   },
   fr: {
     about:
@@ -110,6 +118,8 @@ const T: Record<Locale, FooterText> = {
     ],
     services: "Services",
     serviceLinks: [
+      ["/services/", "Tous nos services"],
+      ["/#services", "Services sur notre page d’accueil"],
       ["/services/metal-roofing/", "Toiture métallique"],
       ["/services/tile-shingle-replacement/", "Remplacement tuiles & bardeaux"],
       ["/services/flat-commercial/", "Toits plats & commerciaux"],
@@ -131,10 +141,12 @@ const T: Record<Locale, FooterText> = {
     hoursShort: "Lun–ven 7 h–17 h · sam 7 h–14 h",
     callNow: "Appeler",
     freeInspection: "Inspection gratuite",
+    build: "Concept v17",
   },
 };
 
-const linkCls = "inline-block py-1 text-sm text-white/60 transition-colors hover:text-white";
+const linkCls =
+  "inline-flex min-h-11 items-center py-1 text-sm text-white/60 transition-colors hover:text-white";
 
 function LinkList({ title, links }: { title: string; links: [string, string][] }) {
   return (
@@ -187,8 +199,11 @@ export function SiteFooter() {
             <LinkList title={t.company} links={t.companyLinks} />
             <LinkList title={t.areas} links={AREAS} />
           </div>
-          <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-sm text-white/40 sm:flex-row">
+          <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-sm text-white/50 sm:flex-row">
             <p>
+              <span className="mr-2 inline-flex items-center rounded-full border border-white/15 px-2 py-0.5 text-[11px] font-semibold tracking-wide text-white/60">
+                {t.build}
+              </span>
               {t.rights}{" "}
               <L
                 className="inline-block py-1 underline underline-offset-2 hover:text-white"

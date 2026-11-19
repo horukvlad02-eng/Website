@@ -41,7 +41,7 @@ export function ServicePage({ data }: { data: ServiceData }) {
               {data.hero.copy[4]!}
             </a>
           </div>
-          <p className="label-mono mt-8 text-white/35">{data.hero.copy[5]!}</p>
+          <p className="label-mono mt-8 text-white/55">{data.hero.copy[5]!}</p>
         </div>
       </section>
       <section className="bg-white py-20 sm:py-28 blueprint-paper">
@@ -51,6 +51,7 @@ export function ServicePage({ data }: { data: ServiceData }) {
               src={data.overview.copy[1]! as ImageName}
               alt={data.overview.copy[0]!}
               className="aspect-[4/3] w-full object-cover"
+              sizes="(min-width: 1024px) 50vw, 100vw"
               priority
             />
           </div>
@@ -309,6 +310,7 @@ export function ServicePage({ data }: { data: ServiceData }) {
                           alt={item1.copy[1]!}
                           loading="lazy"
                           className="object-cover"
+                          sizes="(min-width: 768px) 33vw, 100vw"
                         />{" "}
                         <span className="label-mono absolute left-5 top-5 rounded-full bg-white/95 px-3 py-1.5 text-ink">
                           {item1.copy[3]!}

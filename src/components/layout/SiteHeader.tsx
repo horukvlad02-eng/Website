@@ -10,7 +10,7 @@ import { revealHeader } from "@/components/motion/engine";
 
 const NAV: Record<Locale, { path: string; label: string }[]> = {
   en: [
-    { path: "/#services", label: "Services" },
+    { path: "/services/", label: "Services" },
     { path: "/projects/", label: "Our Work" },
     { path: "/#areas", label: "Areas" },
     { path: "/insurance-claims/", label: "Insurance" },
@@ -18,7 +18,7 @@ const NAV: Record<Locale, { path: string; label: string }[]> = {
     { path: "/why-centurion/", label: "Why Us" },
   ],
   es: [
-    { path: "/#services", label: "Servicios" },
+    { path: "/services/", label: "Servicios" },
     { path: "/projects/", label: "Proyectos" },
     { path: "/#areas", label: "Zonas" },
     { path: "/insurance-claims/", label: "Seguro" },
@@ -26,7 +26,7 @@ const NAV: Record<Locale, { path: string; label: string }[]> = {
     { path: "/why-centurion/", label: "Nosotros" },
   ],
   fr: [
-    { path: "/#services", label: "Services" },
+    { path: "/services/", label: "Services" },
     { path: "/projects/", label: "Projets" },
     { path: "/#areas", label: "Secteurs" },
     { path: "/insurance-claims/", label: "Assurance" },
@@ -95,7 +95,7 @@ function LangLinks({
   return (
     <>
       {LOCALES.map((l, i) => (
-        <span key={l} className={compact ? undefined : "flex items-center gap-1.5"}>
+        <span key={l} className={compact ? undefined : "flex items-center gap-2"}>
           {!compact && i > 0 ? (
             <span className="text-white/25" aria-hidden="true">
               ·
@@ -111,7 +111,9 @@ function LangLinks({
               document.documentElement.classList.add("lang-switching");
             }}
             className={cn(
-              "inline-flex size-7 items-center justify-center",
+              // The 26px box stays; a transparent pseudo-element grows the hit area to 44x44
+              // (WCAG 2.5.5) without changing the header layout.
+              "relative inline-flex size-7 items-center justify-center after:absolute after:inset-[-9px] after:content-['']",
               l === current ? "text-brand" : "text-white/60 transition-colors hover:text-white",
             )}
           >
@@ -167,7 +169,7 @@ export function SiteHeader() {
           </nav>
           <div className="flex items-center gap-3">
             <div
-              className="hidden items-center gap-1.5 text-xs font-bold sm:flex"
+              className="hidden items-center gap-2 text-xs font-bold sm:flex"
               role="group"
               aria-label={t.lang}
             >
@@ -199,12 +201,13 @@ export function SiteHeader() {
             </button>
           </div>
         </div>
-        <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-0.5 bg-white/5"
-          aria-hidden="true"
-        >
-          <div className="scroll-progress h-full bg-gradient-to-r from-brand to-brand-bright" />
-        </div>
+      </div>
+      {/* Scroll progress. It lives outside .glass-bar on purpose: the bar has a backdrop-filtered
+          ancestor, and animating a descendant of a blurred element forces the browser to
+          re-rasterise the blur every frame. As a direct child of the header it is a plain
+          composited transform. */}
+      <div className="scroll-progress-track" aria-hidden="true">
+        <div className="scroll-progress h-full bg-gradient-to-r from-brand to-brand-bright" />
       </div>
       <div
         className="nav-scrim lg:hidden"
@@ -214,6 +217,10 @@ export function SiteHeader() {
       />
       <div className="mnav lg:hidden" data-open={open} inert={!open}>
         <nav id="mobile-nav" aria-label={t.mobile} className="glass-bar">
+          {/* The scrolling list is a separate element from the frosted layer. A blurred element
+              that is itself the scroll container is the exact shape that WebKit 317443 punishes
+              on iOS (1-6 FPS), and Safari scrolls overflow:hidden containers on the main thread. */}
+          <div className="mnav-scroll">
             <ul className="flex flex-col p-3">
               {nav.map((n, i) => (
                 <li key={n.path} style={{ "--i": i } as CSSProperties}>
@@ -227,7 +234,7 @@ export function SiteHeader() {
                 </li>
               ))}
               <li
-                className="flex items-center justify-center gap-4 pt-3 text-sm font-bold"
+                className="flex items-center justify-center gap-6 pt-3 text-sm font-bold"
                 style={{ "--i": nav.length } as CSSProperties}
               >
                 <LangLinks current={locale} path={path} compact />
@@ -242,6 +249,7 @@ export function SiteHeader() {
                 </a>
               </li>
             </ul>
+          </div>
         </nav>
       </div>
     </header>

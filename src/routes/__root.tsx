@@ -15,6 +15,7 @@ import interFont from "@fontsource-variable/inter/files/inter-latin-wght-normal.
 import archivoFont from "@fontsource/archivo/files/archivo-latin-900-normal.woff2?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { HTML_LANG, splitLocale } from "@/lib/i18n";
+import { notFoundHead } from "@/lib/seo";
 import { NotFoundPage } from "@/components/pages/NotFoundPage";
 
 // Runs before first paint: enables reveal states only when JS is alive, with a safety net
@@ -60,30 +61,43 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { name: "theme-color", content: "#0d1b26" },
-      { name: "author", content: "Centurion Roofing" },
-      { name: "format-detection", content: "telephone=no" },
-    ],
-    links: [
-      {
-        rel: "preload",
-        href: archivoFont,
-        as: "font",
-        type: "font/woff2",
-        crossOrigin: "anonymous",
-      },
-      { rel: "preload", href: interFont, as: "font", type: "font/woff2", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", sizes: "32x32" },
-      { rel: "icon", href: "/icon.svg", type: "image/svg+xml" },
-      { rel: "apple-touch-icon", href: "/apple-icon.png" },
-    ],
-    scripts: [{ children: BOOT }],
-  }),
+  head: ({ matches }) => {
+    // A 404 renders outside the locale layout, so the root route owns its head.
+    const is404 = matches.some((m) => m.status === "notFound" || m._notFound === true);
+    const nf = is404 ? notFoundHead() : null;
+    return {
+      meta: [
+        { charSet: "utf-8" },
+        { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
+        { name: "theme-color", content: "#0d1b26" },
+        { name: "author", content: "Centurion Roofing" },
+        { name: "format-detection", content: "telephone=no" },
+        ...(nf?.meta ?? []),
+      ],
+      links: [
+        {
+          rel: "preload",
+          href: archivoFont,
+          as: "font",
+          type: "font/woff2",
+          crossOrigin: "anonymous",
+        },
+        {
+          rel: "preload",
+          href: interFont,
+          as: "font",
+          type: "font/woff2",
+          crossOrigin: "anonymous",
+        },
+        { rel: "stylesheet", href: appCss },
+        { rel: "icon", href: "/favicon.ico", sizes: "32x32" },
+        { rel: "icon", href: "/icon.svg", type: "image/svg+xml" },
+        { rel: "apple-touch-icon", href: "/apple-icon.png" },
+        ...(nf?.links ?? []),
+      ],
+      scripts: [{ children: BOOT }],
+    };
+  },
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundPage,

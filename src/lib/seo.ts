@@ -1,4 +1,5 @@
 import { LOCALES, OG_LOCALE, localizePath, type Locale } from "./i18n";
+import { NOT_FOUND_META } from "@/content/meta";
 import { SITE } from "./site";
 
 type HeadInput = {
@@ -48,5 +49,20 @@ export function pageHead({ locale, path, title, description, ogTitle, ogDescript
       })),
       { rel: "alternate", hrefLang: "x-default", href: SITE.url + localizePath("en", path) },
     ],
+  };
+}
+
+/**
+ * Head for the 404 route: noindex, canonical to the site root and no hreflang cluster —
+ * a "page not found" URL is not a translation of anything.
+ */
+export function notFoundHead() {
+  return {
+    meta: [
+      { title: NOT_FOUND_META.title },
+      { name: "description", content: NOT_FOUND_META.description },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: SITE.url + "/" }],
   };
 }

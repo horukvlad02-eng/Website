@@ -33,7 +33,7 @@ export function InsuranceClaimsPage() {
               {copy.text[4]}
             </a>
           </div>
-          <p className="label-mono mt-8 text-white/35">{copy.text[5]}</p>
+          <p className="label-mono mt-8 text-white/55">{copy.text[5]}</p>
         </div>
       </section>
       <section className="blueprint-paper relative overflow-hidden bg-white py-20 sm:py-28">

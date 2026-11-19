@@ -331,20 +331,31 @@ export function EstimateSection() {
                     {number.format(sqft)} <span className="text-sm text-white/50">{t.unit}</span>
                   </p>
                 </div>
-                <input
-                  id={id}
-                  type="range"
-                  min={800}
-                  max={5000}
-                  step={50}
-                  value={sqft}
-                  onChange={(e) => setSqft(Number(e.target.value))}
-                  className="range-brand mt-4"
-                  style={{
-                    background: `linear-gradient(to right,#f26b1d 0%,#ff8a3d ${((sqft - 800) / 4200) * 100}%,rgba(255,255,255,.1) ${((sqft - 800) / 4200) * 100}%)`,
-                  }}
-                />
-                <div className="mt-2 flex justify-between text-[11px] text-white/40">
+                <div className="relative mt-4 h-2">
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-0 top-0 h-2 rounded-full"
+                    style={{
+                      background: `linear-gradient(to right,#f26b1d 0%,#ff8a3d ${((sqft - 800) / 4200) * 100}%,rgba(255,255,255,.1) ${((sqft - 800) / 4200) * 100}%)`,
+                    }}
+                  />
+                  <input
+                    id={id}
+                    type="range"
+                    min={800}
+                    max={5000}
+                    step={50}
+                    value={sqft}
+                    onChange={(e) => setSqft(Number(e.target.value))}
+                    className="range-brand absolute left-0 top-[-18px] w-full"
+                    style={{
+                      // 44px tall hit area; the visible track is a sibling so it keeps its 8px look.
+                      height: "2.75rem",
+                      background: "transparent",
+                    }}
+                  />
+                </div>
+                <div className="mt-2 flex justify-between text-[11px] text-white/50">
                   <span>800</span>
                   <span>{number.format(5000)}+</span>
                 </div>
@@ -390,7 +401,7 @@ export function EstimateSection() {
               <L to="/#inspection" className="btn-primary mt-5 w-full">
                 {t.cta}
               </L>
-              <p className="mt-4 text-xs leading-relaxed text-white/40">{t.disclaimer}</p>
+              <p className="mt-4 text-xs leading-relaxed text-white/50">{t.disclaimer}</p>
               <div className="mt-6 border-t border-white/10 pt-5">
                 {status === "success" ? (
                   <div role="status">
@@ -403,7 +414,7 @@ export function EstimateSection() {
                       type="button"
                       aria-expanded={show}
                       onClick={() => setShow(!show)}
-                      className="text-sm font-bold text-brand hover:text-white"
+                      className="relative text-sm font-bold text-brand after:absolute after:inset-y-[-12px] after:left-0 after:right-0 after:content-[''] hover:text-white"
                     >
                       {t.sendTitle}
                     </button>
@@ -433,14 +444,16 @@ export function EstimateSection() {
                             className="mt-2 h-12 w-full rounded-xl border border-white/15 bg-white/5 px-4 text-base text-white"
                           />
                         </label>
-                        <label className="mt-4 flex items-start gap-2 text-xs leading-relaxed text-white/60">
-                          <input
-                            type="checkbox"
-                            required
-                            checked={consent}
-                            onChange={(e) => setConsent(e.target.checked)}
-                            className="mt-1 shrink-0 accent-brand"
-                          />
+                        <label className="mt-4 flex cursor-pointer items-start gap-2 text-xs leading-relaxed text-white/60">
+                          <span className="relative -m-3 flex size-11 shrink-0 items-start justify-center">
+                            <input
+                              type="checkbox"
+                              required
+                              checked={consent}
+                              onChange={(e) => setConsent(e.target.checked)}
+                              className="mt-1 shrink-0 accent-brand"
+                            />
+                          </span>
                           <span>
                             {c.body} {c.see}{" "}
                             <L to="/privacy/" className="underline">
@@ -465,7 +478,7 @@ export function EstimateSection() {
                         >
                           {status === "sending" ? t.sending : t.send}
                         </button>
-                        <p className="mt-3 text-center text-xs text-white/40">{t.privacy}</p>
+                        <p className="mt-3 text-center text-xs text-white/50">{t.privacy}</p>
                       </form>
                     )}
                   </>

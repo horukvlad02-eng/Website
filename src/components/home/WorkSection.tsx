@@ -40,6 +40,7 @@ export function WorkSection() {
                     alt={t.text04}
                     loading="lazy"
                     className="object-cover"
+                    sizes="(min-width: 768px) 33vw, 100vw"
                   />
                   <span className="label-mono absolute left-5 top-5 rounded-full bg-white/95 px-3 py-1.5 text-ink">
                     {t.text05}
@@ -101,6 +102,7 @@ export function WorkSection() {
                     alt={t.text11}
                     loading="lazy"
                     className="object-cover"
+                    sizes="(min-width: 768px) 33vw, 100vw"
                   />
                   <span className="label-mono absolute left-5 top-5 rounded-full bg-white/95 px-3 py-1.5 text-ink">
                     {t.text12}
@@ -162,6 +164,7 @@ export function WorkSection() {
                     alt={t.text18}
                     loading="lazy"
                     className="object-cover"
+                    sizes="(min-width: 768px) 33vw, 100vw"
                   />
                   <span className="label-mono absolute left-5 top-5 rounded-full bg-white/95 px-3 py-1.5 text-ink">
                     {t.text19}

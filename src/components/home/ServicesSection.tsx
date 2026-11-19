@@ -42,7 +42,14 @@ export function ServicesSection() {
                 to="/services/metal-roofing/"
               >
                 <div className="img-zoom relative aspect-[5/4] overflow-hidden">
-                  <Img src="service-metal" fill alt="" loading="lazy" className="object-cover" />
+                  <Img
+                    src="service-metal"
+                    fill
+                    alt=""
+                    loading="lazy"
+                    className="object-cover"
+                    sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
+                  />
                   <span className="label-mono absolute left-5 top-5 rounded-full bg-white/95 px-3 py-1.5 text-ink">
                     {t.text04}
                   </span>
@@ -87,6 +94,7 @@ export function ServicesSection() {
                     alt=""
                     loading="lazy"
                     className="object-cover"
+                    sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
                   />
                   <span className="label-mono absolute left-5 top-5 rounded-full bg-white/95 px-3 py-1.5 text-ink">
                     {t.text09}
@@ -132,6 +140,7 @@ export function ServicesSection() {
                     alt=""
                     loading="lazy"
                     className="object-cover"
+                    sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
                   />
                   <span className="label-mono absolute left-5 top-5 rounded-full bg-white/95 px-3 py-1.5 text-ink">
                     {t.text14}
@@ -177,6 +186,7 @@ export function ServicesSection() {
                     alt=""
                     loading="lazy"
                     className="object-cover"
+                    sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
                   />
                   <span className="label-mono absolute left-5 top-5 rounded-full bg-white/95 px-3 py-1.5 text-ink">
                     {t.text19}
