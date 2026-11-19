@@ -101,6 +101,9 @@ function LocaleLayout() {
         </div>
       ) : null}
       <TopBar />
+      {/* Marks where the header starts in the page flow; the motion engine watches it to know
+          when the sticky header is pinned to the top of the screen (adds .is-stuck). */}
+      <div className="header-sentinel" aria-hidden="true" />
       <SiteHeader />
       <main ref={mainRef} id="main" tabIndex={-1} className="outline-none">
         <Outlet />

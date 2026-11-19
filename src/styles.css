@@ -786,6 +786,30 @@ html.lite .glass-chip.on-photo {
   }
 }
 
+/* Sentinel right above the header (1px, pulled back so it takes no space). */
+.header-sentinel {
+  height: 1px;
+  margin-bottom: -1px;
+  pointer-events: none;
+}
+/* Curtain above the pinned header: fills the strip under a floating browser address bar
+   (iOS 26 Safari / in-app browsers) with the header colour, so the header joins the browser bar
+   instead of floating under it with page content showing through. Invisible everywhere else,
+   since nothing is drawn above the top of the viewport there. */
+header.site-header::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 100%;
+  height: 50vh;
+  background-color: oklch(0.2 0.028 243.4);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+header.site-header.is-stuck::before {
+  opacity: 1;
+}
 .scroll-progress-track {
   position: absolute;
   inset-inline: 0;

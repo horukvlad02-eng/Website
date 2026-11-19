@@ -778,9 +778,28 @@ export function startMotion() {
 }
 
 /** Pick up everything in the current page. Call after mount and after every navigation. */
+/* Pinned header. iOS 26 (Safari, and in-app browsers such as Telegram) draws the page under its
+   floating, translucent address bar, so content scrolling between that bar and the pinned header
+   showed through and the header looked detached. While the header is pinned, a "curtain" in the
+   header colour (header::before in styles.css) extends up under the browser bar so the two read as
+   one surface. One IntersectionObserver on a sentinel just above the header; no scroll work. */
+let stickIO: IntersectionObserver | null = null;
+function watchStuck() {
+  stickIO?.disconnect();
+  const sentinel = document.querySelector(".header-sentinel");
+  if (!sentinel || !header || !("IntersectionObserver" in window)) return;
+  const h = header;
+  stickIO = new IntersectionObserver(([en]) => {
+    if (!en) return;
+    h.classList.toggle("is-stuck", !en.isIntersecting && en.boundingClientRect.top < 0);
+  });
+  stickIO.observe(sentinel);
+}
+
 export function scan() {
   if (!started) return;
   header = document.querySelector<HTMLElement>("header.site-header");
+  watchStuck();
   progressEl = document.querySelector<HTMLElement>(".scroll-progress");
   heroImg = document.querySelector<HTMLElement>(".hero-photo-inner > img");
   if (heroImg && !supportsTimeline && !reduce) {
