@@ -129,6 +129,11 @@
   html.menu-open {
     scroll-behavior: auto;
   }
+  /* Page changes jump straight to the top / the restored position (set by the locale layout
+     during a navigation): a smooth scroll there glides through the whole page. */
+  html.nav-jump {
+    scroll-behavior: auto;
+  }
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;

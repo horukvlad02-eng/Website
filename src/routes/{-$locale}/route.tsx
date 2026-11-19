@@ -1,4 +1,4 @@
-import { Outlet, createFileRoute, notFound, useLocation } from "@tanstack/react-router";
+import { Outlet, createFileRoute, notFound, useLocation, useRouter } from "@tanstack/react-router";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { TopBar } from "@/components/layout/TopBar";
 import { SiteHeader } from "@/components/layout/SiteHeader";
@@ -75,11 +75,49 @@ function LocaleLayout() {
     return () => document.removeEventListener("click", onClick, { capture: true });
   }, []);
 
-  // Hash links (#inspection, #services…) glide to their section after navigation.
+  // Page changes jump, they never glide. <html> has scroll-behavior: smooth (for in-page
+  // anchors), and the router's scroll-to-top on a new page and scroll restore on Back use plain
+  // scrollTo(), so the browser used to animate through thousands of pixels of the page, firing
+  // every reveal and image load on the way: the jerky "moving" when opening a page or coming
+  // back. html.nav-jump switches smooth scrolling off until the new page has settled.
+  const router = useRouter();
   useEffect(() => {
+    const root = document.documentElement;
+    let t = 0;
+    const jump = () => {
+      window.clearTimeout(t);
+      root.classList.add("nav-jump");
+    };
+    const settle = () => {
+      window.clearTimeout(t);
+      t = window.setTimeout(() => root.classList.remove("nav-jump"), 700);
+    };
+    const offBefore = router.subscribe("onBeforeNavigate", (e) => {
+      if (e.pathChanged) jump();
+    });
+    const offResolved = router.subscribe("onResolved", settle);
+    window.addEventListener("popstate", jump, true);
+    return () => {
+      offBefore();
+      offResolved();
+      window.removeEventListener("popstate", jump, true);
+      window.clearTimeout(t);
+      root.classList.remove("nav-jump");
+    };
+  }, [router]);
+
+  // Hash links (#inspection, #services…) glide to their section on the same page; arriving
+  // from another page lands on the section directly.
+  const lastPath = useRef(pathname);
+  useEffect(() => {
+    const samePage = lastPath.current === pathname;
+    lastPath.current = pathname;
     if (!hash) return;
     const t = setTimeout(
-      () => document.getElementById(hash)?.scrollIntoView({ behavior: "smooth", block: "start" }),
+      () =>
+        document
+          .getElementById(hash)
+          ?.scrollIntoView({ behavior: samePage ? "smooth" : "instant", block: "start" }),
       60,
     );
     return () => clearTimeout(t);
