@@ -615,7 +615,16 @@ html.menu-open header.site-header {
 }
 /* At the very top nothing scrolls behind the header yet: keep it solid until the page moves. */
 header.site-header > .glass-bar {
-  transition: background-color 0.4s ease;
+  transition:
+    background-color 0.4s ease,
+    opacity 0.25s ease;
+}
+/* Tucked-away header: only the thin progress line stays on screen. The bar itself (its 1px
+   edge, its drop shadow and the glow of the orange button) fades out, instead of leaving a dark
+   strip with a grey smear and an orange halo across the top of the page. */
+header.site-header.is-hidden > .glass-bar {
+  opacity: 0;
+  box-shadow: none;
 }
 header.site-header:not(.is-scrolled):not([data-menu="true"]) > .glass-bar {
   background-color: oklch(0.215 0.029 243.4 / 97%);
@@ -1475,7 +1484,7 @@ header.site-header.is-scrolled {
   box-shadow: 0 14px 34px -20px oklch(0.13 0.02 240 / 80%);
 }
 header.site-header.is-hidden {
-  transform: translate3d(0, calc(-100% + 3px), 0);
+  transform: translate3d(0, calc(-100% + 2px), 0);
   box-shadow: none;
 }
 /* Phones: faster glide so the header is out of the way the moment you start reading. */
