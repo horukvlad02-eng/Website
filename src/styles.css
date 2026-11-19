@@ -315,8 +315,19 @@
 /* ------------------------------------------------------------------ */
 /* Surfaces                                                            */
 /* ------------------------------------------------------------------ */
+/* Glass surfaces need a positioning context for their sheen layers, but it lives in the
+   components layer so a position utility on the element (fixed call bar, lg:sticky sidebar)
+   still wins. Unlayered, `position: relative` beat `lg:sticky` and turned `lg:top-28` into a
+   permanent 112px push-down of the project-page card. */
+@layer components {
+  .glass,
+  .glass-chip,
+  .glass-bar,
+  .glass-panel {
+    position: relative;
+  }
+}
 .glass {
-  position: relative;
   isolation: isolate;
   background-color: var(--glass-fill);
   /* Liquid sheen: a static light falloff from the top-left edge, painted once. */
@@ -392,7 +403,6 @@
   opacity: 0.09;
 }
 .glass-chip {
-  position: relative;
   isolation: isolate;
   background-color: oklch(1 0 0 / 14%);
   box-shadow:
@@ -407,7 +417,6 @@
 /* Frosted bars and panels: one real blur layer each, kept small (bars, the chat panel), never on
    section cards. Low-end devices, reduced transparency and unsupported browsers get a solid fill. */
 .glass-bar {
-  position: relative;
   isolation: isolate;
   /* Liquid glass: lighter tint + strong blur/saturation so colour from behind bleeds through,
      a specular sheen from the top and a lit edge (::before). Tint stays dark enough that white
@@ -603,7 +612,6 @@ html.menu-open header.site-header {
   background-color: oklch(1 0 0 / 20%);
 }
 .glass-panel {
-  position: relative;
   isolation: isolate;
   background-color: oklch(0.215 0.029 243.4 / 78%);
   background-image: linear-gradient(160deg, oklch(1 0 0 / 10%) 0%, oklch(1 0 0 / 0) 40%);

@@ -239,7 +239,7 @@ export function SiteFooter() {
           </div>
         </div>
       </footer>
-      <div className="glass-bar vt-callbar fixed inset-x-0 bottom-0 z-40 px-3 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:hidden">
+      <div className="glass-bar vt-callbar relative z-40 px-3 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:hidden">
         <div className="grid grid-cols-2 gap-2">
           <a
             href={SITE.phoneHref}
