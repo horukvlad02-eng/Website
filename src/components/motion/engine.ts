@@ -27,9 +27,6 @@ const idle = (fn: () => void) => {
 
 let started = false;
 let reduce = false;
-/** Phone mode (html.phone, set by the boot script): no entrance animations or pointer effects. */
-let phone = false;
-const calm = () => reduce || phone;
 let coarse = false;
 let fine = false;
 let revealIO: IntersectionObserver | null = null;
@@ -113,7 +110,6 @@ function assignFx(els: HTMLElement[]) {
 function scanReveals() {
   const els = Array.from(document.querySelectorAll<HTMLElement>(".reveal:not([data-mv])"));
   if (!els.length) return;
-  if (phone) return; // phone mode: no hidden states at all, nothing to reveal
   if (!reduce) assignFx(els);
   for (const el of els) {
     el.dataset["mv"] = "1";
@@ -126,7 +122,7 @@ function scanWords() {
   const els = document.querySelectorAll<HTMLElement>(".words:not([data-mv])");
   els.forEach((el) => {
     el.dataset["mv"] = "1";
-    if (calm() || !wordsIO) el.classList.add("mv-in");
+    if (reduce || !wordsIO) el.classList.add("mv-in");
     else wordsIO.observe(el);
   });
 }
@@ -136,7 +132,7 @@ type CountState = { node: Text; val: number; dec: number; plus: string; orig: st
 const counts = new WeakMap<Element, CountState>();
 
 function scanCounters() {
-  if (calm() || !countIO) return;
+  if (reduce || !countIO) return;
   const re = /^(\d+(?:\.\d+)?)(\+?)$/;
   const candidates = Array.from(
     document.querySelectorAll<HTMLElement>(
@@ -201,7 +197,7 @@ function prepDraw(svg: SVGSVGElement, cls: string) {
 }
 
 function scanDrawings() {
-  if (calm()) return;
+  if (reduce) return;
   const svgs = Array.from(document.querySelectorAll<SVGSVGElement>(".reveal svg:not([data-mvd])"));
   if (!svgs.length) return;
   // getBoundingClientRect forces a layout, so all rects are read before anything is written.
@@ -326,7 +322,7 @@ function onScrollFrame() {
   }
   lastY = y;
   paintProgress(y, performance.now());
-  if (heroImg && !supportsTimeline && !calm()) {
+  if (heroImg && !supportsTimeline && !reduce) {
     const p = Math.min(1, Math.max(0, y / Math.max(1, window.innerHeight * 0.9)));
     heroImg.style.transform = `translate3d(0,${(p * 6).toFixed(2)}vh,0)`;
   }
@@ -561,7 +557,7 @@ function pointerFrame() {
 }
 
 function onPointerMove(e: PointerEvent) {
-  if (e.pointerType === "touch" || calm()) return;
+  if (e.pointerType === "touch" || reduce) return;
   ptrEvent = e;
   if (!ptrQueued) {
     ptrQueued = true;
@@ -618,7 +614,7 @@ function clearHold() {
 }
 
 function onPointerDown(e: PointerEvent) {
-  if (calm()) return;
+  if (reduce) return;
   const card = (e.target as Element | null)?.closest?.<HTMLElement>(".glass-interactive.group");
   const s = card ? depthFor(card) : null;
   if (!s) return;
@@ -703,7 +699,6 @@ export function startMotion() {
   started = true;
   window.addEventListener("popstate", () => (instantUntil = performance.now() + 1200));
   (window as Window & { __mv?: boolean }).__mv = true;
-  phone = document.documentElement.classList.contains("phone");
   const rq = window.matchMedia("(prefers-reduced-motion: reduce)");
   reduce = rq.matches;
   rq.addEventListener?.("change", (e) => (reduce = e.matches));
@@ -821,7 +816,7 @@ export function scan() {
   watchStuck();
   progressEl = document.querySelector<HTMLElement>(".scroll-progress");
   heroImg = document.querySelector<HTMLElement>(".hero-photo-inner > img");
-  if (heroImg && !supportsTimeline && !calm()) {
+  if (heroImg && !supportsTimeline && !reduce) {
     heroImg.parentElement!.style.transform = "scale(1.08)";
     heroImg.style.willChange = "transform";
   }

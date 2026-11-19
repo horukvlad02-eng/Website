@@ -1634,37 +1634,3 @@ html.ios header.site-header > .glass-bar {
     transform: translate3d(0, 20px, 0);
   }
 }
-
-/* ------------------------------------------------------------------ */
-/* Phone mode (html.phone, set by the boot script on phones/tablets)   */
-/* ------------------------------------------------------------------ */
-/* No mv-js on phones, so every section is visible straight from the server and nothing waits for
-   JavaScript or a scroll observer. Surfaces are solid (html.lite). Continuous and scroll-linked
-   effects are off. One moment stays: the page headline settles in once. */
-html.phone .kenburns,
-html.phone .hero-photo,
-html.phone .float-soft {
-  animation: none;
-}
-html.phone .hero-photo-inner,
-html.phone .hero-photo-inner > img {
-  animation: none;
-  transform: none;
-}
-html.phone main h1 {
-  animation: phone-in 0.7s var(--ease-out-expo) both;
-}
-@keyframes phone-in {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 14px, 0);
-  }
-}
-html.lite header.site-header::before {
-  background-color: oklch(0.215 0.029 243.4);
-}
-@media (prefers-reduced-motion: reduce) {
-  html.phone main h1 {
-    animation: none;
-  }
-}
