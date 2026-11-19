@@ -1249,6 +1249,9 @@ html.mv-js .words .wi {
   transition: transform 0.95s var(--ease-out-expo);
   transition-delay: calc(var(--i, 0) * 55ms);
 }
+html.mv-js .words.mv-instant .wi {
+  transition: none;
+}
 
 /* Line drawings (pathLength="1" set on shapes) */
 html.mv-js svg.draw-now :is(path, rect, circle, line, polyline) {

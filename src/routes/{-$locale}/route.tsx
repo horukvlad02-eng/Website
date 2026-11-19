@@ -55,7 +55,10 @@ function LocaleLayout() {
     }
     const el = mainRef.current;
     // Browsers with View Transitions already animate the page change (desktop only, see router).
-    if (el && (!("startViewTransition" in document) || isPhone())) {
+    // Phones get no page-level animation at all: fading and moving the whole <main> (20,000+px
+    // tall on the home page) is a giant layer for a phone GPU, and restarting it forced a
+    // synchronous layout of the full page on every navigation.
+    if (el && !isPhone() && !("startViewTransition" in document)) {
       el.classList.remove("page-enter");
       void el.offsetWidth;
       el.classList.add("page-enter");

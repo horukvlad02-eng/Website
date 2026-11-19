@@ -140,9 +140,14 @@ function scanCounters() {
     ),
   );
   if (!candidates.length) return;
-  // Read every font size first: getComputedStyle forces a style recalc, and mixing it with the
-  // dataset writes below would thrash layout once per element.
-  const sizes = candidates.map((el) => parseFloat(getComputedStyle(el).fontSize));
+  // Only plain numbers can count up: filter on text first (cheap), so getComputedStyle (which
+  // forces a style recalc of the freshly rendered page) runs for a handful of elements, not all.
+  const numeric = candidates.map(
+    (el) => !el.children.length && re.test((el.firstChild?.nodeValue || "").trim()),
+  );
+  const sizes = candidates.map((el, i) =>
+    numeric[i] ? parseFloat(getComputedStyle(el).fontSize) : 0,
+  );
   candidates.forEach((el, i) => {
     el.dataset["mvc"] = "1";
     if (el.children.length) return;
@@ -682,9 +687,17 @@ function onPointerCancel() {
 }
 
 /* ------------------------------------------------------------ public API */
+/* Back/forward navigation: the visitor has already seen this page, and the router restores their
+   scroll position. Replaying every entrance animation there reads as a blank screen followed by a
+   fade-in (the "lag" when coming back), so for a moment after popstate everything in view shows
+   at once, headings included, and number counters keep their final value. */
+let instantUntil = 0;
+const isReturning = () => performance.now() < instantUntil;
+
 export function startMotion() {
   if (started || typeof window === "undefined") return;
   started = true;
+  window.addEventListener("popstate", () => (instantUntil = performance.now() + 1200));
   (window as Window & { __mv?: boolean }).__mv = true;
   const rq = window.matchMedia("(prefers-reduced-motion: reduce)");
   reduce = rq.matches;
@@ -709,7 +722,7 @@ export function startMotion() {
       (entries) => {
         for (const en of entries) {
           if (en.isIntersecting) {
-            show(en.target, false);
+            show(en.target, isReturning());
             revealIO!.unobserve(en.target);
           } else if (en.boundingClientRect.bottom < 0) {
             show(en.target, true);
@@ -725,6 +738,7 @@ export function startMotion() {
       (entries) => {
         for (const en of entries) {
           if (en.isIntersecting || en.boundingClientRect.bottom < 0) {
+            if (isReturning()) en.target.classList.add("mv-instant");
             en.target.classList.add("mv-in");
             wordsIO!.unobserve(en.target);
           }
@@ -737,7 +751,7 @@ export function startMotion() {
         for (const en of entries) {
           if (!en.isIntersecting) continue;
           countIO!.unobserve(en.target);
-          runCount(en.target);
+          if (!isReturning()) runCount(en.target);
         }
       },
       { threshold: 0.6 },
