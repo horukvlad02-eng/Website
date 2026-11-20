@@ -1510,6 +1510,67 @@ html.ios header.site-header > .glass-bar {
   -webkit-text-size-adjust: 100%;
 }
 
+/* Phones and tablets: an iOS 26 style floating capsule instead of a full-width bar.
+   Under a floating browser bar (iOS 26 Safari, Telegram and other in-app browsers) the page is
+   meant to run on behind the browser chrome; a capsule with air around it sits with that chrome
+   the same way the browser's own buttons do, instead of a flat slab with a photo strip above it.
+   At the very top the header keeps a dark band behind the capsule, so it reads exactly as before
+   over the dark heroes; the band fades out once the page moves and the capsule floats free. */
+@media (max-width: 1023px) {
+  header.site-header {
+    padding: calc(env(safe-area-inset-top) + 0.5rem) 0.75rem 0;
+    background-color: oklch(0.215 0.029 243.4 / 0);
+    transition:
+      transform 0.32s var(--ease-out-expo),
+      background-color 0.3s ease;
+  }
+  header.site-header:not(.is-scrolled):not([data-menu="true"]) {
+    background-color: oklch(0.215 0.029 243.4);
+    padding-bottom: 0.5rem;
+  }
+  /* Taps in the air around the capsule reach the page underneath. */
+  header.site-header.is-scrolled {
+    box-shadow: none;
+    pointer-events: none;
+  }
+  header.site-header > .glass-bar,
+  header.site-header > .nav-scrim[data-open="true"] {
+    pointer-events: auto;
+  }
+  /* The curtain is for the full-width bar; the capsule lets the page show around it. */
+  header.site-header::before {
+    display: none;
+  }
+  header.site-header > .glass-bar {
+    border-radius: 1.75rem;
+    border-bottom: 0;
+    box-shadow:
+      inset 0 1px 0 0 oklch(1 0 0 / 38%),
+      inset 0 0 0 1px oklch(1 0 0 / 9%),
+      0 14px 32px -16px oklch(0.08 0.02 240 / 75%),
+      0 4px 10px -6px oklch(0.08 0.02 240 / 45%);
+  }
+  html.ios header.site-header > .glass-bar {
+    padding-top: 0;
+  }
+  header.site-header > .glass-bar > div {
+    padding-inline: 0.625rem 0.5rem;
+  }
+  /* Progress line rides along the capsule's lower edge, inside its rounded ends. */
+  header.site-header > .scroll-progress-track {
+    inset-inline: 2.25rem;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  header.site-header:not(.is-scrolled):not([data-menu="true"]) > .scroll-progress-track {
+    bottom: 0.5rem;
+  }
+  /* Tucked away, the whole capsule (and its shadow) leaves the screen. */
+  header.site-header.is-hidden {
+    transform: translate3d(0, calc(-100% - 1.5rem), 0);
+  }
+}
+
 .fab-pop {
   animation: mv-pop 0.8s var(--ease-spring) both 1.4s;
 }
