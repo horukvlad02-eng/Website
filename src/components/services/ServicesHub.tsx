@@ -152,7 +152,7 @@ export function ServicesHub({ data }: { data: HubData }) {
           </p>
           <ul className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             <li className="h-full">
-              <article className="glass glass-flat glass-light rounded-[28px] flex h-full flex-col p-7">
+              <article className="glass glass-flat glass-light glass-interactive group relative rounded-[28px] flex h-full flex-col p-7 transition-[transform,box-shadow,border-color] duration-500 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_36px_80px_-44px_rgba(242,107,29,0.45)]">
                 <span className="label-mono text-brand-deep">{data.compare.copy[3]!}</span>
                 <h3 className="mt-3 font-display text-xl font-extrabold leading-snug text-ink">
                   {data.compare.copy[4]!}
@@ -179,7 +179,7 @@ export function ServicesHub({ data }: { data: HubData }) {
                 </p>
                 <L
                   to={data.compare.copy[10]!}
-                  className="mt-6 inline-flex items-center gap-2 font-bold text-brand-deep"
+                  className="mt-6 inline-flex items-center gap-2 font-bold text-brand-deep after:absolute after:inset-0 after:rounded-[28px] after:content-['']"
                 >
                   {data.compare.copy[11]!}
                   <ArrowRight className="size-4" aria-hidden="true" />
@@ -187,7 +187,7 @@ export function ServicesHub({ data }: { data: HubData }) {
               </article>
             </li>
             <li className="h-full">
-              <article className="glass glass-flat glass-light rounded-[28px] flex h-full flex-col p-7">
+              <article className="glass glass-flat glass-light glass-interactive group relative rounded-[28px] flex h-full flex-col p-7 transition-[transform,box-shadow,border-color] duration-500 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_36px_80px_-44px_rgba(242,107,29,0.45)]">
                 <span className="label-mono text-brand-deep">{data.compare.copy[12]!}</span>
                 <h3 className="mt-3 font-display text-xl font-extrabold leading-snug text-ink">
                   {data.compare.copy[13]!}
@@ -225,7 +225,7 @@ export function ServicesHub({ data }: { data: HubData }) {
                 </p>
                 <L
                   to={data.compare.copy[22]!}
-                  className="mt-6 inline-flex items-center gap-2 font-bold text-brand-deep"
+                  className="mt-6 inline-flex items-center gap-2 font-bold text-brand-deep after:absolute after:inset-0 after:rounded-[28px] after:content-['']"
                 >
                   {data.compare.copy[23]!}
                   <ArrowRight className="size-4" aria-hidden="true" />
@@ -233,7 +233,7 @@ export function ServicesHub({ data }: { data: HubData }) {
               </article>
             </li>
             <li className="h-full">
-              <article className="glass glass-flat glass-light rounded-[28px] flex h-full flex-col p-7">
+              <article className="glass glass-flat glass-light glass-interactive group relative rounded-[28px] flex h-full flex-col p-7 transition-[transform,box-shadow,border-color] duration-500 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_36px_80px_-44px_rgba(242,107,29,0.45)]">
                 <span className="label-mono text-brand-deep">{data.compare.copy[24]!}</span>
                 <h3 className="mt-3 font-display text-xl font-extrabold leading-snug text-ink">
                   {data.compare.copy[25]!}
@@ -260,7 +260,7 @@ export function ServicesHub({ data }: { data: HubData }) {
                 </p>
                 <L
                   to={data.compare.copy[31]!}
-                  className="mt-6 inline-flex items-center gap-2 font-bold text-brand-deep"
+                  className="mt-6 inline-flex items-center gap-2 font-bold text-brand-deep after:absolute after:inset-0 after:rounded-[28px] after:content-['']"
                 >
                   {data.compare.copy[32]!}
                   <ArrowRight className="size-4" aria-hidden="true" />
@@ -268,7 +268,7 @@ export function ServicesHub({ data }: { data: HubData }) {
               </article>
             </li>
             <li className="h-full">
-              <article className="glass glass-flat glass-light rounded-[28px] flex h-full flex-col p-7">
+              <article className="glass glass-flat glass-light glass-interactive group relative rounded-[28px] flex h-full flex-col p-7 transition-[transform,box-shadow,border-color] duration-500 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_36px_80px_-44px_rgba(242,107,29,0.45)]">
                 <span className="label-mono text-brand-deep">{data.compare.copy[33]!}</span>
                 <h3 className="mt-3 font-display text-xl font-extrabold leading-snug text-ink">
                   {data.compare.copy[34]!}
@@ -283,7 +283,7 @@ export function ServicesHub({ data }: { data: HubData }) {
                 </p>
                 <L
                   to={data.compare.copy[37]!}
-                  className="mt-6 inline-flex items-center gap-2 font-bold text-brand-deep"
+                  className="mt-6 inline-flex items-center gap-2 font-bold text-brand-deep after:absolute after:inset-0 after:rounded-[28px] after:content-['']"
                 >
                   {data.compare.copy[38]!}
                   <ArrowRight className="size-4" aria-hidden="true" />

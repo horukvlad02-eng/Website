@@ -104,7 +104,7 @@ export function ProjectGallery() {
                     <button
                       aria-label={`${s.enlarge}: ${t.title}`}
                       onClick={() => setPhoto(i)}
-                      className="absolute left-4 top-4 flex size-11 items-center justify-center rounded-full bg-white/90 text-ink opacity-100 shadow-lg transition-[transform,background-color,border-color,color,opacity] hover:bg-brand md:opacity-0 md:group-hover:opacity-100 md:focus-visible:opacity-100"
+                      className="absolute left-4 top-4 z-10 flex size-11 items-center justify-center rounded-full bg-white/90 text-ink opacity-100 shadow-lg transition-[transform,background-color,border-color,color,opacity] hover:bg-brand md:opacity-0 md:group-hover:opacity-100 md:focus-visible:opacity-100"
                       type="button"
                     >
                       <Maximize2 className="size-5" aria-hidden="true" />
@@ -117,7 +117,7 @@ export function ProjectGallery() {
                     </span>
                   </div>
                   <L
-                    className="block p-7 after:absolute after:inset-x-0 after:bottom-0 after:top-[calc(100%-12rem)] after:content-['']"
+                    className="block p-7 after:absolute after:inset-0 after:rounded-[28px] after:content-['']"
                     to={`/projects/${p.slug}/`}
                   >
                     <div className="flex flex-wrap items-center gap-3 text-xs font-bold uppercase tracking-[0.18em]">
