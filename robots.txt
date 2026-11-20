@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /
+# Concept site: indexing is off. When this becomes the official site, change to "Allow: /"
+# and remove the noindex meta tag in index.html.

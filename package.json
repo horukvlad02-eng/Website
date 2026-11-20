@@ -1,0 +1,12 @@
+{
+  "name": "acadian-family-dental",
+  "private": true,
+  "type": "module",
+  "description": "Concept redesign for Acadian Family Dental — static site + one Vercel function",
+  "scripts": {
+    "dev": "npx --yes serve . -l 8080"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
