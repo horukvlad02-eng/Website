@@ -1520,9 +1520,6 @@ html.ios header.site-header > .glass-bar {
   header.site-header {
     padding: calc(env(safe-area-inset-top) + 0.5rem) 0.75rem 0;
     background-color: oklch(0.215 0.029 243.4 / 0);
-    transition:
-      transform 0.32s var(--ease-out-expo),
-      background-color 0.3s ease;
   }
   header.site-header:not(.is-scrolled):not([data-menu="true"]) {
     background-color: oklch(0.215 0.029 243.4);
@@ -1565,9 +1562,63 @@ html.ios header.site-header > .glass-bar {
   header.site-header:not(.is-scrolled):not([data-menu="true"]) > .scroll-progress-track {
     bottom: 0.5rem;
   }
+  /* Showing: the capsule drops back in on an iOS-style curve, fades up and settles from a
+     slightly smaller size with a soft spring. Hiding is quicker and has no overshoot. All of it
+     is transform and opacity only. */
+  header.site-header {
+    transition:
+      transform 0.6s cubic-bezier(0.32, 0.72, 0, 1),
+      background-color 0.3s ease;
+  }
+  header.site-header > .glass-bar {
+    transform-origin: 50% 0;
+    transition:
+      transform 0.7s var(--ease-spring),
+      opacity 0.4s ease,
+      background-color 0.4s ease;
+  }
   /* Tucked away, the whole capsule (and its shadow) leaves the screen. */
   header.site-header.is-hidden {
     transform: translate3d(0, calc(-100% - 1.5rem), 0);
+    transition:
+      transform 0.42s cubic-bezier(0.4, 0, 0.6, 1),
+      background-color 0.3s ease;
+  }
+  header.site-header.is-hidden > .glass-bar {
+    transform: scale(0.94);
+    transition:
+      transform 0.42s cubic-bezier(0.4, 0, 0.6, 1),
+      opacity 0.3s ease 0.05s,
+      background-color 0.4s ease;
+  }
+
+  /* Liquid glass, once the page moves behind the capsule: a clearer tint so the colours behind
+     bleed through, more saturation, a light pooled at the top-left like a lens, and a lit rim
+     (bright top edge, faint sides and bottom) drawn with inset shadows rather than a mask, so
+     scrolling doesn't pay for an extra render pass. The tint stays dark enough for white text
+     over the white sections. */
+  html:not(.lite) header.site-header:is(.is-scrolled, [data-menu="true"]) > .glass-bar {
+    background-color: oklch(0.2 0.03 243.4 / 62%);
+    background-image:
+      radial-gradient(120% 160% at 12% -50%, oklch(1 0 0 / 20%) 0%, oklch(1 0 0 / 0) 55%),
+      radial-gradient(60% 120% at 100% 130%, oklch(0.75 0.17 50 / 12%) 0%, oklch(1 0 0 / 0) 70%),
+      linear-gradient(180deg, oklch(1 0 0 / 9%) 0%, oklch(1 0 0 / 0) 45%, oklch(0.1 0.02 240 / 16%) 100%);
+    -webkit-backdrop-filter: blur(22px) saturate(210%);
+    backdrop-filter: blur(22px) saturate(210%);
+    box-shadow:
+      inset 0 1px 0 0 oklch(1 0 0 / 50%),
+      inset 0 -1px 0 0 oklch(1 0 0 / 12%),
+      inset 1px 0 0 0 oklch(1 0 0 / 10%),
+      inset -1px 0 0 0 oklch(1 0 0 / 10%),
+      0 18px 36px -18px oklch(0.06 0.02 240 / 70%),
+      0 4px 12px -6px oklch(0.06 0.02 240 / 40%);
+  }
+}
+@media (max-width: 1023px) and (prefers-reduced-transparency: reduce) {
+  header.site-header > .glass-bar {
+    background-color: oklch(0.215 0.029 243.4 / 97%) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
   }
 }
 
@@ -1674,6 +1725,9 @@ html.ios header.site-header > .glass-bar {
   }
   header.site-header.is-hidden {
     transform: none;
+  }
+  header.site-header > .glass-bar {
+    transform: none !important;
   }
   .acc-panel,
   .acc-inner,
