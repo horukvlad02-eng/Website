@@ -880,3 +880,8 @@ html[data-theme="dark"] .office-mini { background: var(--card); }
 .doc-block-photo img { aspect-ratio: 3 / 4; border-radius: var(--radius-card); }
 .page-hero-photo { aspect-ratio: auto; }
 @media (min-width: 1024px) { .hero-figure-eado { margin-top: 1rem; } }
+
+/* Mobile menu: scrolls inside itself; the bottom call bar steps aside while it is open */
+.mnav-sheet { overflow-y: auto; -webkit-overflow-scrolling: touch; touch-action: pan-y; overscroll-behavior: contain; }
+html.menu-open .callbar { opacity: 0 !important; pointer-events: none !important; transform: translateY(120%); }
+.mnav-sheet { background-color: oklch(0.24 0.028 165 / 97%); }
