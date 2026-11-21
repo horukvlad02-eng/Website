@@ -121,6 +121,26 @@ def build(out_dir):
 </urlset>
 """
     write(os.path.join(out_dir, "sitemap.xml"), sitemap_xml)
+
+    # ------------------------------------------------- cache-busting (?v=hash)
+    # Browsers keep /assets/* for a while; a content hash in the URL makes every
+    # change to CSS/JS show up on the next page load.
+    import hashlib, re
+    def ver(rel):
+        with open(os.path.join(out_dir, rel), "rb") as fh:
+            return hashlib.sha1(fh.read()).hexdigest()[:10]
+    assets = ["assets/styles.css", "assets/app.js", "assets/config.js",
+              "assets/i18n/en.js", "assets/i18n/es.js"]
+    stamps = {a: ver(a) for a in assets}
+    for f in written:
+        if not f.endswith(".html"):
+            continue
+        with open(f, encoding="utf-8") as fh:
+            html = fh.read()
+        for a, v in stamps.items():
+            html = re.sub(r'(["\'])/' + re.escape(a) + r'(?:\?v=[0-9a-f]+)?\1', r'\1/' + a + "?v=" + v + r'\1', html)
+        with open(f, "w", encoding="utf-8") as fh:
+            fh.write(html)
     return written
 
 
