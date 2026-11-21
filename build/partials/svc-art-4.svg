@@ -1,0 +1,11 @@
+<svg class="draw-on-reveal" viewBox="0 0 200 130" fill="none" aria-hidden="true">
+                  <g class="bp-stroke">
+                    <path class="draw" pathLength="1" style="--k: 0" d="M68 30 C66 18 80 10 92 16 C96 18 104 18 108 16 C120 10 134 18 132 30 L128 50 H72 Z" />
+                    <path class="draw" pathLength="1" style="--k: 1" d="M78 66 H122 L120 80 C118 96 116 110 110 118 C106 122 103 118 102 110 L100 96 L98 110 C97 118 94 122 90 118 C84 110 82 96 80 80 Z" />
+                  </g>
+                  <g class="bp-thin">
+                    <path class="draw" pathLength="1" style="--k: 2" d="M100 52 V64" stroke-dasharray="2 3" />
+                    <path class="draw" pathLength="1" style="--k: 3" d="M94 58 L100 64 L106 58" />
+                  </g>
+                  <path class="bp-accent draw" pathLength="1" style="--k: 4" d="M40 50 H60 M140 50 H160 M40 66 H60 M140 66 H160" />
+                </svg>

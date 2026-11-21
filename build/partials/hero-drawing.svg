@@ -1,0 +1,44 @@
+<svg class="hero-drawing draw-now" viewBox="0 0 600 700" fill="none">
+            <defs><pattern id="hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0v9" stroke="#8fd3dd" stroke-width="1" stroke-opacity=".28" /></pattern></defs>
+            <!-- bone hatch -->
+            <path class="fade-late" style="--k: 6" d="M40 400 C120 382 170 372 205 380 L222 600 L248 600 L262 436 C285 420 315 420 338 436 L352 600 L378 600 L395 380 C430 372 480 382 560 400 L560 690 L40 690 Z" fill="url(#hatch)" />
+            <!-- gum line -->
+            <path class="bp-thin draw" pathLength="1" style="--k: 5" d="M30 352 C110 330 150 318 192 336 C230 352 370 352 408 336 C450 318 490 330 570 352" />
+            <path class="bp-thin draw" pathLength="1" style="--k: 6" d="M30 402 C110 384 170 372 205 380 M395 380 C430 372 490 384 570 402" stroke-dasharray="4 5" />
+            <!-- tooth outline -->
+            <path class="bp-stroke draw" pathLength="1" style="--k: 0" d="M190 330 C175 280 170 210 205 170 C225 145 255 140 275 165 C288 182 312 182 325 165 C345 140 378 145 395 170 C430 210 425 280 410 330 C405 420 400 520 378 600 C372 615 355 612 352 596 C345 520 330 450 300 430 C270 450 255 520 248 596 C245 612 228 615 222 600 C200 520 195 420 190 330 Z" />
+            <!-- enamel / dentin junction -->
+            <path class="bp-thin draw" pathLength="1" style="--k: 2" d="M200 330 C192 285 190 225 215 192 C232 172 255 170 270 188 C285 205 315 205 330 188 C345 170 370 172 386 192 C410 225 408 285 400 330" />
+            <!-- pulp + canals -->
+            <path class="bp-accent draw" pathLength="1" style="--k: 3" d="M262 300 C258 270 270 248 288 246 C296 256 304 256 312 246 C330 248 342 270 338 300 C345 330 352 420 366 585 C362 590 358 590 356 585 C340 470 322 400 300 392 C278 400 260 470 244 585 C242 590 238 590 234 585 C248 420 255 330 262 300 Z" />
+            <!-- dimension: crown height -->
+            <g class="bp-thin draw" pathLength="1" style="--k: 7">
+              <path pathLength="1" d="M120 145 V330 M112 145 H128 M112 330 H128" />
+              <path pathLength="1" d="M120 352 V610 M112 610 H128" stroke-dasharray="3 4" />
+            </g>
+            <text class="bp-text fade-late" style="--k: 7" x="96" y="245" transform="rotate(-90 96 245)" text-anchor="middle">CROWN</text>
+            <text class="bp-text fade-late" style="--k: 8" x="96" y="480" transform="rotate(-90 96 480)" text-anchor="middle">ROOT</text>
+            <!-- crosshair -->
+            <g class="bp-thin draw" style="--k: 8">
+              <circle pathLength="1" cx="300" cy="300" r="30" />
+              <path pathLength="1" d="M300 258 V342 M258 300 H342" />
+            </g>
+            <!-- callouts -->
+            <g class="fade-late" style="--k: 9">
+              <path class="bp-thin" d="M392 196 L470 150 H560" />
+              <circle cx="392" cy="196" r="3.5" fill="currentColor" />
+              <text class="bp-text" x="476" y="142">ENAMEL</text>
+              <path class="bp-thin" d="M378 262 L470 240 H560" />
+              <circle cx="378" cy="262" r="3.5" fill="currentColor" />
+              <text class="bp-text" x="476" y="232">DENTIN</text>
+              <path class="bp-accent" d="M336 300 L470 320 H560" />
+              <circle cx="336" cy="300" r="3.5" fill="var(--brand)" />
+              <text class="bp-text bp-text-accent" x="476" y="312">PULP</text>
+              <path class="bp-thin" d="M440 324 L470 396 H560" />
+              <text class="bp-text" x="476" y="388">GUM LINE</text>
+              <path class="bp-thin" d="M470 470 H560" />
+              <text class="bp-text" x="476" y="462">JAWBONE</text>
+            </g>
+            <text class="bp-text fade-late" style="--k: 10" x="40" y="60" opacity=".7">FIG. 01 — LOWER MOLAR, CROSS-SECTION</text>
+            <text class="bp-text fade-late" style="--k: 10" x="40" y="80" opacity=".45">ACADIAN FAMILY DENTAL · EST. 1993</text>
+          </svg>

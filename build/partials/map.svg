@@ -1,0 +1,37 @@
+<svg viewBox="40 20 600 470" role="img" aria-label="Stylized map of Northwest Houston showing the office on W. Tidwell Rd and nearby neighborhoods" data-map>
+                  <rect x="40" y="20" width="600" height="470" fill="#1b2638" />
+                  <pattern id="mapgrid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0V30" fill="none" stroke="#8fd3dd" stroke-opacity=".06" /></pattern>
+                  <rect x="40" y="20" width="600" height="470" fill="url(#mapgrid)" />
+                  <ellipse class="map-road major" cx="480" cy="457" rx="262" ry="302" />
+                  <rect class="map-road major" x="390" y="304" width="186" height="214" rx="64" />
+                  <path class="map-road major" d="M420 335 L330 262 L250 190 L79 53 L40 22" />
+                  <path class="map-road" d="M520 304 L548 160 L566 20" />
+                  <path class="map-road" d="M390 392 H40" />
+                  <path class="map-road" d="M120 255 H600" stroke-dasharray="2 6" />
+                  <g font-family="JetBrains Mono, DejaVu Sans Mono, monospace" font-size="10" letter-spacing="1.5" fill="#8fd3dd" fill-opacity=".55">
+                    <text x="205" y="150" transform="rotate(38 205 150)">US-290</text>
+                    <text x="584" y="150">I-45</text>
+                    <text x="60" y="384">I-10</text>
+                    <text x="150" y="249">W TIDWELL RD</text>
+                    <text x="214" y="430">BELTWAY 8</text>
+                    <text x="420" y="512">I-610</text>
+                  </g>
+                  <g class="map-pts">
+                    <g class="map-pt" data-area="Jersey Village"><circle class="map-dot" cx="280" cy="195" r="5" /><text x="270" y="186" text-anchor="end">Jersey Village</text></g>
+                    <g class="map-pt" data-area="Cypress"><circle class="map-dot" cx="79" cy="53" r="5" /><text x="90" y="58">Cypress</text></g>
+                    <g class="map-pt" data-area="Fairbanks / NW Crossing"><circle class="map-dot" cx="323" cy="279" r="5" /><text x="313" y="300" text-anchor="end">Fairbanks / NW Crossing</text></g>
+                    <g class="map-pt" data-area="Greater Inwood"><circle class="map-dot" cx="420" cy="221" r="5" /><text x="430" y="216">Greater Inwood</text></g>
+                    <g class="map-pt" data-area="Spring Branch"><circle class="map-dot" cx="345" cy="345" r="5" /><text x="345" y="366" text-anchor="middle">Spring Branch</text></g>
+                    <g class="map-pt" data-area="Oak Forest"><circle class="map-dot" cx="477" cy="288" r="5" /><text x="467" y="284" text-anchor="end">Oak Forest</text></g>
+                    <g class="map-pt" data-area="Garden Oaks"><circle class="map-dot" cx="510" cy="307" r="5" /><text x="520" y="322">Garden Oaks</text></g>
+                    <g class="map-pt" data-area="Independence Heights"><circle class="map-dot" cx="547" cy="300" r="5" /><text x="560" y="286" text-anchor="middle">Independence Hts</text></g>
+                    <g class="map-pt" data-area="Houston Heights"><circle class="map-dot" cx="528" cy="362" r="5" /><text x="538" y="380">Houston Heights</text></g>
+                    <g class="map-pt" data-area="Timbergrove Manor"><circle class="map-dot" cx="483" cy="342" r="5" /><text x="473" y="346" text-anchor="end">Timbergrove</text></g>
+                  </g>
+                  <g class="map-office">
+                    <circle class="halo" cx="370" cy="255" r="22" />
+                    <circle cx="370" cy="255" r="9" fill="#7ee3cf" stroke="#0b1320" stroke-width="3" />
+                    <rect x="300" y="222" width="140" height="22" rx="11" fill="#7ee3cf" />
+                    <text x="370" y="237" text-anchor="middle" font-family="JetBrains Mono, DejaVu Sans Mono, monospace" font-size="10.5" font-weight="600" letter-spacing="1" fill="#0b1320">ACADIAN DENTAL</text>
+                  </g>
+                </svg>

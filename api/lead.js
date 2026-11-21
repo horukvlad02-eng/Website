@@ -5,16 +5,21 @@
 //   Any webhook (Make, Zapier, n8n, Google Apps Script): LEAD_WEBHOOK_URL
 // With none configured the function answers 503 and the live site asks the visitor to call.
 
+// The form always sends these canonical English values (the visitor sees their own language);
+// `locale` says which language they used.
 const REASONS = new Set([
   "Cleaning & exam",
   "Toothache or pain",
   "Broken tooth",
   "Trouble with a filling",
   "Cosmetic dentistry",
-  "Orthodontics",
   "Dental implants",
   "Something else",
 ]);
+
+// Canonical, language-neutral values — the site localises the labels, not the data.
+const DAYS = new Set(["Tue", "Wed", "Thu", "Fri", "Sat"]);
+const TIMES = new Set(["Mornings", "Afternoons", "Either"]);
 
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 const clip = (s, n) => String(s ?? "").trim().slice(0, n);
@@ -39,8 +44,8 @@ export default async function handler(req, res) {
 
   const lead = {
     reason: REASONS.has(body.reason) ? body.reason : "Something else",
-    days: Array.isArray(body.days) ? body.days.filter((d) => ["Tue", "Wed", "Thu", "Fri", "Sat"].includes(d)) : [],
-    time: ["Mornings", "Afternoons", "Either"].includes(body.time) ? body.time : "Either",
+    days: Array.isArray(body.days) ? body.days.filter((d) => DAYS.has(d)) : [],
+    time: TIMES.has(body.time) ? body.time : "Either",
     newPatient: body.newPatient === "No" ? "No" : "Yes",
     firstName: clip(body.firstName, 60),
     lastName: clip(body.lastName, 60),
@@ -48,8 +53,12 @@ export default async function handler(req, res) {
     email: clip(body.email, 120),
     note: clip(body.note, 600),
     page: clip(body.page, 300),
+    locale: body.locale === "es" ? "es" : "en",
   };
   if (!lead.firstName || !lead.lastName || lead.phone.replace(/\D/g, "").length < 10) {
+    return res.status(400).json({ ok: false, error: "invalid" });
+  }
+  if (!lead.email && !lead.phone) {
     return res.status(400).json({ ok: false, error: "invalid" });
   }
 
@@ -61,6 +70,7 @@ export default async function handler(req, res) {
     ["New patient", lead.newPatient],
     ["Days", lead.days.join(", ") || "Any"],
     ["Time", lead.time],
+    ["Language", lead.locale === "es" ? "Spanish" : "English"],
     ["Note", lead.note || "—"],
   ];
   const subject = `New appointment request: ${lead.firstName} ${lead.lastName} (${lead.reason})`;
