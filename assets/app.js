@@ -214,8 +214,23 @@
     mnav.dataset.open = String(open);
     scrim.dataset.open = String(open);
     document.documentElement.classList.toggle("menu-open", open);
-    if (open) header.classList.remove("is-hidden");
+    if (open) {
+      header.classList.remove("is-hidden");
+      fitMenu();
+      const sheet = $(".mnav-sheet", mnav);
+      if (sheet) sheet.scrollTop = 0;
+    }
   }
+  // The sheet hangs under the header, which may sit lower than the top of the screen
+  // (demo banner, top bar). Size it to the space that is really left, so it can scroll
+  // to the last item instead of running off the bottom of a locked page.
+  function fitMenu() {
+    const sheet = $(".mnav-sheet", mnav);
+    if (!sheet) return;
+    const top = header.getBoundingClientRect().bottom + 8;
+    sheet.style.maxHeight = Math.max(240, window.innerHeight - top - 12) + "px";
+  }
+  addEventListener("resize", () => mnav.dataset.open === "true" && fitMenu(), { passive: true });
   menuBtn?.addEventListener("click", () => setMenu(menuBtn.getAttribute("aria-expanded") !== "true"));
   scrim?.addEventListener("click", () => setMenu(false));
   $$("a", mnav).forEach((a) => a.addEventListener("click", () => setMenu(false)));

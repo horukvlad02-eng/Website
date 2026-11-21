@@ -692,3 +692,8 @@ html.theme-anim *::before,
 html.theme-anim *::after {
   transition: background-color 0.4s, color 0.4s, border-color 0.4s !important;
 }
+
+/* Mobile menu: scrolls inside itself; the bottom call bar steps aside while it is open */
+.mnav-sheet { overflow-y: auto; -webkit-overflow-scrolling: touch; touch-action: pan-y; overscroll-behavior: contain; }
+html.menu-open .callbar { opacity: 0 !important; pointer-events: none !important; transform: translateY(120%); }
+.mnav-sheet { background-color: oklch(0.21 0.035 250 / 96%); }
