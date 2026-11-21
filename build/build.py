@@ -122,6 +122,15 @@ def build(out_dir):
 """
     write(os.path.join(out_dir, "sitemap.xml"), sitemap_xml)
 
+    # dark theme stylesheet is generated from styles.css + classic.css
+    import subprocess
+    here = os.path.dirname(os.path.abspath(__file__))
+    src_root = os.path.dirname(here)
+    subprocess.run([sys.executable, "-I", os.path.join(here, "gen_dark.py"), src_root], check=True)
+    dst = os.path.join(out_dir or ".", "assets", "theme-dark.css")
+    if os.path.abspath(dst) != os.path.join(src_root, "assets", "theme-dark.css"):
+        shutil.copyfile(os.path.join(src_root, "assets", "theme-dark.css"), dst)
+
     # ------------------------------------------------- cache-busting (?v=hash)
     # Browsers keep /assets/* for a while; a content hash in the URL makes every
     # change to CSS/JS show up on the next page load.
@@ -129,7 +138,7 @@ def build(out_dir):
     def ver(rel):
         with open(os.path.join(out_dir, rel), "rb") as fh:
             return hashlib.sha1(fh.read()).hexdigest()[:10]
-    assets = ["assets/styles.css", "assets/classic.css", "assets/app.js", "assets/config.js",
+    assets = ["assets/styles.css", "assets/classic.css", "assets/theme-dark.css", "assets/app.js", "assets/config.js",
               "assets/i18n/en.js", "assets/i18n/es.js"]
     stamps = {a: ver(a) for a in assets}
     for f in written:

@@ -79,6 +79,7 @@ SPRITE = """<svg width="0" height="0" style="position:absolute" aria-hidden="tru
 <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></symbol>
 <symbol id="i-gift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></symbol>
 <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
 <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
 <symbol id="i-nav" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></symbol>
 <symbol id="i-wind" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.8 19.6A2 2 0 1 0 14 16H2M17.5 8a2.5 2.5 0 1 1 2 4H2M9.8 4.4A2 2 0 1 1 11 8H2"/></symbol>
@@ -123,7 +124,9 @@ def head(C, locale, meta):
     <title>{esc(title)}</title>
     <meta name="description" content="{attr(desc)}" />
     <meta name="robots" content="noindex, nofollow" />
-    <meta name="theme-color" content="#111a28" />
+    <meta name="theme-color" content="#f8f5ef" />
+    <meta name="darkreader-lock" />
+    <script>try{{if(localStorage.getItem("theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}}catch(e){{}}</script>
     <meta name="page-type" content="{attr(meta.get('type', 'service'))}" />
     <meta name="site-kind" content="other" />
     <meta property="og:type" content="website" />
@@ -146,6 +149,7 @@ def head(C, locale, meta):
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" />
     <link rel="stylesheet" href="/assets/styles.css" />
     <link rel="stylesheet" href="/assets/classic.css" />
+    <link rel="stylesheet" href="/assets/theme-dark.css" />
     <script>document.documentElement.classList.add("mv-js");</script>"""
 
 
@@ -239,6 +243,10 @@ def nav_html(C, locale):
             <ul>{nav_list}</ul>
           </nav>
           <div class="header-actions">
+            <button class="theme-toggle" type="button" aria-pressed="false" data-theme-toggle
+              data-label-dark="{attr('Switch to dark theme' if locale == 'en' else 'Cambiar a tema oscuro')}"
+              data-label-light="{attr('Switch to light theme' if locale == 'en' else 'Cambiar a tema claro')}"
+              aria-label="{attr('Switch to dark theme' if locale == 'en' else 'Cambiar a tema oscuro')}">{icon("moon", "ic-moon")}{icon("sun", "ic-sun")}</button>
             <a class="lang-switch" href="{other_url(locale, meta_path)}" hreflang="{ 'es' if locale == 'en' else 'en'}" aria-label="{attr(C['ui']['lang_switch'])}">{esc(C['ui']['lang_switch'])}</a>
             <a class="header-call" href="tel:{SITE['phone_tel']}">{icon("phone")}{esc(SITE['phone_display'])}</a>
             <a class="btn btn-primary header-cta header-cta-sm" href="{url(locale, 'book/')}"><span class="cta-long">{esc(C['ui']['cta_book'])}</span><span class="cta-short">{esc(C['ui']['cta_book_short'])}</span></a>
@@ -259,6 +267,9 @@ def nav_html(C, locale):
             <a class="btn btn-primary" href="{url(locale, 'book/')}">{esc(C['ui']['cta_book'])}</a>
             <a class="btn btn-outline-light" href="tel:{SITE['phone_tel']}">{icon("phone")}{esc(C['ui']['cta_call'])} {esc(SITE['phone_display'])}</a>
             <a class="lang-switch lang-switch-block" href="{other_url(locale, meta_path)}">{esc(C['ui']['lang_switch'])}</a>
+            <button class="theme-toggle theme-toggle-block" type="button" aria-pressed="false" data-theme-toggle
+              data-label-dark="{attr('Dark theme' if locale == 'en' else 'Tema oscuro')}"
+              data-label-light="{attr('Light theme' if locale == 'en' else 'Tema claro')}">{icon("moon", "ic-moon")}{icon("sun", "ic-sun")}<span data-theme-label>{esc('Dark theme' if locale == 'en' else 'Tema oscuro')}</span></button>
           </div>
         </div>
       </div>

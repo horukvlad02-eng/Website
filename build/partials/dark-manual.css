@@ -1,0 +1,88 @@
+/* ---- Hand-tuned dark theme (appended to the generated rules) ---- */
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: oklch(0.175 0.022 250);
+  --sand: oklch(0.2 0.024 250);
+  --sand-2: oklch(0.245 0.028 250);
+  --card: oklch(0.225 0.026 250);
+  --night: oklch(0.135 0.02 250);
+  --ink: oklch(0.95 0.012 85);
+  --ink-soft: oklch(0.86 0.014 85);
+  --ink-2: oklch(0.2 0.024 250);
+  --muted: oklch(0.74 0.016 80);
+  --hairline: oklch(0.31 0.025 250);
+  --accent: oklch(0.8 0.08 178);
+  --brand-deep: oklch(0.8 0.08 178);
+  --surface: var(--sand);
+}
+html[data-theme="dark"] body {
+  background: var(--paper);
+}
+html[data-theme="dark"] .hero.hero-classic {
+  background:
+    radial-gradient(70% 60% at 85% 20%, oklch(0.42 0.06 185 / 22%), transparent 70%),
+    linear-gradient(180deg, var(--paper), var(--sand));
+}
+html[data-theme="dark"] .page-hero {
+  background:
+    radial-gradient(60% 80% at 90% 0%, oklch(0.42 0.06 185 / 20%), transparent 70%),
+    linear-gradient(180deg, var(--paper), var(--sand));
+}
+html[data-theme="dark"] .marquee {
+  background: var(--paper);
+}
+/* Buttons: cream on dark */
+html[data-theme="dark"] .btn-primary,
+html[data-theme="dark"] .bg-ink .btn-primary,
+html[data-theme="dark"] .glass-dark .btn-primary,
+html[data-theme="dark"] .footer .btn-primary,
+html[data-theme="dark"] .footer-cta .btn-primary,
+html[data-theme="dark"] .bg-ink.blueprint-grid .glass-dark:not(.comfort-wide) .btn-primary {
+  background-color: oklch(0.93 0.02 85);
+  color: oklch(0.18 0.025 250);
+  box-shadow: 0 16px 34px -18px oklch(0 0 0 / 70%);
+}
+@media (hover: hover) and (pointer: fine) {
+  html[data-theme="dark"] .btn-primary:hover {
+    background-color: var(--gold-soft);
+  }
+}
+html[data-theme="dark"] .svc-art .tag.hot {
+  color: var(--ink);
+}
+html[data-theme="dark"] .icon-btn,
+html[data-theme="dark"] .theme-toggle {
+  background: oklch(1 0 0 / 8%);
+  color: var(--ink);
+}
+html[data-theme="dark"] .nav a:hover,
+html[data-theme="dark"] .nav-trigger:hover,
+html[data-theme="dark"] .nav-item.is-open .nav-trigger {
+  background: oklch(1 0 0 / 6%);
+}
+html[data-theme="dark"] .glass-dark {
+  background-color: var(--night);
+  border-color: var(--hairline);
+}
+html[data-theme="dark"] .card-soft,
+html[data-theme="dark"] .svc,
+html[data-theme="dark"] .hero-classic .hero-card {
+  box-shadow: 0 30px 60px -40px oklch(0 0 0 / 80%);
+}
+html[data-theme="dark"] .hero-classic .chip {
+  background: oklch(1 0 0 / 6%);
+}
+html[data-theme="dark"] .value {
+  background: var(--sand);
+}
+html[data-theme="dark"] img {
+  filter: brightness(0.94);
+}
+html[data-theme="dark"] .glass-light {
+  background-image: none;
+  border-color: var(--hairline);
+  box-shadow: 0 24px 60px -34px oklch(0 0 0 / 70%);
+}
+html[data-theme="dark"] .glass-light::after {
+  display: none;
+}

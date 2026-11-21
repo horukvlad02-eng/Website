@@ -48,6 +48,11 @@
         sessionStorage.setItem(k, v);
       } catch {}
     },
+    setLocal(k, v) {
+      try {
+        localStorage.setItem(k, v);
+      } catch {}
+    },
   };
 
   /* ---------------------------------------------------------------- */
@@ -216,6 +221,38 @@
   $$("a", mnav).forEach((a) => a.addEventListener("click", () => setMenu(false)));
   addEventListener("keydown", (e) => e.key === "Escape" && setMenu(false));
   matchMedia("(min-width: 1024px)").addEventListener?.("change", (e) => e.matches && setMenu(false));
+
+  /* ---------------------------------------------------------------- */
+  /* Light / dark theme. Light (cream) is always the default; the choice */
+  /* is remembered on this device. The <head> applies it before paint.  */
+  /* ---------------------------------------------------------------- */
+  const themeBtns = $$("[data-theme-toggle]");
+  const themeMeta = $('meta[name="theme-color"]');
+  function paintTheme() {
+    const dark = document.documentElement.getAttribute("data-theme") === "dark";
+    themeBtns.forEach((b) => {
+      b.setAttribute("aria-pressed", String(dark));
+      const label = dark ? b.dataset.labelLight : b.dataset.labelDark;
+      if (b.hasAttribute("aria-label")) b.setAttribute("aria-label", label);
+      else b.removeAttribute("aria-label");
+      b.title = label;
+      const span = $("[data-theme-label]", b);
+      if (span) span.textContent = label;
+    });
+    if (themeMeta) themeMeta.content = dark ? "#151d2a" : "#f8f5ef";
+  }
+  themeBtns.forEach((b) =>
+    b.addEventListener("click", () => {
+      const dark = document.documentElement.getAttribute("data-theme") !== "dark";
+      document.documentElement.classList.add("theme-anim");
+      if (dark) document.documentElement.setAttribute("data-theme", "dark");
+      else document.documentElement.removeAttribute("data-theme");
+      store.setLocal("theme", dark ? "dark" : "light");
+      paintTheme();
+      setTimeout(() => document.documentElement.classList.remove("theme-anim"), 500);
+    }),
+  );
+  paintTheme();
 
   /* ---------------------------------------------------------------- */
   /* Services dropdown (desktop)                                        */
