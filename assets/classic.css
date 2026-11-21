@@ -697,3 +697,39 @@ html.theme-anim *::after {
 .mnav-sheet { overflow-y: auto; -webkit-overflow-scrolling: touch; touch-action: pan-y; overscroll-behavior: contain; }
 html.menu-open .callbar { opacity: 0 !important; pointer-events: none !important; transform: translateY(120%); }
 .mnav-sheet { background-color: oklch(0.21 0.035 250 / 96%); }
+
+/* Compact language switch in the header: a small fixed-size "ES"/"EN" pill,
+   always visible (also on phones) and never changing the other buttons' size. */
+.header-actions .lang-switch.lang-mini {
+  display: inline-flex;
+  position: relative;
+  flex: none;
+  justify-content: center;
+  align-items: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  min-height: 0;
+  padding: 0;
+  gap: 0;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+.header-actions .lang-mini::after { content: ""; position: absolute; inset: -5px; } /* 44px touch target */
+.header-actions .lang-mini:hover { background: color-mix(in oklab, var(--ink) 7%, transparent); }
+@media (max-width: 639px) {
+  .header-actions .lang-switch.lang-mini { display: inline-flex; width: 2rem; height: 2rem; }
+}
+@media (max-width: 359px) {
+  .header-actions .lang-switch.lang-mini { width: 1.8rem; height: 1.8rem; font-size: 0.6rem; }
+}
+@media (max-width: 359px) {
+  .bar-inner { gap: 0.4rem; }
+  .header-actions { gap: 0.3rem; }
+  .header-actions .header-cta-sm { padding-inline: 0.75rem; font-size: 0.85rem; }
+  .logo-word b { font-size: 1.15rem; }
+  .logo .logo-mark { width: 36px; height: 36px; }
+}
