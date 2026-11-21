@@ -249,7 +249,7 @@ def nav_html(C, locale):
               data-label-dark="{attr('Switch to dark theme' if locale == 'en' else 'Cambiar a tema oscuro')}"
               data-label-light="{attr('Switch to light theme' if locale == 'en' else 'Cambiar a tema claro')}"
               aria-label="{attr('Switch to dark theme' if locale == 'en' else 'Cambiar a tema oscuro')}">{icon("moon", "ic-moon")}{icon("sun", "ic-sun")}</button>
-            <a class="lang-switch" href="{other_url(locale, meta_path)}" hreflang="{ 'es' if locale == 'en' else 'en'}" aria-label="{attr(C['ui']['lang_switch'])}">{esc(C['ui']['lang_switch'])}</a>
+            <a class="lang-switch lang-mini" href="{other_url(locale, meta_path)}" hreflang="{ 'es' if locale == 'en' else 'en'}" lang="{ 'es' if locale == 'en' else 'en'}" aria-label="{attr(C['ui']['lang_switch'])}" title="{attr(C['ui']['lang_switch'])}"><span aria-hidden="true">{ 'ES' if locale == 'en' else 'EN'}</span></a>
             <a class="header-call" href="tel:{SITE['phone_tel']}">{icon("phone")}{esc(SITE['phone_display'])}</a>
             <a class="btn btn-primary header-cta header-cta-sm" href="{url(locale, 'book/')}"><span class="cta-long">{esc(C['ui']['cta_book'])}</span><span class="cta-short">{esc(C['ui']['cta_book_short'])}</span></a>
             <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mnav" aria-label="{attr(C['ui']['menu_open'])}" data-menu-btn>
