@@ -29,7 +29,7 @@ COPY = {
         "cta_book": "Solicitar una cita",
         "cta_book_short": "Agendar",
         "cta_call": "Llamar",
-        "cta_directions": "Cómo llegar",
+        "cta_directions": "Ver en el mapa",
         "cta_more": "Ver todos los servicios",
         "cta_learn": "Leer más",
         "cta_area": "Encuentre su oficina",

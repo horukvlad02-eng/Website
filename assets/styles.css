@@ -146,7 +146,7 @@ ol {
   font-weight: 700;
   font-size: 0.875rem;
   transform: translateY(-160%);
-  transition: transform 0.2s var(--ease-out-expo);
+  transition: transform 130ms var(--ease-out-expo);
 }
 .skip-link:focus-visible {
   transform: none;
@@ -287,12 +287,12 @@ ol {
   border-radius: 999px;
   white-space: nowrap;
   transition:
-    translate 0.25s var(--ease-out-expo),
-    scale 0.12s,
-    background-color 0.2s,
-    border-color 0.2s,
-    color 0.2s,
-    box-shadow 0.25s;
+    translate 162ms var(--ease-out-expo),
+    scale 78ms,
+    background-color 130ms,
+    border-color 130ms,
+    color 130ms,
+    box-shadow 162ms;
 }
 .btn svg {
   width: 1rem;
@@ -329,7 +329,7 @@ ol {
   }
   .btn-primary:hover::after {
     transform: translate3d(420%, 0, 0) skewX(-18deg);
-    transition: transform 0.9s var(--ease-out-expo);
+    transition: transform 585ms var(--ease-out-expo);
   }
 }
 .btn-light {
@@ -376,7 +376,7 @@ ol {
 .link-arrow svg {
   width: 1rem;
   height: 1rem;
-  transition: transform 0.3s var(--ease-out-expo);
+  transition: transform 195ms var(--ease-out-expo);
 }
 .link-arrow:hover svg {
   transform: translateX(3px);
@@ -423,7 +423,7 @@ ol {
   pointer-events: none;
   background: radial-gradient(130% 90% at var(--mx, 50%) var(--my, -10%), oklch(1 0 0 / 22%), transparent 58%);
   opacity: 0;
-  transition: opacity 0.4s var(--ease-out-expo);
+  transition: opacity 260ms var(--ease-out-expo);
 }
 @media (hover: hover) and (pointer: fine) {
   .glass-interactive:hover::after {
@@ -665,7 +665,7 @@ ol {
   position: sticky;
   top: 0;
   z-index: 40;
-  transition: transform 0.5s var(--ease-out-expo);
+  transition: transform 325ms var(--ease-out-expo);
 }
 .site-header.is-hidden {
   transform: translate3d(0, calc(-100% + 2px), 0);
@@ -677,8 +677,8 @@ ol {
   border-bottom: 1px solid oklch(1 0 0 / 10%);
   color: #fff;
   transition:
-    background-color 0.4s,
-    box-shadow 0.4s;
+    background-color 260ms,
+    box-shadow 260ms;
 }
 .site-header.is-scrolled .bar {
   background-color: oklch(0.2 0.035 250 / 72%);
@@ -745,8 +745,8 @@ ol {
   color: oklch(1 0 0 / 75%);
   border-radius: 999px;
   transition:
-    color 0.2s,
-    background-color 0.2s;
+    color 130ms,
+    background-color 130ms;
 }
 .nav a:hover {
   color: #fff;
@@ -785,8 +785,8 @@ ol {
   background: oklch(1 0 0 / 8%);
   color: #fff;
   transition:
-    background-color 0.2s,
-    transform 0.2s var(--ease-out-expo);
+    background-color 130ms,
+    transform 130ms var(--ease-out-expo);
 }
 .icon-btn:active {
   transform: scale(0.92);
@@ -809,8 +809,8 @@ ol {
   border-radius: 2px;
   background: currentColor;
   transition:
-    transform 0.5s var(--ease-spring),
-    opacity 0.2s;
+    transform 325ms var(--ease-spring),
+    opacity 130ms;
 }
 .burger > span:nth-child(1) {
   top: 0;
@@ -913,15 +913,15 @@ ol {
   transform: translate3d(0, -10px, 0) scale(0.92);
   opacity: 0;
   transition:
-    transform 0.28s var(--ease-io),
-    opacity 0.2s;
+    transform 182ms var(--ease-io),
+    opacity 130ms;
 }
 .mnav[data-open="true"] .mnav-sheet {
   transform: none;
   opacity: 1;
   transition:
-    transform 0.5s var(--ease-spring),
-    opacity 0.22s;
+    transform 325ms var(--ease-spring),
+    opacity 143ms;
 }
 .mnav-sheet a.mlink {
   display: flex;
@@ -942,8 +942,8 @@ ol {
   opacity: 0.5;
 }
 .mnav[data-open="true"] li {
-  animation: menu-item 0.42s var(--ease-out-expo) both;
-  animation-delay: calc(60ms + var(--i, 0) * 30ms);
+  animation: menu-item 273ms var(--ease-out-expo) both;
+  animation-delay: calc(39ms + var(--i, 0) * 20ms);
 }
 @keyframes menu-item {
   from {
@@ -966,13 +966,13 @@ ol {
   opacity: 0;
   visibility: hidden;
   transition:
-    opacity 0.3s,
-    visibility 0s linear 0.3s;
+    opacity 195ms,
+    visibility 0s linear 195ms;
 }
 .scrim[data-open="true"] {
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.3s;
+  transition: opacity 195ms;
 }
 
 /* ------------------------------------------------------------------ */
@@ -1219,7 +1219,7 @@ ol {
 }
 .hero-card-foot a.label-mono {
   color: oklch(1 0 0 / 58%);
-  transition: color 0.2s;
+  transition: color 130ms;
 }
 .hero-card-foot a.label-mono:hover {
   color: var(--brand);
@@ -1347,9 +1347,9 @@ ol {
   border: 1px solid var(--hairline);
   background: #fff;
   transition:
-    translate 0.5s var(--ease-out-expo),
-    box-shadow 0.35s,
-    border-color 0.25s;
+    translate 325ms var(--ease-out-expo),
+    box-shadow 228ms,
+    border-color 162ms;
 }
 @media (hover: hover) and (pointer: fine) {
   .svc:hover {
@@ -1372,7 +1372,7 @@ ol {
 .svc-art svg {
   width: 58%;
   height: auto;
-  transition: transform 0.8s var(--ease-out-expo);
+  transition: transform 520ms var(--ease-out-expo);
 }
 .svc-art .tag {
   position: absolute;
@@ -1598,9 +1598,9 @@ ol {
   border: 1px solid oklch(1 0 0 / 14%);
   color: oklch(1 0 0 / 72%);
   transition:
-    background-color 0.2s,
-    color 0.2s,
-    border-color 0.2s;
+    background-color 130ms,
+    color 130ms,
+    border-color 130ms;
 }
 .ba-options button[aria-pressed="true"] {
   background: var(--brand);
@@ -1785,7 +1785,7 @@ ol {
   padding: 1rem 1.1rem;
   border-radius: 1.1rem;
   cursor: default;
-  transition: background-color 0.25s;
+  transition: background-color 162ms;
 }
 .layer-item:hover,
 .layer-item.is-active {
@@ -1817,15 +1817,15 @@ ol {
 svg.assemble .layer {
   transform-box: fill-box;
   transform-origin: 50% 50%;
-  transition: opacity 0.3s;
+  transition: opacity 195ms;
 }
 html.mv-js .reveal svg.assemble .layer {
-  animation: layer-drop 0.9s var(--ease-out-expo) both paused;
-  animation-delay: calc(var(--l, 0) * 160ms + 0.15s);
+  animation: layer-drop 585ms var(--ease-out-expo) both paused;
+  animation-delay: calc(var(--l, 0) * 104ms + 98ms);
 }
 html.mv-js .reveal svg.assemble .callout {
-  animation: pop-in 0.6s var(--ease-spring) both paused;
-  animation-delay: calc(var(--c, 0) * 90ms + 1.2s);
+  animation: pop-in 390ms var(--ease-spring) both paused;
+  animation-delay: calc(var(--c, 0) * 58ms + 780ms);
   transform-box: fill-box;
   transform-origin: 50% 50%;
 }
@@ -1963,7 +1963,7 @@ svg.assemble[data-focus="6"] .layer[data-k="6"] {
   width: var(--w, 0%);
   border-radius: inherit;
   background: linear-gradient(90deg, var(--brand-deep), var(--brand));
-  transition: width 1.2s var(--ease-out-expo);
+  transition: width 780ms var(--ease-out-expo);
 }
 .meter-legend {
   display: flex;
@@ -2009,15 +2009,15 @@ svg.assemble[data-focus="6"] .layer[data-k="6"] {
 .map-dot {
   fill: #fff;
   transition:
-    r 0.3s var(--ease-spring),
-    fill 0.2s;
+    r 195ms var(--ease-spring),
+    fill 130ms;
 }
 .map-pt text {
   font-family: var(--font-sans);
   font-size: 12.5px;
   font-weight: 600;
   fill: oklch(1 0 0 / 72%);
-  transition: fill 0.2s;
+  transition: fill 130ms;
 }
 .map-pt.is-active .map-dot,
 .map-pt:hover .map-dot {
@@ -2075,9 +2075,9 @@ svg.assemble[data-focus="6"] .layer[data-k="6"] {
   font-weight: 700;
   font-size: 0.95rem;
   transition:
-    border-color 0.2s,
-    box-shadow 0.3s,
-    translate 0.3s var(--ease-out-expo);
+    border-color 130ms,
+    box-shadow 195ms,
+    translate 195ms var(--ease-out-expo);
 }
 .area-list button small {
   display: block;
@@ -2179,9 +2179,9 @@ svg.assemble[data-focus="6"] .layer[data-k="6"] {
   flex-direction: column;
   padding: 1.75rem;
   transition:
-    translate 0.3s var(--ease-out-expo),
-    box-shadow 0.3s,
-    border-color 0.3s;
+    translate 195ms var(--ease-out-expo),
+    box-shadow 195ms,
+    border-color 195ms;
 }
 .review:hover {
   translate: 0 -4px;
@@ -2194,7 +2194,7 @@ svg.assemble[data-focus="6"] .layer[data-k="6"] {
   width: 2.5rem;
   height: 2.5rem;
   color: var(--surface);
-  transition: color 0.3s;
+  transition: color 195ms;
 }
 .review:hover .q {
   color: color-mix(in oklab, var(--brand) 30%, transparent);
@@ -2260,7 +2260,7 @@ svg.assemble[data-focus="6"] .layer[data-k="6"] {
   height: 4px;
   border-radius: 99px;
   background: oklch(1 0 0 / 10%);
-  transition: background-color 0.3s;
+  transition: background-color 195ms;
 }
 .quiz-steps i.on {
   background: var(--brand);
@@ -2317,7 +2317,7 @@ svg.assemble[data-focus="6"] .layer[data-k="6"] {
   color: oklch(1 0 0 / 50%);
 }
 .step-in {
-  animation: step-in 0.45s var(--ease-out-expo) backwards;
+  animation: step-in 292ms var(--ease-out-expo) backwards;
 }
 @keyframes step-in {
   from {
@@ -2417,7 +2417,7 @@ svg.assemble[data-focus="6"] .layer[data-k="6"] {
   box-shadow:
     0 0 0 2px var(--brand),
     0 0 24px color-mix(in oklab, var(--brand) 60%, transparent);
-  transition: transform 0.2s var(--ease-spring);
+  transition: transform 130ms var(--ease-spring);
 }
 .range::-moz-range-thumb {
   width: 1.75rem;
@@ -2456,9 +2456,9 @@ svg.assemble[data-focus="6"] .layer[data-k="6"] {
   color: oklch(1 0 0 / 65%);
   cursor: pointer;
   transition:
-    border-color 0.2s,
-    background-color 0.2s,
-    color 0.2s;
+    border-color 130ms,
+    background-color 130ms,
+    color 130ms;
 }
 .seg input {
   position: absolute;
@@ -2541,9 +2541,9 @@ svg.assemble[data-focus="6"] .layer[data-k="6"] {
   border-radius: 999px;
   background: var(--surface);
   transition:
-    transform 0.5s var(--ease-drawer),
-    background-color 0.3s,
-    color 0.3s;
+    transform 325ms var(--ease-drawer),
+    background-color 195ms,
+    color 195ms;
 }
 .acc-icon svg {
   width: 1rem;
@@ -2557,7 +2557,7 @@ svg.assemble[data-focus="6"] .layer[data-k="6"] {
 .acc-panel {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.55s var(--ease-drawer);
+  transition: grid-template-rows 358ms var(--ease-drawer);
 }
 .acc-item[data-open="true"] .acc-panel {
   grid-template-rows: 1fr;
@@ -2566,11 +2566,11 @@ svg.assemble[data-focus="6"] .layer[data-k="6"] {
   min-height: 0;
   overflow: hidden;
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 195ms;
 }
 .acc-item[data-open="true"] .acc-inner {
   opacity: 1;
-  transition: opacity 0.4s 0.1s;
+  transition: opacity 260ms 65ms;
 }
 .acc-inner p {
   padding-bottom: 1.5rem;
@@ -2670,7 +2670,7 @@ svg.assemble[data-focus="6"] .layer[data-k="6"] {
   height: 4px;
   border-radius: 99px;
   background: var(--hairline);
-  transition: background-color 0.3s;
+  transition: background-color 195ms;
 }
 .form-steps i.on {
   background: var(--brand-deep);
@@ -2714,9 +2714,9 @@ svg.assemble[data-focus="6"] .layer[data-k="6"] {
   font-weight: 600;
   cursor: pointer;
   transition:
-    border-color 0.2s,
-    background-color 0.2s,
-    box-shadow 0.2s;
+    border-color 130ms,
+    background-color 130ms,
+    box-shadow 130ms;
 }
 .opts.days .opt {
   justify-content: center;
@@ -2767,8 +2767,8 @@ svg.assemble[data-focus="6"] .layer[data-k="6"] {
   background: #fff;
   font-size: 1rem;
   transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
+    border-color 130ms,
+    box-shadow 130ms;
 }
 .field textarea {
   min-height: 6rem;
@@ -2926,8 +2926,8 @@ svg.assemble[data-focus="6"] .layer[data-k="6"] {
   background-position: 0 100%;
   background-size: 0% 1px;
   transition:
-    background-size 0.45s var(--ease-out-expo),
-    color 0.25s;
+    background-size 292ms var(--ease-out-expo),
+    color 162ms;
 }
 .footer a:hover {
   color: #fff;
@@ -2976,7 +2976,7 @@ svg.assemble[data-focus="6"] .layer[data-k="6"] {
     inset 0 1px 0 0 oklch(1 0 0 / 30%),
     0 18px 40px -16px oklch(0.06 0.02 250 / 80%);
   transform: translate3d(0, 160%, 0);
-  transition: transform 0.6s var(--ease-drawer);
+  transition: transform 390ms var(--ease-drawer);
 }
 .callbar.is-on {
   transform: none;
@@ -3012,15 +3012,15 @@ svg.assemble[data-focus="6"] .layer[data-k="6"] {
   }
 }
 .rise {
-  animation: rise 0.8s var(--ease-out-expo) both;
+  animation: rise 520ms var(--ease-out-expo) both;
   animation-delay: var(--d, 0s);
 }
 html.mv-js .reveal {
   opacity: 0;
   transform: translate3d(0, 26px, 0);
   transition:
-    opacity 0.6s var(--ease-out-expo),
-    transform 0.75s var(--ease-out-expo);
+    opacity 390ms var(--ease-out-expo),
+    transform 488ms var(--ease-out-expo);
   transition-delay: var(--rd, 0s);
 }
 html.mv-js .reveal[data-fx="left"] {
@@ -3046,8 +3046,8 @@ html.mv-js .stagger > * {
   opacity: 0;
   transform: translate3d(0, 18px, 0);
   transition:
-    opacity 0.55s var(--ease-out-expo),
-    transform 0.6s var(--ease-out-expo);
+    opacity 358ms var(--ease-out-expo),
+    transform 390ms var(--ease-out-expo);
 }
 html.mv-js .is-visible .stagger > *,
 html.mv-js .stagger.is-visible > * {
@@ -3056,23 +3056,23 @@ html.mv-js .stagger.is-visible > * {
 }
 html.mv-js .is-visible .stagger > :nth-child(2),
 html.mv-js .stagger.is-visible > :nth-child(2) {
-  transition-delay: 80ms;
+  transition-delay: 52ms;
 }
 html.mv-js .is-visible .stagger > :nth-child(3),
 html.mv-js .stagger.is-visible > :nth-child(3) {
-  transition-delay: 160ms;
+  transition-delay: 104ms;
 }
 html.mv-js .is-visible .stagger > :nth-child(4),
 html.mv-js .stagger.is-visible > :nth-child(4) {
-  transition-delay: 240ms;
+  transition-delay: 156ms;
 }
 html.mv-js .is-visible .stagger > :nth-child(5),
 html.mv-js .stagger.is-visible > :nth-child(5) {
-  transition-delay: 320ms;
+  transition-delay: 208ms;
 }
 html.mv-js .is-visible .stagger > :nth-child(n + 6),
 html.mv-js .stagger.is-visible > :nth-child(n + 6) {
-  transition-delay: 400ms;
+  transition-delay: 260ms;
 }
 
 /* Word-by-word headings */
@@ -3091,29 +3091,29 @@ html.mv-js .words:not(.mv-in) .wi {
 }
 html.mv-js .words .wi {
   transform-origin: 0 100%;
-  transition: transform 0.95s var(--ease-out-expo);
-  transition-delay: calc(var(--i, 0) * 55ms);
+  transition: transform 618ms var(--ease-out-expo);
+  transition-delay: calc(var(--i, 0) * 36ms);
 }
 
 /* Line drawings */
 html.mv-js svg.draw-now .draw {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: draw 2.6s var(--ease-io) forwards;
-  animation-delay: calc(var(--k, 0) * 110ms + 0.3s);
+  animation: draw 1690ms var(--ease-io) forwards;
+  animation-delay: calc(var(--k, 0) * 72ms + 195ms);
 }
 html.mv-js svg.draw-now .fade-late {
   opacity: 0;
-  animation: fade-in 1s ease forwards;
-  animation-delay: calc(var(--k, 0) * 110ms + 1.6s);
+  animation: fade-in 650ms ease forwards;
+  animation-delay: calc(var(--k, 0) * 72ms + 1040ms);
 }
 html.mv-js .reveal svg.draw-on-reveal .draw {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
 }
 html.mv-js .reveal.is-visible svg.draw-on-reveal .draw {
-  animation: draw 2s var(--ease-io) forwards;
-  animation-delay: calc(var(--k, 0) * 80ms + 0.2s);
+  animation: draw 1300ms var(--ease-io) forwards;
+  animation-delay: calc(var(--k, 0) * 52ms + 130ms);
 }
 @keyframes draw {
   to {
@@ -3188,8 +3188,8 @@ html.mv-js .reveal.is-visible svg.draw-on-reveal .draw {
   text-transform: uppercase;
   color: oklch(1 0 0 / 78%);
   white-space: nowrap;
-  transition: background-color 0.2s var(--ease-out-expo), border-color 0.2s var(--ease-out-expo),
-    color 0.2s var(--ease-out-expo);
+  transition: background-color 130ms var(--ease-out-expo), border-color 130ms var(--ease-out-expo),
+    color 130ms var(--ease-out-expo);
 }
 .lang-switch:hover {
   background: oklch(1 0 0 / 10%);
@@ -3222,13 +3222,13 @@ html.mv-js .reveal.is-visible svg.draw-on-reveal .draw {
   font-size: 0.95rem;
   font-weight: 500;
   color: oklch(1 0 0 / 74%);
-  transition: color 0.2s var(--ease-out-expo);
+  transition: color 130ms var(--ease-out-expo);
 }
 .nav-trigger svg {
   width: 12px;
   height: 12px;
   opacity: 0.6;
-  transition: transform 0.25s var(--ease-out-expo);
+  transition: transform 162ms var(--ease-out-expo);
 }
 .nav-trigger:hover,
 .nav-item.is-open .nav-trigger {
@@ -3259,8 +3259,8 @@ html.mv-js .reveal.is-visible svg.draw-on-reveal .draw {
   border-radius: 12px;
   font-size: 0.92rem;
   color: oklch(1 0 0 / 80%);
-  transition: background-color 0.18s var(--ease-out-expo), color 0.18s var(--ease-out-expo),
-    transform 0.18s var(--ease-out-expo);
+  transition: background-color 117ms var(--ease-out-expo), color 117ms var(--ease-out-expo),
+    transform 117ms var(--ease-out-expo);
 }
 .nav-menu a:hover {
   background: oklch(1 0 0 / 8%);
@@ -3326,7 +3326,7 @@ html.mv-js .reveal.is-visible svg.draw-on-reveal .draw {
 }
 .crumbs a {
   color: oklch(1 0 0 / 66%);
-  transition: color 0.2s var(--ease-out-expo);
+  transition: color 130ms var(--ease-out-expo);
 }
 .crumbs a:hover {
   color: var(--brand);
@@ -3364,8 +3364,8 @@ html.mv-js .reveal.is-visible svg.draw-on-reveal .draw {
   border: 1px solid var(--hairline);
   border-radius: 22px;
   background: #fff;
-  transition: transform 0.25s var(--ease-out-expo), border-color 0.25s var(--ease-out-expo),
-    box-shadow 0.25s var(--ease-out-expo);
+  transition: transform 162ms var(--ease-out-expo), border-color 162ms var(--ease-out-expo),
+    box-shadow 162ms var(--ease-out-expo);
 }
 .service-row:hover {
   transform: translateY(-2px);
@@ -3401,7 +3401,7 @@ html.mv-js .reveal.is-visible svg.draw-on-reveal .draw {
 }
 .service-row-go {
   color: var(--brand-deep);
-  transition: transform 0.25s var(--ease-out-expo);
+  transition: transform 162ms var(--ease-out-expo);
 }
 .service-row-go svg {
   width: 20px;
@@ -3519,7 +3519,7 @@ html.mv-js .reveal.is-visible svg.draw-on-reveal .draw {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s var(--ease-out-expo);
+  transition: transform 390ms var(--ease-out-expo);
 }
 .doc-block:hover .doc-block-photo img {
   transform: scale(1.03);
@@ -3596,7 +3596,7 @@ html.mv-js .reveal.is-visible svg.draw-on-reveal .draw {
   border: 1px solid var(--hairline);
   border-radius: 22px;
   background: #fff;
-  transition: transform 0.25s var(--ease-out-expo), box-shadow 0.25s var(--ease-out-expo);
+  transition: transform 162ms var(--ease-out-expo), box-shadow 162ms var(--ease-out-expo);
 }
 .team-card:hover {
   transform: translateY(-2px);
@@ -3613,7 +3613,7 @@ html.mv-js .reveal.is-visible svg.draw-on-reveal .draw {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s var(--ease-out-expo);
+  transition: transform 325ms var(--ease-out-expo);
 }
 .team-card:hover .team-photo img {
   transform: scale(1.03);
@@ -3692,7 +3692,7 @@ html.mv-js .reveal.is-visible svg.draw-on-reveal .draw {
   align-content: start;
   gap: 0.6rem;
   padding: 1.6rem;
-  transition: transform 0.25s var(--ease-out-expo), box-shadow 0.25s var(--ease-out-expo);
+  transition: transform 162ms var(--ease-out-expo), box-shadow 162ms var(--ease-out-expo);
 }
 .pay-detail:hover {
   transform: translateY(-2px);
@@ -3878,7 +3878,7 @@ html.mv-js .reveal.is-visible svg.draw-on-reveal .draw {
 
 /* Card hover lift — shared across the new blocks */
 .card-soft {
-  transition: transform 0.25s var(--ease-out-expo), box-shadow 0.25s var(--ease-out-expo);
+  transition: transform 162ms var(--ease-out-expo), box-shadow 162ms var(--ease-out-expo);
 }
 a.card-soft:hover,
 a.svc:hover {
@@ -4226,7 +4226,7 @@ a.svc:hover {
   min-width: 23rem;
   padding: 0.6rem;
   transform-origin: 2rem 0;
-  animation: menu-pop 0.34s var(--ease-spring) both;
+  animation: menu-pop 221ms var(--ease-spring) both;
 }
 .nav-menu::before {
   content: "";
@@ -4269,7 +4269,7 @@ a.svc:hover {
   border: 1px solid color-mix(in oklab, var(--brand) 35%, transparent);
   background: color-mix(in oklab, var(--brand) 10%, transparent);
   color: var(--brand);
-  transition: background-color 0.2s, color 0.2s, transform 0.3s var(--ease-spring);
+  transition: background-color 130ms, color 130ms, transform 195ms var(--ease-spring);
 }
 .nav-menu-ico svg {
   width: 1.15rem;
@@ -4309,7 +4309,7 @@ a.svc:hover {
   z-index: 30;
   translate: none !important;
   transition-property: box-shadow, border-color, background-color !important;
-  transition-duration: 0.2s !important;
+  transition-duration: 130ms !important;
   transform-origin: 50% 50%;
   will-change: transform;
 }
@@ -4376,7 +4376,7 @@ a.svc:hover {
 .comfort-tile {
   position: relative; display: grid; gap: .35rem; padding: 1.1rem 1.15rem 1.2rem;
   border-radius: 1rem; background: oklch(1 0 0 / 5%); border: 1px solid oklch(1 0 0 / 12%);
-  transition: border-color .3s, background-color .3s;
+  transition: border-color 195ms, background-color 195ms;
 }
 .comfort-tile:hover { border-color: color-mix(in oklab, var(--brand) 60%, transparent); background: oklch(1 0 0 / 8%); }
 .comfort-tile .mono { font-size: .7rem; letter-spacing: .14em; color: var(--brand); }
@@ -4408,7 +4408,7 @@ a.svc:hover {
   border-radius: 1rem;
   background: var(--surface);
   border: 1px solid oklch(0.2 0.03 250 / 8%);
-  transition: border-color 0.3s, background-color 0.3s;
+  transition: border-color 195ms, background-color 195ms;
 }
 .value:hover {
   border-color: color-mix(in oklab, var(--brand) 45%, transparent);
@@ -4431,7 +4431,7 @@ a.svc:hover {
 /* Implant drawing: numbers are buttons; the picked part is shown under the drawing on phones */
 .layer-item {
   cursor: pointer;
-  transition: background-color 0.2s, box-shadow 0.2s;
+  transition: background-color 130ms, box-shadow 130ms;
 }
 .layer-item:focus-visible {
   outline: 2px solid var(--brand);
@@ -4441,7 +4441,7 @@ svg.assemble .callout {
   cursor: pointer;
 }
 svg.assemble .callout .dot {
-  transition: fill 0.2s, stroke-width 0.2s;
+  transition: fill 130ms, stroke-width 130ms;
   stroke: #fff;
   stroke-width: 0;
 }
