@@ -394,19 +394,59 @@
   /* Implant anatomy: hover a step to light its layer                  */
   /* ---------------------------------------------------------------- */
   const anatomy = $("[data-anatomy]");
-  $$("[data-layer]").forEach((li) => {
-    const on = () => {
-      anatomy?.setAttribute("data-focus", li.dataset.layer);
-      $$("[data-layer]").forEach((x) => x.classList.toggle("is-active", x === li));
-    };
-    li.addEventListener("pointerenter", on);
-    li.addEventListener("click", on);
-    li.addEventListener("pointerleave", (e) => {
-      if (e.pointerType !== "mouse") return;
-      anatomy?.removeAttribute("data-focus");
-      li.classList.remove("is-active");
+  const pickBox = $("[data-anatomy-pick]");
+  const layerItems = $$("[data-layer]");
+  let pinned = null;
+  function showLayer(n) {
+    if (!anatomy) return;
+    if (n) anatomy.setAttribute("data-focus", n);
+    else anatomy.removeAttribute("data-focus");
+    layerItems.forEach((x) => x.classList.toggle("is-active", x.dataset.layer === n));
+    $$("[data-pick]", anatomy).forEach((g) => g.classList.toggle("is-active", g.dataset.pick === n));
+    if (pickBox) {
+      const li = layerItems.find((x) => x.dataset.layer === n);
+      pickBox.classList.toggle("has-pick", !!li);
+      if (li) {
+        pickBox.innerHTML =
+          `<span class="n">${n}</span><div><b>${esc($("h3", li).textContent)}</b><p>${esc($("p", li).textContent)}</p></div>`;
+      } else if (pickBox.dataset.hint) pickBox.innerHTML = pickBox.dataset.hint;
+    }
+  }
+  if (pickBox) pickBox.dataset.hint = pickBox.innerHTML;
+  const pin = (n) => {
+    pinned = pinned === n ? null : n;
+    showLayer(pinned);
+  };
+  const figureOffscreen = () => {
+    const r = anatomy.getBoundingClientRect();
+    return r.bottom < 120 || r.top > innerHeight - 120;
+  };
+  layerItems.forEach((li) => {
+    const n = li.dataset.layer;
+    li.addEventListener("pointerenter", (e) => e.pointerType === "mouse" && showLayer(n));
+    li.addEventListener("pointerleave", (e) => e.pointerType === "mouse" && showLayer(pinned));
+    li.addEventListener("click", () => {
+      pinned = n;
+      showLayer(n);
+      // On a phone the drawing sits above the list: bring it back into view with the part lit up.
+      if (anatomy && figureOffscreen()) {
+        anatomy.closest("figure").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+      }
+    });
+    li.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        li.click();
+      }
     });
   });
+  if (anatomy) {
+    $$("[data-pick]", anatomy).forEach((g) => {
+      g.addEventListener("pointerenter", (e) => e.pointerType === "mouse" && showLayer(g.dataset.pick));
+      g.addEventListener("pointerleave", (e) => e.pointerType === "mouse" && showLayer(pinned));
+      g.addEventListener("click", () => pin(g.dataset.pick));
+    });
+  }
 
   /* ---------------------------------------------------------------- */
   /* Map + neighborhood list                                           */
@@ -731,6 +771,7 @@
   function release(d) {
     d.over = false;
     d.pressed = false;
+    d.el.removeAttribute("data-depth-on");
     const gx = d.t[6],
       gy = d.t[7];
     d.t = REST.slice();
@@ -770,7 +811,7 @@
     const dt = lastTs ? Math.min(0.05, (ts - lastTs) / 1000) : 1 / 60;
     lastTs = ts;
     moving.forEach((d) => {
-      const k = 1 - Math.exp(-(d.over ? 12 : 10) * dt);
+      const k = 1 - Math.exp(-(d.over ? 12 : 16) * dt);
       let still = true;
       for (let i = 0; i < d.c.length; i++) {
         d.c[i] += (d.t[i] - d.c[i]) * k;
@@ -794,6 +835,7 @@
     if (rv && !rv.classList.contains("is-visible")) return false;
     d.over = true;
     d.el.setAttribute("data-depth-live", "");
+    d.el.setAttribute("data-depth-on", "");
     aim(d, e);
     pose(d);
     wake(d);

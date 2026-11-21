@@ -4302,19 +4302,24 @@ a.svc:hover {
 }
 
 /* 3D cards (driven by app.js) ---------------------------------------- */
+/* data-depth-live: the card is moving (hovered or settling back).
+   data-depth-on: the pointer is on it right now — only then the shadow and ring show,
+   so nothing stays lit after the mouse leaves. */
 [data-depth-live] {
   z-index: 30;
   translate: none !important;
   transition-property: box-shadow, border-color, background-color !important;
-  transition-duration: 0.45s !important;
+  transition-duration: 0.2s !important;
   transform-origin: 50% 50%;
   will-change: transform;
+}
+[data-depth-on] {
   box-shadow:
     0 50px 90px -36px oklch(0.12 0.03 250 / 60%),
     0 0 0 1px color-mix(in oklab, var(--brand) 55%, transparent) !important;
 }
-.glass[data-depth-live],
-.glass-dark[data-depth-live] {
+.glass[data-depth-on],
+.glass-dark[data-depth-on] {
   box-shadow:
     inset 0 1px 0 0 oklch(1 0 0 / 40%),
     0 50px 90px -30px oklch(0 0 0 / 80%),
@@ -4420,5 +4425,140 @@ a.svc:hover {
   .values-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+  }
+}
+
+/* Implant drawing: numbers are buttons; the picked part is shown under the drawing on phones */
+.layer-item {
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+.layer-item:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+svg.assemble .callout {
+  cursor: pointer;
+}
+svg.assemble .callout .dot {
+  transition: fill 0.2s, stroke-width 0.2s;
+  stroke: #fff;
+  stroke-width: 0;
+}
+svg.assemble .callout:hover .dot,
+svg.assemble .callout.is-active .dot {
+  fill: #fff;
+  stroke: #7ee3cf;
+  stroke-width: 4;
+}
+svg.assemble[data-focus] .callout:not(.is-active) {
+  opacity: 0.45;
+}
+.anatomy-pick {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.8rem;
+  align-items: start;
+  min-height: 4.6rem;
+  margin-top: 0.75rem;
+  padding: 0.9rem 1rem;
+  border-radius: 0.9rem;
+  background: oklch(1 0 0 / 6%);
+  border: 1px solid oklch(1 0 0 / 10%);
+  color: #fff;
+}
+.anatomy-pick.has-pick {
+  border-color: color-mix(in oklab, var(--brand) 55%, transparent);
+}
+.anatomy-pick .anatomy-hint {
+  grid-column: 1 / -1;
+  align-self: center;
+  margin: 0;
+  color: oklch(1 0 0 / 62%);
+  font-size: 0.9rem;
+}
+.anatomy-pick .n {
+  display: inline-grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 999px;
+  background: var(--brand);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.anatomy-pick b {
+  display: block;
+  font-size: 0.98rem;
+}
+.anatomy-pick p {
+  margin: 0.15rem 0 0;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: oklch(1 0 0 / 70%);
+}
+@media (min-width: 1024px) {
+  /* The list sits right beside the drawing on a wide screen. */
+  .anatomy-pick {
+    display: none;
+  }
+}
+
+/* Phones: shorter home page ----------------------------------------------- */
+@media (max-width: 639px) {
+  /* Service cards: a slimmer drawing strip */
+  .svc-art {
+    aspect-ratio: 16 / 7;
+  }
+  .svc-art svg {
+    width: 38%;
+  }
+  /* Home reviews: swipe sideways instead of six cards stacked */
+  #reviews .reviews {
+    grid-auto-flow: column;
+    grid-auto-columns: 84%;
+    gap: 0.875rem;
+    margin-inline: calc(-1 * 1rem);
+    padding: 0.5rem 1rem 1.25rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1rem;
+    scrollbar-width: none;
+  }
+  #reviews .reviews::-webkit-scrollbar {
+    display: none;
+  }
+  #reviews .review {
+    scroll-snap-align: start;
+  }
+  /* Neighborhoods: two columns */
+  .area-list {
+    grid-template-columns: 1fr 1fr;
+  }
+  .area-list button {
+    padding: 0.75rem 0.8rem;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+  }
+  .area-list button svg {
+    display: none;
+  }
+  /* Team numbers: three across */
+  .team-strip {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+  .team-strip > div {
+    padding: 0.9rem 0.75rem;
+  }
+  .team-strip b {
+    font-size: 1.35rem;
+  }
+  .team-strip > div > span {
+    font-size: 0.75rem;
+    line-height: 1.35;
   }
 }

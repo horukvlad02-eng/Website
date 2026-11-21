@@ -315,6 +315,7 @@ def service_page(locale, C, slug):
           </div>
         </div>
       </section>
+      {sec_anatomy(C, locale) if slug == 'dental-implants' else ''}
       <section class="section bg-surface">
         <div class="wrap visit-band">
           <figure class="visit-photo reveal" data-fx="left">

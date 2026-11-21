@@ -517,7 +517,7 @@ def sec_anatomy(C, locale):
          "La base. Antes de recomendar un implante revisamos cuánta hueso hay."),
     ]
     items = "".join(
-        f"""<li class="layer-item" data-layer="{l[0]}"><span class="n">{l[0]}</span><div><h3>{esc(l[1] if locale == 'en' else l[2])}</h3><p>{esc(l[3] if locale == 'en' else l[4])}</p></div></li>"""
+        f"""<li class="layer-item" data-layer="{l[0]}" tabindex="0"><span class="n">{l[0]}</span><div><h3>{esc(l[1] if locale == 'en' else l[2])}</h3><p>{esc(l[3] if locale == 'en' else l[4])}</p></div></li>"""
         for l in layers
     )
     svg = partial("anatomy.svg").replace(
@@ -542,6 +542,9 @@ def sec_anatomy(C, locale):
             <figure class="glass glass-dark anatomy-figure reveal" data-fx="scale">
               <div class="corner-marks" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
               {svg}
+              <div class="anatomy-pick" data-anatomy-pick aria-live="polite">
+                <p class="anatomy-hint">{esc('Tap a number on the drawing to see what each part does.' if locale == 'en' else 'Toque un número en el dibujo para ver qué hace cada parte.')}</p>
+              </div>
               <figcaption>{esc('Illustration of a single-tooth implant between two natural teeth.' if locale == 'en' else 'Ilustración de un implante de una sola pieza entre dos dientes naturales.')}</figcaption>
             </figure>
             <ol class="layers reveal stagger" data-fx="right">{items}</ol>

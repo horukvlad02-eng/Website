@@ -40,11 +40,11 @@
                   <path d="M246 140 C244 170 248 220 256 262" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none" opacity=".9" />
                 </g>
                 <!-- callouts -->
-                <g font-family="JetBrains Mono, DejaVu Sans Mono, monospace" font-size="12" font-weight="600" text-anchor="middle">
-                  <g class="callout" style="--c: 0"><line x1="374" y1="160" x2="408" y2="112" stroke="#7ee3cf" /><circle cx="414" cy="104" r="14" fill="#7ee3cf" /><text x="414" y="108" fill="#0b1320">1</text></g>
-                                    <g class="callout" style="--c: 1"><line x1="332" y1="300" x2="372" y2="240" stroke="#7ee3cf" /><circle cx="378" cy="232" r="14" fill="#7ee3cf" /><text x="378" y="236" fill="#0b1320">2</text></g>
-                  <g class="callout" style="--c: 2"><line x1="338" y1="420" x2="392" y2="420" stroke="#7ee3cf" /><circle cx="406" cy="420" r="14" fill="#7ee3cf" /><text x="406" y="424" fill="#0b1320">3</text></g>
-                  <g class="callout" style="--c: 3"><line x1="200" y1="312" x2="166" y2="246" stroke="#7ee3cf" /><circle cx="160" cy="236" r="14" fill="#7ee3cf" /><text x="160" y="240" fill="#0b1320">4</text></g>
-                  <g class="callout" style="--c: 4"><line x1="200" y1="470" x2="166" y2="470" stroke="#7ee3cf" /><circle cx="152" cy="470" r="14" fill="#7ee3cf" /><text x="152" y="474" fill="#0b1320">5</text></g>
+                <g font-family="JetBrains Mono, DejaVu Sans Mono, monospace" font-size="15" font-weight="700" text-anchor="middle">
+                  <g class="callout" data-pick="1" style="--c: 0"><line x1="374" y1="160" x2="408" y2="112" stroke="#7ee3cf" /><circle class="hit" cx="414" cy="104" r="36" fill="transparent" /><circle class="dot" cx="414" cy="104" r="17" fill="#7ee3cf" /><text x="414" y="109" fill="#0b1320">1</text></g>
+                                    <g class="callout" data-pick="2" style="--c: 1"><line x1="332" y1="300" x2="372" y2="240" stroke="#7ee3cf" /><circle class="hit" cx="378" cy="232" r="36" fill="transparent" /><circle class="dot" cx="378" cy="232" r="17" fill="#7ee3cf" /><text x="378" y="237" fill="#0b1320">2</text></g>
+                  <g class="callout" data-pick="3" style="--c: 2"><line x1="338" y1="420" x2="392" y2="420" stroke="#7ee3cf" /><circle class="hit" cx="406" cy="420" r="36" fill="transparent" /><circle class="dot" cx="406" cy="420" r="17" fill="#7ee3cf" /><text x="406" y="425" fill="#0b1320">3</text></g>
+                  <g class="callout" data-pick="4" style="--c: 3"><line x1="200" y1="312" x2="166" y2="246" stroke="#7ee3cf" /><circle class="hit" cx="160" cy="236" r="36" fill="transparent" /><circle class="dot" cx="160" cy="236" r="17" fill="#7ee3cf" /><text x="160" y="241" fill="#0b1320">4</text></g>
+                  <g class="callout" data-pick="5" style="--c: 4"><line x1="200" y1="470" x2="166" y2="470" stroke="#7ee3cf" /><circle class="hit" cx="152" cy="470" r="36" fill="transparent" /><circle class="dot" cx="152" cy="470" r="17" fill="#7ee3cf" /><text x="152" y="475" fill="#0b1320">5</text></g>
                 </g>
               </svg>
