@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /
+
+# Concept site — indexing is off on purpose.
+# The practice's real site is https://www.acadiandental.com
+# When this becomes the official site: set "Allow: /", remove the noindex meta tag
+# and the X-Robots-Tag header in vercel.json, then add the sitemap.

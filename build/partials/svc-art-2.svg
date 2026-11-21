@@ -1,0 +1,13 @@
+<svg class="draw-on-reveal" viewBox="0 0 200 130" fill="none" aria-hidden="true">
+                  <g class="bp-stroke">
+                    <path class="draw" pathLength="1" style="--k: 0" d="M84 22 H116 Q124 22 124 32 L121 86 Q118 108 100 108 Q82 108 79 86 L76 32 Q76 22 84 22 Z" />
+                    <path class="draw" pathLength="1" style="--k: 1" d="M88 32 Q90 60 88 86" />
+                  </g>
+                  <g class="bp-thin">
+                    <rect class="draw" pathLength="1" style="--k: 2" x="22" y="40" width="12" height="52" rx="6" />
+                    <rect class="draw" pathLength="1" style="--k: 3" x="40" y="40" width="12" height="52" rx="6" />
+                    <rect class="draw" pathLength="1" style="--k: 4" x="148" y="40" width="12" height="52" rx="6" />
+                    <rect class="draw" pathLength="1" style="--k: 5" x="166" y="40" width="12" height="52" rx="6" />
+                  </g>
+                  <path class="bp-accent draw" pathLength="1" style="--k: 6" d="M140 14 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 z M58 104 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2 z" />
+                </svg>

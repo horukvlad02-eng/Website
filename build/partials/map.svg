@@ -1,0 +1,19 @@
+<svg class="map-eado" viewBox="0 0 600 460" role="img" aria-label="Schematic map of central Houston showing the EaDo office east of downtown and the Northside office on Pinemont Dr" data-map>
+  <rect class="m-bg" x="0" y="0" width="600" height="460" rx="18"/>
+  <path class="m-bayou" d="M0 236 C 90 226, 150 250, 230 244 S 330 238, 380 262 S 470 300, 600 296"/>
+  <ellipse class="m-road m-major" cx="298" cy="252" rx="196" ry="172"/>
+  <path class="m-road m-major" d="M0 252 H600"/>
+  <path class="m-road m-major" d="M300 258 L318 0"/>
+  <path class="m-road m-major" d="M300 258 L478 460"/>
+  <path class="m-road" d="M110 460 L300 258 L462 40"/>
+  <path class="m-road" d="M150 150 L20 40"/>
+  <rect class="m-dt" x="276" y="236" width="44" height="40" rx="8"/>
+  <g class="m-labels">
+    <text x="320" y="16">I-45</text><text x="14" y="246">I-10</text><text x="44" y="70" transform="rotate(40 44 70)">US-290</text>
+    <text x="456" y="58">I-69</text><text x="500" y="170">LOOP 610</text><text class="m-dt-label" x="298" y="292" text-anchor="middle">DOWNTOWN</text>
+  </g>
+  <g class="m-pts"><g class="map-pt" data-area="East Downtown"><circle cx="352" cy="276" r="4.5"/><text x="361" y="280" text-anchor="start">East Downtown</text></g><g class="map-pt" data-area="Second Ward"><circle cx="392" cy="284" r="4.5"/><text x="401" y="288" text-anchor="start">Second Ward</text></g><g class="map-pt" data-area="Downtown"><circle cx="298" cy="250" r="4.5"/><text x="289" y="254" text-anchor="end">Downtown</text></g><g class="map-pt" data-area="Midtown"><circle cx="280" cy="300" r="4.5"/><text x="271" y="304" text-anchor="end">Midtown</text></g><g class="map-pt" data-area="Third Ward"><circle cx="335" cy="330" r="4.5"/><text x="344" y="334" text-anchor="start">Third Ward</text></g><g class="map-pt" data-area="Oak Forest"><circle cx="214" cy="96" r="4.5"/><text x="205" y="100" text-anchor="end">Oak Forest</text></g><g class="map-pt" data-area="Garden Oaks"><circle cx="276" cy="104" r="4.5"/><text x="285" y="108" text-anchor="start">Garden Oaks</text></g><g class="map-pt" data-area="Independence Heights"><circle cx="318" cy="120" r="4.5"/><text x="327" y="124" text-anchor="start">Independence Heights</text></g><g class="map-pt" data-area="Acres Homes"><circle cx="232" cy="38" r="4.5"/><text x="241" y="42" text-anchor="start">Acres Homes</text></g><g class="map-pt" data-area="The Heights"><circle cx="268" cy="176" r="4.5"/><text x="259" y="180" text-anchor="end">The Heights</text></g></g>
+  <g class="m-office" data-office-pin="eado" transform="translate(360 262)"><circle r="17"/><path d="M0 -8 a6 6 0 0 1 6 6 c0 5 -6 11 -6 11 s-6 -6 -6 -11 a6 6 0 0 1 6 -6z"/><text x="24" y="-12">EaDo</text></g>
+  <g class="m-office" data-office-pin="northside" transform="translate(246 70)"><circle r="17"/><path d="M0 -8 a6 6 0 0 1 6 6 c0 5 -6 11 -6 11 s-6 -6 -6 -11 a6 6 0 0 1 6 -6z"/><text x="24" y="-12">Northside</text></g>
+  <text class="m-note" x="586" y="448" text-anchor="end">Schematic, not to scale</text>
+</svg>

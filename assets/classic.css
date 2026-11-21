@@ -1,0 +1,882 @@
+/* ==========================================================================
+   Acadian — "classic" theme layer
+   Warm ivory and sand, a deep navy ink, a quiet teal and a touch of brass.
+   Serif headlines (Fraunces), Inter for text. Loaded after styles.css.
+   ========================================================================== */
+:root {
+  --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-mono: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --paper: oklch(0.986 0.006 85);
+  --sand: oklch(0.962 0.013 80);
+  --sand-2: oklch(0.935 0.018 78);
+  --ink: oklch(0.225 0.032 248);
+  --ink-soft: oklch(0.3 0.035 248);
+  --ink-2: oklch(0.255 0.034 248);
+  --accent: oklch(0.47 0.072 190);
+  --brand-deep: oklch(0.47 0.072 190);
+  --brand: oklch(0.83 0.075 178);
+  --brand-bright: oklch(0.9 0.06 178);
+  --gold: oklch(0.72 0.095 75);
+  --gold-soft: oklch(0.86 0.05 80);
+  --star: oklch(0.74 0.12 78);
+  --surface: var(--sand);
+  --hairline: oklch(0.905 0.014 80);
+  --muted: oklch(0.47 0.018 65);
+  --blueprint: var(--accent);
+  --radius-card: 22px;
+}
+
+body {
+  background: var(--paper);
+}
+
+/* Type -------------------------------------------------------------------- */
+.ba-stats b,
+.clock b,
+.comfort-card h3,
+.comfort-note h3,
+.comfort-wide h2,
+.detail-list h3,
+.display-title,
+.doc-block-body h2,
+.doc-body h3,
+.doc-portrait .mono,
+.footer-cta h2,
+.form-done h3,
+.form-head h3,
+.h2,
+.hero h1,
+.hero-card h2,
+.hero-stats dd,
+.how-step h3,
+.info-block h3,
+.logo-word b,
+.mnav-sheet a.mlink,
+.not-card h2,
+.not-card h3,
+.office-card h3,
+.page-h1,
+.pay-card h3,
+.pay-detail h3,
+.planner-card header h3,
+.quiz .lvl,
+.quiz h3,
+.range-row output,
+.result-box .big,
+.review .av,
+.score > b,
+.service-row-title,
+.svc-body h3,
+.team-card h3,
+.team-photo-mono .team-mono,
+.team-strip b,
+.values-title {
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: -0.012em;
+  font-optical-sizing: auto;
+}
+.display-title,
+.h2,
+.page-h1,
+.hero h1 {
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.h2,
+.h2.display-title {
+  font-size: clamp(2rem, 4.2vw, 3.25rem);
+}
+.display-title em,
+.h2 em,
+.page-h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+.label-mono {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  font-size: 11px;
+}
+.eyebrow {
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.eyebrow::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+.bg-ink .eyebrow,
+.on-dark .eyebrow,
+.glass-dark .eyebrow {
+  color: var(--gold-soft);
+}
+.lead {
+  color: var(--muted);
+}
+
+/* Buttons ------------------------------------------------------------------ */
+.btn {
+  font-weight: 600;
+  letter-spacing: 0.005em;
+}
+.btn-primary {
+  color: var(--paper);
+  background-color: var(--ink);
+  box-shadow: 0 16px 34px -18px oklch(0.2 0.03 248 / 60%);
+}
+.btn-primary::after {
+  background: linear-gradient(100deg, transparent, oklch(1 0 0 / 22%), transparent);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover {
+    background-color: var(--accent);
+    box-shadow: 0 18px 36px -16px color-mix(in oklab, var(--accent) 70%, transparent);
+  }
+}
+.bg-ink .btn-primary,
+.glass-dark .btn-primary,
+.footer .btn-primary,
+.footer-cta .btn-primary,
+.callbar .btn-primary {
+  color: var(--ink);
+  background-color: var(--paper);
+  box-shadow: 0 16px 34px -18px oklch(0 0 0 / 60%);
+}
+@media (hover: hover) and (pointer: fine) {
+  .bg-ink .btn-primary:hover,
+  .glass-dark .btn-primary:hover,
+  .footer .btn-primary:hover,
+  .footer-cta .btn-primary:hover {
+    background-color: var(--gold-soft);
+  }
+}
+.btn-outline-dark {
+  border-color: color-mix(in oklab, var(--ink) 22%, transparent);
+  background: transparent;
+}
+.btn-outline-dark:hover {
+  border-color: var(--ink);
+}
+.btn-outline-dark svg {
+  color: var(--accent);
+}
+.link-arrow {
+  color: var(--accent);
+}
+
+/* Cards -------------------------------------------------------------------- */
+.card-soft {
+  border-color: var(--hairline);
+  box-shadow: 0 26px 60px -44px oklch(0.25 0.03 60 / 45%);
+}
+.check-ico {
+  background: color-mix(in oklab, var(--accent) 12%, transparent);
+  color: var(--accent);
+}
+.bg-ink .check-ico,
+.glass-dark .check-ico {
+  background: oklch(1 0 0 / 8%);
+  color: var(--gold-soft);
+}
+.blueprint-grid,
+.blueprint-paper {
+  background-image: none !important;
+}
+.corner-marks,
+.aurora,
+.glow-soft,
+.hero-shade {
+  display: none !important;
+}
+
+/* Top bar + header ---------------------------------------------------------- */
+.topbar {
+  background: var(--ink);
+}
+.topbar .num {
+  color: var(--gold-soft);
+}
+.topbar .pulse,
+.topbar .pulse::after {
+  background: var(--brand);
+}
+.bar {
+  background-color: oklch(0.986 0.006 85 / 96%);
+  border-bottom: 1px solid var(--hairline);
+  color: var(--ink);
+}
+.site-header.is-scrolled .bar {
+  background-color: oklch(0.986 0.006 85 / 84%);
+  background-image: none;
+  box-shadow: 0 14px 34px -26px oklch(0.25 0.03 60 / 45%);
+}
+.logo-word b {
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.logo-word small {
+  font-size: 9.5px;
+  letter-spacing: 0.24em;
+  color: var(--muted);
+}
+.nav a,
+.nav-trigger {
+  color: oklch(0.225 0.032 248 / 74%);
+}
+.nav a:hover,
+.nav-trigger:hover,
+.nav-item.is-open .nav-trigger {
+  color: var(--ink);
+  background: oklch(0.225 0.032 248 / 5%);
+}
+.header-call {
+  color: var(--ink);
+}
+.header-call svg {
+  color: var(--accent);
+}
+.icon-btn {
+  background: oklch(0.225 0.032 248 / 6%);
+  color: var(--ink);
+}
+.progress {
+  background: transparent;
+}
+.progress i {
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+}
+.bar .lang,
+.bar [hreflang],
+.bar .lang-switch {
+  color: var(--ink);
+  border-color: color-mix(in oklab, var(--ink) 18%, transparent);
+}
+/* Services dropdown: white */
+.nav-menu {
+  background: #fff;
+  border-color: var(--hairline);
+  box-shadow: 0 30px 70px -30px oklch(0.25 0.03 60 / 40%);
+  backdrop-filter: none;
+}
+.nav-menu a {
+  color: var(--ink);
+}
+.nav-menu a:hover {
+  background: var(--sand);
+  color: var(--ink);
+}
+.nav-menu-txt b {
+  color: var(--ink);
+  font-weight: 600;
+}
+.nav-menu-txt small {
+  color: var(--muted);
+}
+.nav-menu-ico {
+  border-color: color-mix(in oklab, var(--accent) 25%, transparent);
+  background: color-mix(in oklab, var(--accent) 7%, transparent);
+  color: var(--accent);
+}
+.nav-menu a.nav-menu-item:hover .nav-menu-ico {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+.nav-menu li:last-child {
+  border-top-color: var(--hairline);
+}
+.nav-menu-all {
+  color: var(--accent) !important;
+}
+
+/* Home hero: light, with the team photo ------------------------------------- */
+.hero.hero-classic {
+  background:
+    radial-gradient(70% 60% at 85% 20%, oklch(0.94 0.03 180 / 55%), transparent 70%),
+    linear-gradient(180deg, var(--paper), var(--sand));
+  color: var(--ink);
+  overflow: visible;
+}
+.hero-classic .hero-inner {
+  display: grid;
+  gap: 3rem;
+  padding-top: 2.5rem;
+  padding-bottom: 4.5rem;
+}
+@media (min-width: 1024px) {
+  .hero-classic .hero-inner {
+    grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+    align-items: center;
+    gap: 4.5rem;
+    padding-top: 4.5rem;
+    padding-bottom: 7rem;
+  }
+}
+.hero-classic h1 {
+  margin-top: 1.5rem;
+  font-size: clamp(2.6rem, 5.4vw, 4.5rem);
+  font-weight: 500;
+}
+.hero-classic h1 em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+}
+.hero-classic .hero-sub {
+  color: var(--muted);
+}
+.hero-classic .rating-chip {
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 0 0 1px var(--hairline), 0 10px 24px -18px oklch(0.25 0.03 60 / 50%);
+}
+.stars-pill {
+  background: var(--ink);
+  color: var(--star);
+}
+.hero-classic .chip {
+  border-color: var(--hairline);
+  background: oklch(1 0 0 / 70%);
+  color: var(--ink);
+}
+.hero-classic .chip svg {
+  color: var(--accent);
+}
+.hero-classic .hero-stats {
+  border-top-color: var(--hairline);
+}
+.hero-classic .hero-stats dt {
+  color: var(--muted);
+}
+.hero-classic .hero-stats dd {
+  font-size: 1.7rem;
+  color: var(--ink);
+}
+.hero-figure {
+  position: relative;
+  margin: 0;
+  isolation: isolate;
+}
+.hero-figure::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 1.1rem -1.1rem -1.1rem 1.1rem;
+  border: 1px solid color-mix(in oklab, var(--gold) 55%, transparent);
+  border-radius: calc(var(--radius-card) + 6px);
+}
+.hero-photo {
+  overflow: hidden;
+  border-radius: calc(var(--radius-card) + 6px);
+  background: var(--sand-2);
+  box-shadow: 0 40px 80px -46px oklch(0.25 0.03 60 / 60%);
+}
+.hero-photo img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 945 / 733;
+  object-fit: cover;
+}
+.hero-classic .hero-card {
+  position: relative;
+  margin-top: 1.25rem;
+  max-width: none;
+  padding: 1.5rem 1.5rem 1.4rem;
+  border-radius: var(--radius-card);
+  background: #fff;
+  border: 1px solid var(--hairline);
+  box-shadow: 0 30px 60px -36px oklch(0.25 0.03 60 / 55%);
+  color: var(--ink);
+}
+.hero-classic .hero-card h2 {
+  margin-top: 0.75rem;
+  font-size: 1.45rem;
+  line-height: 1.15;
+}
+.hero-classic .hero-card .check-list {
+  margin-top: 1rem;
+  gap: 0.55rem;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+}
+.hero-classic .hero-card .link-arrow {
+  display: inline-flex;
+  margin-top: 1.1rem;
+  font-weight: 700;
+}
+.hero-classic .chip .dot {
+  background: var(--muted);
+}
+.hero-classic .chip .dot.is-on {
+  background: oklch(0.62 0.14 150);
+}
+.hero-photo {
+  position: relative;
+}
+.hero-photo-cap {
+  position: absolute;
+  right: 0.9rem;
+  top: 0.8rem;
+  margin: 0;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: oklch(0.2 0.03 248 / 45%);
+  color: oklch(1 0 0 / 85%);
+  font-size: 0.68rem;
+}
+@media (min-width: 1024px) {
+  .hero-classic .hero-inner {
+    padding-bottom: 9rem;
+  }
+  .hero-classic .hero-card {
+    position: absolute;
+    right: 2rem;
+    top: calc(100% - 3.5rem);
+    width: min(25rem, 80%);
+    margin: 0;
+  }
+}
+
+/* Inner page heroes: light ------------------------------------------------- */
+.page-hero {
+  background:
+    radial-gradient(60% 80% at 90% 0%, oklch(0.94 0.03 180 / 45%), transparent 70%),
+    linear-gradient(180deg, var(--paper), var(--sand));
+  color: var(--ink);
+  border-bottom: 1px solid var(--hairline);
+}
+.page-hero::before,
+.page-hero::after {
+  display: none;
+}
+.crumbs ol {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.crumbs li + li::before {
+  color: var(--hairline);
+}
+.crumbs a {
+  color: var(--muted);
+}
+.crumbs a:hover {
+  color: var(--accent);
+}
+.page-h1 {
+  font-weight: 500;
+}
+.page-lead {
+  color: var(--muted);
+}
+.page-hero-art {
+  color: var(--accent);
+}
+.page-hero-art > svg {
+  border-color: var(--hairline);
+  background: #fff;
+  box-shadow: 0 30px 60px -40px oklch(0.25 0.03 60 / 50%);
+}
+.page-hero-photo {
+  border-color: var(--hairline);
+  box-shadow: 0 40px 80px -46px oklch(0.25 0.03 60 / 60%);
+}
+
+/* Values -------------------------------------------------------------------- */
+.value {
+  background: var(--paper);
+}
+.value-ico {
+  color: var(--accent);
+}
+
+/* Service cards: drawings on sand --------------------------------------------- */
+.svc-art {
+  background-color: var(--sand) !important;
+  color: var(--accent);
+  border-bottom: 1px solid var(--hairline);
+}
+.svc-art .tag {
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--hairline);
+  color: var(--ink-soft);
+}
+.svc-art .tag.hot {
+  background: var(--ink);
+  color: var(--paper);
+}
+.svc-body h3 {
+  font-size: 1.45rem;
+}
+.svc-body ul li {
+  background: var(--sand);
+}
+@media (hover: hover) and (pointer: fine) {
+  .svc:hover {
+    border-color: color-mix(in oklab, var(--gold) 55%, var(--hairline));
+  }
+}
+
+/* Neighborhood ticker: light, serif italic names */
+.marquee {
+  background: var(--paper);
+  color: var(--ink-soft);
+  border-block-color: var(--hairline);
+}
+.marquee-track span {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.05rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.marquee-track span::after {
+  background: var(--gold);
+}
+
+/* Dark accent sections: a warmer navy ---------------------------------------- */
+.bg-ink {
+  background-color: var(--ink);
+}
+.glass-dark {
+  background-color: oklch(0.225 0.032 248 / 96%);
+}
+
+/* The comfort section turns light; its cards become white (the big
+   "comfort in the chair" band stays dark as the one accent). */
+.bg-ink.blueprint-grid {
+  background-color: var(--sand) !important;
+  color: var(--ink);
+}
+.bg-ink.blueprint-grid .lead {
+  color: var(--muted);
+}
+.bg-ink.blueprint-grid > .wrap > * > .eyebrow,
+.bg-ink.blueprint-grid .reveal > .eyebrow {
+  color: var(--accent);
+}
+.bg-ink.blueprint-grid .glass-dark:not(.comfort-wide):not(.np-dark) {
+  background: #fff;
+  background-image: none;
+  border-color: var(--hairline);
+  color: var(--ink);
+  box-shadow: 0 26px 60px -44px oklch(0.25 0.03 60 / 45%);
+}
+.bg-ink.blueprint-grid .glass-dark:not(.comfort-wide):not(.np-dark)::before {
+  display: none;
+}
+.bg-ink.blueprint-grid .glass-dark:not(.comfort-wide):not(.np-dark) :is(p, li, small, span:not(.ico):not(.check-ico)) {
+  color: var(--muted);
+}
+.bg-ink.blueprint-grid .glass-dark:not(.comfort-wide):not(.np-dark) :is(h2, h3, b, strong, .big) {
+  color: var(--ink);
+}
+.bg-ink.blueprint-grid .glass-dark:not(.comfort-wide):not(.np-dark) .eyebrow {
+  color: var(--accent);
+}
+.bg-ink.blueprint-grid .glass-dark:not(.comfort-wide):not(.np-dark) .ico {
+  background: color-mix(in oklab, var(--accent) 10%, transparent);
+  color: var(--accent);
+  border-color: color-mix(in oklab, var(--accent) 20%, transparent);
+}
+.bg-ink.blueprint-grid .glass-dark:not(.comfort-wide):not(.np-dark) .check-ico {
+  background: color-mix(in oklab, var(--accent) 12%, transparent);
+  color: var(--accent);
+}
+.bg-ink.blueprint-grid .btn-outline-light {
+  border-color: color-mix(in oklab, var(--ink) 22%, transparent);
+  background: transparent;
+  color: var(--ink);
+}
+.bg-ink.blueprint-grid .glass-dark:not(.comfort-wide):not(.np-dark) .btn-primary {
+  color: var(--paper);
+  background-color: var(--ink);
+}
+
+/* Reviews --------------------------------------------------------------------- */
+.review .stars,
+.review [class*="star"] {
+  color: var(--star);
+}
+.review blockquote,
+.review q,
+.review > p {
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  line-height: 1.5;
+}
+.review .av {
+  background: var(--ink);
+  color: var(--gold-soft);
+}
+
+/* Footer ---------------------------------------------------------------------- */
+.footer {
+  background: var(--ink);
+}
+
+/* Depth ring in brass instead of mint on light cards */
+[data-depth-on] {
+  box-shadow:
+    0 44px 80px -40px oklch(0.25 0.03 60 / 55%),
+    0 0 0 1px color-mix(in oklab, var(--gold) 60%, transparent) !important;
+}
+.depth-glare::after {
+  background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), oklch(0.86 0.08 80 / 90%), oklch(1 0 0 / 0) 48%);
+}
+.hero-classic .eyebrow,
+.hero-classic .hero-card .eyebrow {
+  color: var(--accent);
+}
+
+/* Theme switch ---------------------------------------------------------------- */
+.theme-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--ink) 16%, transparent);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, transform 0.3s var(--ease-spring);
+}
+.theme-toggle:hover {
+  border-color: color-mix(in oklab, var(--ink) 35%, transparent);
+}
+.theme-toggle:active {
+  transform: scale(0.92) rotate(-12deg);
+}
+.theme-toggle svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+.theme-toggle .ic-sun,
+html[data-theme="dark"] .theme-toggle .ic-moon {
+  display: none;
+}
+html[data-theme="dark"] .theme-toggle .ic-sun {
+  display: block;
+}
+@media (min-width: 640px) {
+  .header-actions > .theme-toggle {
+    display: inline-flex;
+  }
+}
+.theme-toggle-block {
+  display: inline-flex;
+  width: 100%;
+  height: 3rem;
+  border-color: oklch(1 0 0 / 18%);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+html.theme-anim,
+html.theme-anim *,
+html.theme-anim *::before,
+html.theme-anim *::after {
+  transition: background-color 0.4s, color 0.4s, border-color 0.4s !important;
+}
+
+/* ==========================================================================
+   EaDo brand layer — warm cream, deep green-charcoal, terracotta clay.
+   Instrument Serif headlines, Inter text.
+   ========================================================================== */
+:root {
+  --font-display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --paper: oklch(0.982 0.008 75);
+  --sand: oklch(0.955 0.017 68);
+  --sand-2: oklch(0.925 0.024 62);
+  --ink: oklch(0.245 0.028 165);
+  --ink-soft: oklch(0.33 0.03 165);
+  --ink-2: oklch(0.27 0.03 165);
+  --accent: oklch(0.54 0.13 38);
+  --brand-deep: oklch(0.54 0.13 38);
+  --brand: oklch(0.8 0.1 55);
+  --brand-bright: oklch(0.87 0.08 60);
+  --gold: oklch(0.68 0.12 48);
+  --gold-soft: oklch(0.87 0.06 62);
+  --star: oklch(0.74 0.14 70);
+  --hairline: oklch(0.9 0.017 70);
+  --muted: oklch(0.46 0.02 60);
+  --sage: oklch(0.72 0.05 150);
+}
+.display-title, .h2, .page-h1, .hero h1, .hero-classic h1,
+.svc-body h3, .doc-body h3, .hero-card h2, .hero-classic .hero-card h2, .logo-word b,
+.office-card-eado h3, .comfort-wide h2, .pay-card h3, .pay-detail h3, .not-card h3, .footer-cta h2,
+.team-strip b, .ba-stats b, .hero-stats dd, .quiz h3, .form-head h3, .values-title, .mono-initials {
+  font-weight: 400 !important;
+  letter-spacing: -0.01em;
+}
+.hero-classic h1 { font-size: clamp(2.8rem, 6vw, 5rem); line-height: 1; }
+.h2, .h2.display-title { font-size: clamp(2.2rem, 4.6vw, 3.6rem); line-height: 1.02; }
+.page-h1 { line-height: 1.02; }
+.logo-word b { font-size: 1.55rem; }
+.svc-body h3 { font-size: 1.7rem; }
+.hero-classic h1 em { font-weight: 400; }
+
+/* Hero: copy + office cards */
+.hero-eado {
+  background:
+    radial-gradient(60% 55% at 88% 18%, oklch(0.9 0.05 50 / 55%), transparent 70%),
+    radial-gradient(50% 50% at 10% 90%, oklch(0.93 0.03 150 / 50%), transparent 70%),
+    linear-gradient(180deg, var(--paper), var(--sand)) !important;
+}
+.hero-offices { display: grid; gap: 1rem; position: relative; }
+.hero-offices .np-card { margin-top: 0; }
+@media (min-width: 1024px) {
+  .hero-eado .hero-inner { padding-bottom: 6rem; }
+  .hero-offices .np-card { position: relative; inset: auto; width: auto; }
+}
+
+/* Office cards */
+.office-cards { display: grid; gap: 1rem; }
+@media (min-width: 720px) { .offices-full .office-cards { grid-template-columns: 1fr 1fr; } }
+.office-card-eado {
+  position: relative;
+  display: grid;
+  gap: 0.9rem;
+  padding: 1.35rem 1.4rem 1.4rem;
+  border-radius: var(--radius-card);
+  background: #fff;
+  border: 1px solid var(--hairline);
+  box-shadow: 0 26px 60px -42px oklch(0.25 0.03 60 / 55%);
+}
+.office-card-eado header { display: grid; grid-template-columns: auto 1fr; gap: 0.8rem; align-items: start; }
+.office-card-eado header .office-status { grid-column: 1 / -1; justify-self: start; }
+@media (min-width: 480px) {
+  .office-card-eado header { grid-template-columns: auto 1fr auto; }
+  .office-card-eado header .office-status { grid-column: auto; }
+}
+.office-pin {
+  display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 999px;
+  background: color-mix(in oklab, var(--accent) 12%, transparent); color: var(--accent);
+}
+.office-pin svg { width: 1.15rem; height: 1.15rem; }
+.office-card-eado h3 { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.05; }
+.office-addr { margin-top: 0.2rem; font-size: 0.92rem; color: var(--muted); }
+.office-note { color: var(--muted); font-size: 0.95rem; }
+.office-hours { font-size: 0.92rem; font-weight: 600; color: var(--ink-soft); }
+.office-status { border: 1px solid var(--hairline); background: var(--paper); color: var(--ink); font-size: 0.78rem; white-space: nowrap; }
+.office-status .dot, .book-office .dot { background: var(--muted); }
+.office-status .dot.is-on, .book-office .dot.is-on { background: oklch(0.62 0.14 150); box-shadow: 0 0 0 3px oklch(0.62 0.14 150 / 20%); }
+.office-table { width: 100%; border-collapse: collapse; font-size: 0.94rem; }
+.office-table td { padding: 0.45rem 0; border-bottom: 1px solid var(--hairline); }
+.office-table td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+.office-table tr.closed td { color: var(--muted); }
+.office-table tr.today td { font-weight: 700; color: var(--accent); }
+.office-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.btn-sm { min-height: 2.6rem; padding: 0.6rem 1.1rem; font-size: 0.9rem; }
+
+/* Doctors without photos: monogram portraits */
+.doc-mono {
+  position: relative;
+  display: grid; place-items: center; align-content: center; gap: 0.4rem;
+  aspect-ratio: 3 / 2;
+  background:
+    radial-gradient(70% 80% at 30% 20%, oklch(0.88 0.06 50 / 70%), transparent 70%),
+    linear-gradient(160deg, var(--sand), var(--sand-2));
+  color: var(--ink);
+  overflow: hidden;
+}
+.doc-mono .mono-initials { font-family: var(--font-display); font-size: clamp(4rem, 9vw, 6.5rem); line-height: 0.9; font-style: italic; color: var(--accent); }
+.doc-mono .mono-name { font-size: 0.85rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600; color: var(--ink-soft); }
+.doc-block-photo.doc-mono { aspect-ratio: 4 / 3; border-radius: var(--radius-card); }
+
+/* Amenities */
+.amen-grid { list-style: none; margin: 2.5rem 0 0; padding: 0; display: grid; gap: 0.75rem; grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 900px) { .amen-grid { grid-template-columns: repeat(5, 1fr); } }
+.amen {
+  display: grid; gap: 0.8rem; align-content: start; padding: 1.2rem; border-radius: 1.1rem;
+  background: #fff; border: 1px solid var(--hairline); box-shadow: 0 20px 50px -40px oklch(0.25 0.03 60 / 50%);
+}
+.amen .ico { display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 0.8rem; background: color-mix(in oklab, var(--accent) 11%, transparent); color: var(--accent); }
+.amen .ico svg { width: 1.25rem; height: 1.25rem; }
+.amen b { font-weight: 600; line-height: 1.3; color: var(--ink); }
+.comfort-eado .pay-row { margin-top: 1.5rem; }
+
+/* Map */
+.map-card-light { padding: 0; border-radius: var(--radius-card); overflow: hidden; border: 1px solid var(--hairline); background: #fff; box-shadow: 0 26px 60px -44px oklch(0.25 0.03 60 / 50%); }
+.map-eado { width: 100%; height: auto; display: block; }
+.map-eado .m-bg { fill: oklch(0.975 0.012 75); }
+.map-eado .m-bayou { fill: none; stroke: oklch(0.8 0.05 200); stroke-width: 5; stroke-linecap: round; opacity: 0.55; }
+.map-eado .m-road { fill: none; stroke: oklch(0.86 0.02 70); stroke-width: 3; stroke-linecap: round; }
+.map-eado .m-major { stroke: oklch(0.8 0.03 70); stroke-width: 5; }
+.map-eado .m-dt { fill: var(--ink); opacity: 0.88; }
+.map-eado .m-labels text { font: 600 10px/1 Inter, sans-serif; letter-spacing: 0.12em; fill: var(--muted); }
+.map-eado .m-labels .m-dt-label { fill: var(--ink); }
+.map-eado .map-pt circle { fill: #fff; stroke: var(--ink-soft); stroke-width: 2; transition: r 0.2s, fill 0.2s; }
+.map-eado .map-pt text { font: 500 11px/1 Inter, sans-serif; fill: var(--ink-soft); }
+.map-eado .map-pt.is-active circle { fill: var(--accent); stroke: var(--accent); r: 6.5; }
+.map-eado .map-pt.is-active text { fill: var(--accent); font-weight: 700; }
+.map-eado .m-office circle { fill: var(--accent); stroke: #fff; stroke-width: 3; }
+.map-eado .m-office path { fill: #fff; }
+.map-eado .m-office text { font: 400 20px/1 "Instrument Serif", Georgia, serif; fill: var(--ink); paint-order: stroke; stroke: oklch(0.975 0.012 75); stroke-width: 4px; }
+.map-eado .m-note { font: 500 9px/1 Inter, sans-serif; fill: var(--muted); }
+.page-hero-art > svg.map-eado { padding: 0; max-width: 30rem; }
+
+/* Neighborhood groups */
+.areas-eado { display: grid; gap: 2rem; margin-top: 3rem; }
+@media (min-width: 1024px) { .areas-eado { grid-template-columns: 1.1fr 0.9fr; align-items: start; } }
+.area-groups { display: grid; gap: 1.25rem; margin-top: 1.5rem; }
+@media (min-width: 600px) { .area-groups { grid-template-columns: 1fr 1fr; } }
+.area-group > p { color: var(--accent); margin-bottom: 0.6rem; }
+.area-group .area-list { grid-template-columns: 1fr; gap: 0.4rem; }
+.area-group .area-list button { padding: 0.7rem 0.9rem; }
+
+/* Booking: office picker + offices list */
+.opts-loc { grid-template-columns: 1fr 1fr; }
+.opt-loc span { display: grid; gap: 0.15rem; text-align: left; }
+.opt-loc small { font-weight: 400; opacity: 0.7; font-size: 0.78rem; }
+.book-office { display: grid; grid-template-columns: 1fr auto; gap: 0.35rem 0.8rem; align-items: center; padding: 0.85rem 0; border-bottom: 1px solid oklch(1 0 0 / 10%); }
+.book-office b { display: block; font-family: var(--font-display); font-size: 1.35rem; font-weight: 400; }
+.book-office div span { font-size: 0.85rem; opacity: 0.7; }
+.book-office a { grid-column: 1 / -1; color: var(--brand); font-weight: 600; font-size: 0.9rem; }
+.book-office .chip { font-size: 0.75rem; }
+
+/* Visit page */
+.offices-full { margin-top: 2.5rem; }
+.info-row { display: grid; gap: 1rem; margin-top: 1.5rem; }
+@media (min-width: 720px) { .info-row { grid-template-columns: 1fr 1fr; } }
+.visit-offices { align-self: center; }
+.doc .doc-mono { aspect-ratio: auto; min-height: 15rem; height: 100%; }
+.glass-dark { background-color: oklch(0.245 0.028 165 / 97%); }
+.hero .glass:not(.glass-flat) { background-color: oklch(0.3 0.03 165 / 40%); }
+
+/* Photos: logo badge, hero figure, office strip */
+.logo-badge { width: 2.9rem; height: 2.9rem; object-fit: contain; }
+html[data-theme="dark"] .logo-badge, .footer .logo-badge { filter: invert(1) brightness(1.6) contrast(0.9); }
+.hero-figure-eado .hero-photo img { aspect-ratio: 1024 / 683; object-position: 50% 40%; }
+.hero-photo-note { margin-top: 0.9rem; font-size: 0.78rem; color: var(--muted); text-align: right; }
+.office-strip { display: grid; gap: 0.6rem; margin-top: 1.1rem; }
+@media (min-width: 560px) { .office-strip { grid-template-columns: 1fr 1fr; } }
+.office-mini {
+  display: grid; grid-template-columns: 1fr auto; gap: 0.35rem 0.6rem; align-items: center;
+  padding: 0.85rem 1rem; border-radius: 1rem; background: #fff; border: 1px solid var(--hairline);
+  box-shadow: 0 18px 40px -32px oklch(0.25 0.03 60 / 55%); transition: border-color .2s, transform .3s var(--ease-spring);
+}
+.office-mini:hover { border-color: var(--accent); transform: translateY(-2px); }
+.office-mini-name { font-family: var(--font-display); font-size: 1.45rem; line-height: 1; }
+.office-mini .office-status { font-size: 0.72rem; padding: 0.25rem 0.55rem; }
+.office-mini-phone { grid-column: 1 / -1; display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 600; font-size: 0.9rem; color: var(--accent); }
+.office-mini-phone svg { width: 0.9rem; height: 0.9rem; }
+html[data-theme="dark"] .office-mini { background: var(--card); }
+.doc-photo img, .doc-block-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
+.doc-block-photo img { aspect-ratio: 3 / 4; border-radius: var(--radius-card); }
+.page-hero-photo { aspect-ratio: auto; }
+@media (min-width: 1024px) { .hero-figure-eado { margin-top: 1rem; } }
