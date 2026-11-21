@@ -264,7 +264,7 @@
       else document.documentElement.removeAttribute("data-theme");
       store.setLocal("theme", dark ? "dark" : "light");
       paintTheme();
-      setTimeout(() => document.documentElement.classList.remove("theme-anim"), 500);
+      setTimeout(() => document.documentElement.classList.remove("theme-anim"), 350);
     }),
   );
   paintTheme();
@@ -343,7 +343,7 @@
     const target = Number(el.dataset.count);
     if (!target || reduceMotion) return;
     const t0 = performance.now(),
-      dur = 1400;
+      dur = 900;
     const step = (t) => {
       const k = Math.min(1, (t - t0) / dur);
       const eased = 1 - Math.pow(1 - k, 3);
@@ -672,7 +672,7 @@
       form.phone.value = d.length > 6 ? `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}` : d.length > 3 ? `(${d.slice(0, 3)}) ${d.slice(3)}` : d;
     });
     // Picking an option on step 1 moves straight on.
-    $$('input[name="reason"]', form).forEach((r) => r.addEventListener("change", () => setTimeout(() => step === 1 && go(2), 220)));
+    $$('input[name="reason"]', form).forEach((r) => r.addEventListener("change", () => setTimeout(() => step === 1 && go(2), 150)));
     back.addEventListener("click", () => go(step - 1));
     next.addEventListener("click", async () => {
       const msg = validate(step);
@@ -863,7 +863,7 @@
     const dt = lastTs ? Math.min(0.05, (ts - lastTs) / 1000) : 1 / 60;
     lastTs = ts;
     moving.forEach((d) => {
-      const k = 1 - Math.exp(-(d.over ? 12 : 16) * dt);
+      const k = 1 - Math.exp(-(d.over ? 18 : 24) * dt);
       let still = true;
       for (let i = 0; i < d.c.length; i++) {
         d.c[i] += (d.t[i] - d.c[i]) * k;

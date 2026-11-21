@@ -21,7 +21,7 @@ SITE = {
     "area": "Northwest Houston",
     "geo_lat": 29.8522935,
     "geo_lng": -95.5029771,
-    "maps_url": "https://www.google.com/maps/dir/?api=1&destination=Acadian+Family+Dental,+7490+W+Tidwell+Rd,+Houston,+TX+77040",
+    "maps_url": "https://www.google.com/maps/search/?api=1&query=Acadian+Family+Dental,+7490+W+Tidwell+Rd,+Houston,+TX+77040",
     "founded_year": 1993,
     "rating": "4.9",
     "reviews_count": "1,000+",

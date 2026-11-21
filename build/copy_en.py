@@ -29,7 +29,7 @@ COPY = {
         "cta_book": "Request an appointment",
         "cta_book_short": "Book a visit",
         "cta_call": "Call",
-        "cta_directions": "Get directions",
+        "cta_directions": "View on map",
         "cta_more": "See all services",
         "cta_learn": "Read more",
         "cta_area": "Check your area",

@@ -653,7 +653,7 @@ body {
   background: transparent;
   color: var(--ink);
   cursor: pointer;
-  transition: background-color 0.2s, border-color 0.2s, transform 0.3s var(--ease-spring);
+  transition: background-color 130ms, border-color 130ms, transform 195ms var(--ease-spring);
 }
 .theme-toggle:hover {
   border-color: color-mix(in oklab, var(--ink) 35%, transparent);
@@ -690,7 +690,7 @@ html.theme-anim,
 html.theme-anim *,
 html.theme-anim *::before,
 html.theme-anim *::after {
-  transition: background-color 0.4s, color 0.4s, border-color 0.4s !important;
+  transition: background-color 260ms, color 260ms, border-color 260ms !important;
 }
 
 /* Mobile menu: scrolls inside itself; the bottom call bar steps aside while it is open */
