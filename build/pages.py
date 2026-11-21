@@ -75,6 +75,9 @@ def home(locale, C):
     hero_drawing = R.partial("hero-drawing.svg")
     ba = R.partial("before-after.html")
     if locale == "es":
+        ba = (ba.replace(">CHIPPED EDGE<", ">BORDE QUEBRADO<").replace(">STAINS<", ">MANCHAS<")
+                .replace(">SHADE B1<", ">TONO B1<"))
+    if locale == "es":
         ba = ba.replace("Before and after comparison position", "Posición de la comparación antes y después")
         ba = ba.replace('<span class="ba-label l label-mono">Before</span>',
                         '<span class="ba-label l label-mono">Antes</span>')
@@ -119,13 +122,9 @@ def home(locale, C):
          if locale == "en" else
          "Los pacientes vienen de Jersey Village, Cypress, Fairbanks/Northwest Crossing, Greater Inwood, Spring Branch, Oak Forest, Garden Oaks, Independence Heights, Houston Heights y Timbergrove Manor — y algunos manejan una hora para seguir viéndonos."),
     ]
-    body = f"""<section id="top" class="hero">
-        <div class="hero-art" aria-hidden="true">
-          <div class="blueprint-grid"></div>
-          <div class="aurora"><i></i><i></i></div>
-          {hero_drawing}
-        </div>
-        <div class="hero-shade" aria-hidden="true"></div>
+    hero_alt = ('The Acadian Family Dental team with Dr. Perkins and Dr. Driver' if locale == 'en'
+                else 'El equipo de Acadian Family Dental con el Dr. Perkins y el Dr. Driver')
+    body = f"""<section id="top" class="hero hero-classic">
         <div class="wrap hero-inner">
           <div class="hero-copy">
             <div class="rise">
@@ -139,24 +138,26 @@ def home(locale, C):
             <p class="hero-sub rise" style="--d: 0.2s">{esc(C['home']['hero_sub'])}</p>
             <div class="btn-row rise" style="--d: 0.3s">
               <a class="btn btn-primary" href="{url(locale, 'book/')}" data-track="hero_book">{esc(C['ui']['cta_book'])} {icon('arrow')}</a>
-              <a class="btn btn-outline-light hero-btn-call" href="tel:{SITE['phone_tel']}" data-track="hero_call">{icon('phone')}{esc(C['ui']['cta_call'])} {esc(SITE['phone_display'])}</a>
+              <a class="btn btn-outline-dark hero-btn-call" href="tel:{SITE['phone_tel']}" data-track="hero_call">{icon('phone')}{esc(C['ui']['cta_call'])} {esc(SITE['phone_display'])}</a>
             </div>
             <dl class="hero-stats rise" style="--d: 0.4s">
               {''.join(f'<div><dt class="label-mono">{esc(k)}</dt><dd>{esc(v)}</dd></div>' for k, v in C['home']['stats'])}
             </dl>
           </div>
-          <div class="glass glass-interactive hero-card rise" style="--d: 0.5s" data-glass>
-            <div class="corner-marks" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-            <p class="label-mono eyebrow">{esc(C['home']['hero_card_eyebrow'])}</p>
-            <h2>{esc(C['home']['hero_card_h'])}</h2>
-            <ul class="check-list">
-              {''.join(f'<li><span class="check-ico">{icon("check")}</span>{esc(i)}</li>' for i in C['home']['hero_card_items'])}
-            </ul>
-            <div class="hero-card-foot">
-              <a class="btn btn-light" href="{url(locale, 'book/')}">{esc(C['home']['hero_card_cta'])} {icon('arrow')}</a>
-              <a class="label-mono" href="tel:{SITE['phone_tel']}">{esc(C['home']['hero_card_alt'])}</a>
+          <figure class="hero-figure rise" style="--d: 0.25s">
+            <div class="hero-photo">
+              <img src="/assets/img/hero-team.webp" srcset="/assets/img/hero-team-sm.webp 560w, /assets/img/hero-team.webp 945w" sizes="(max-width: 1023px) 100vw, 560px" width="945" height="733" alt="{attr(hero_alt)}" fetchpriority="high" decoding="async" />
+              <figcaption class="hero-photo-cap">{esc('Photo: Keith Hall Photo' if locale == 'en' else 'Foto: Keith Hall Photo')}</figcaption>
             </div>
-          </div>
+            <div class="hero-card">
+              <p class="label-mono eyebrow">{esc(C['home']['hero_card_eyebrow'])}</p>
+              <h2>{esc(C['home']['hero_card_h'])}</h2>
+              <ul class="check-list">
+                {''.join(f'<li><span class="check-ico">{icon("check")}</span>{esc(i)}</li>' for i in C['home']['hero_card_items'])}
+              </ul>
+              <a class="link-arrow" href="{url(locale, 'book/')}">{esc(C['home']['hero_card_cta'])} {icon('arrow')}</a>
+            </div>
+          </figure>
         </div>
       </section>
 
@@ -173,8 +174,8 @@ def home(locale, C):
             <p class="lead">{esc('An illustration of a typical smile makeover: whitening for stains, bonding for a chipped edge, and closing a small gap. Drag the handle to compare.' if locale == 'en' else 'Ilustración de un cambio de sonrisa típico: blanqueamiento para manchas, bonding para un borde quebrado y cierre de un espacio pequeño. Mueva el tirador para comparar.')}</p>
             <dl class="ba-stats">
               <div><dt class="sr-only">Rating</dt><dd><b>4.9★</b><span>{esc('1,000+ Google reviews' if locale == 'en' else 'Más de 1,000 reseñas en Google')}</span></dd></div>
-              <div><dt class="sr-only">Experience</dt><dd><b>50+ yrs</b><span>{esc('Combined clinical experience' if locale == 'en' else 'Experiencia clínica combinada')}</span></dd></div>
-              <div><dt class="sr-only">Hours</dt><dd><b>Tue–Sat</b><span>{esc('Including Saturdays' if locale == 'en' else 'Incluyendo sábados')}</span></dd></div>
+              <div><dt class="sr-only">Experience</dt><dd><b>{'50+ yrs' if locale == 'en' else '50+ años'}</b><span>{esc('Combined clinical experience' if locale == 'en' else 'Experiencia clínica combinada')}</span></dd></div>
+              <div><dt class="sr-only">Hours</dt><dd><b>{'Tue–Sat' if locale == 'en' else 'Mar–Sáb'}</b><span>{esc('Including Saturdays' if locale == 'en' else 'Incluyendo sábados')}</span></dd></div>
             </dl>
           </div>
           <div class="reveal" data-fx="right">{ba}</div>

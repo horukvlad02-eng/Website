@@ -26,8 +26,9 @@
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" />
     <link rel="stylesheet" href="/assets/styles.css?v=e0c06ce93a" />
+    <link rel="stylesheet" href="/assets/classic.css?v=bcf0ad57bf" />
     <script>document.documentElement.classList.add("mv-js");</script>
     <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Dentist", "name": "Acadian Family Dental", "telephone": "+1-713-766-5804", "address": {"@type": "PostalAddress", "streetAddress": "7490 W. Tidwell Rd", "addressLocality": "Houston", "addressRegion": "TX", "postalCode": "77040", "addressCountry": "US"}, "geo": {"@type": "GeoCoordinates", "latitude": 29.8522935, "longitude": -95.5029771}, "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "1000"}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "12:00", "closes": "19:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Wednesday", "Thursday"], "opens": "08:00", "closes": "17:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "08:00", "closes": "16:30"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "15:00"}]}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Do you see children?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Acadian is a family practice — many patients bring the whole family, and plenty have been coming for 20 years or more. Book everyone back-to-back to save a trip."}}, {"@type": "Question", "name": "Are you open evenings or on Saturdays?", "acceptedAnswer": {"@type": "Answer", "text": "Tuesday 12–7 pm, Wednesday and Thursday 8 am–5 pm, Friday 8 am–4:30 pm and Saturday 8 am–3 pm. We are closed Sunday and Monday."}}, {"@type": "Question", "name": "I have a toothache. How soon can you see me?", "acceptedAnswer": {"@type": "Answer", "text": "Call 713-766-5804 during office hours and tell us what is going on. We will find the earliest opening we have. If you have facial swelling with fever, or trouble breathing or swallowing, go to the emergency room."}}, {"@type": "Question", "name": "Do you place dental implants?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. We offer dental implants along with crowns and bridges. It starts with an exam and X-rays to check the bone and gums, so we can tell you honestly whether an implant is your best option."}}, {"@type": "Question", "name": "I get really nervous. What can you do?", "acceptedAnswer": {"@type": "Answer", "text": "Tell us when you book. We explain each step before we start and go at your pace, and options such as nitrous oxide are available if you want them."}}, {"@type": "Question", "name": "Do you offer payment plans?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — monthly payment plans are available through Cherry, and the practice also offers a CDG membership plan for families that come regularly for cleanings and check-ups."}}, {"@type": "Question", "name": "Which areas do you serve?", "acceptedAnswer": {"@type": "Answer", "text": "Patients come from Jersey Village, Cypress, Fairbanks/Northwest Crossing, Greater Inwood, Spring Branch, Oak Forest, Garden Oaks, Independence Heights, the Heights and Timbergrove Manor — and some drive an hour to keep seeing us."}}]}]</script>
   </head>
@@ -115,56 +116,7 @@
       </div>
     </header>
     <main id="main">
-<section id="top" class="hero">
-        <div class="hero-art" aria-hidden="true">
-          <div class="blueprint-grid"></div>
-          <div class="aurora"><i></i><i></i></div>
-          <svg class="hero-drawing draw-now" viewBox="0 0 600 700" fill="none">
-            <defs><pattern id="hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0v9" stroke="#8fd3dd" stroke-width="1" stroke-opacity=".28" /></pattern></defs>
-            <!-- bone hatch -->
-            <path class="fade-late" style="--k: 6" d="M40 400 C120 382 170 372 205 380 L222 600 L248 600 L262 436 C285 420 315 420 338 436 L352 600 L378 600 L395 380 C430 372 480 382 560 400 L560 690 L40 690 Z" fill="url(#hatch)" />
-            <!-- gum line -->
-            <path class="bp-thin draw" pathLength="1" style="--k: 5" d="M30 352 C110 330 150 318 192 336 C230 352 370 352 408 336 C450 318 490 330 570 352" />
-            <path class="bp-thin draw" pathLength="1" style="--k: 6" d="M30 402 C110 384 170 372 205 380 M395 380 C430 372 490 384 570 402" stroke-dasharray="4 5" />
-            <!-- tooth outline -->
-            <path class="bp-stroke draw" pathLength="1" style="--k: 0" d="M190 330 C175 280 170 210 205 170 C225 145 255 140 275 165 C288 182 312 182 325 165 C345 140 378 145 395 170 C430 210 425 280 410 330 C405 420 400 520 378 600 C372 615 355 612 352 596 C345 520 330 450 300 430 C270 450 255 520 248 596 C245 612 228 615 222 600 C200 520 195 420 190 330 Z" />
-            <!-- enamel / dentin junction -->
-            <path class="bp-thin draw" pathLength="1" style="--k: 2" d="M200 330 C192 285 190 225 215 192 C232 172 255 170 270 188 C285 205 315 205 330 188 C345 170 370 172 386 192 C410 225 408 285 400 330" />
-            <!-- pulp + canals -->
-            <path class="bp-accent draw" pathLength="1" style="--k: 3" d="M262 300 C258 270 270 248 288 246 C296 256 304 256 312 246 C330 248 342 270 338 300 C345 330 352 420 366 585 C362 590 358 590 356 585 C340 470 322 400 300 392 C278 400 260 470 244 585 C242 590 238 590 234 585 C248 420 255 330 262 300 Z" />
-            <!-- dimension: crown height -->
-            <g class="bp-thin draw" pathLength="1" style="--k: 7">
-              <path pathLength="1" d="M120 145 V330 M112 145 H128 M112 330 H128" />
-              <path pathLength="1" d="M120 352 V610 M112 610 H128" stroke-dasharray="3 4" />
-            </g>
-            <text class="bp-text fade-late" style="--k: 7" x="96" y="245" transform="rotate(-90 96 245)" text-anchor="middle">CROWN</text>
-            <text class="bp-text fade-late" style="--k: 8" x="96" y="480" transform="rotate(-90 96 480)" text-anchor="middle">ROOT</text>
-            <!-- crosshair -->
-            <g class="bp-thin draw" style="--k: 8">
-              <circle pathLength="1" cx="300" cy="300" r="30" />
-              <path pathLength="1" d="M300 258 V342 M258 300 H342" />
-            </g>
-            <!-- callouts -->
-            <g class="fade-late" style="--k: 9">
-              <path class="bp-thin" d="M392 196 L470 150 H560" />
-              <circle cx="392" cy="196" r="3.5" fill="currentColor" />
-              <text class="bp-text" x="476" y="142">ENAMEL</text>
-              <path class="bp-thin" d="M378 262 L470 240 H560" />
-              <circle cx="378" cy="262" r="3.5" fill="currentColor" />
-              <text class="bp-text" x="476" y="232">DENTIN</text>
-              <path class="bp-accent" d="M336 300 L470 320 H560" />
-              <circle cx="336" cy="300" r="3.5" fill="var(--brand)" />
-              <text class="bp-text bp-text-accent" x="476" y="312">PULP</text>
-              <path class="bp-thin" d="M440 324 L470 396 H560" />
-              <text class="bp-text" x="476" y="388">GUM LINE</text>
-              <path class="bp-thin" d="M470 470 H560" />
-              <text class="bp-text" x="476" y="462">JAWBONE</text>
-            </g>
-            <text class="bp-text fade-late" style="--k: 10" x="40" y="60" opacity=".7">FIG. 01 — LOWER MOLAR, CROSS-SECTION</text>
-            <text class="bp-text fade-late" style="--k: 10" x="40" y="80" opacity=".45">ACADIAN FAMILY DENTAL · EST. 1993</text>
-          </svg>
-        </div>
-        <div class="hero-shade" aria-hidden="true"></div>
+<section id="top" class="hero hero-classic">
         <div class="wrap hero-inner">
           <div class="hero-copy">
             <div class="rise">
@@ -178,24 +130,26 @@
             <p class="hero-sub rise" style="--d: 0.2s">Cleanings, fillings, crowns, whitening and dental implants for the whole family — with Dr. Eric Perkins and Dr. Scott Driver on W. Tidwell Rd, just off Hwy 290.</p>
             <div class="btn-row rise" style="--d: 0.3s">
               <a class="btn btn-primary" href="/book" data-track="hero_book">Request an appointment <svg aria-hidden="true"><use href="#i-arrow" /></svg></a>
-              <a class="btn btn-outline-light hero-btn-call" href="tel:+17137665804" data-track="hero_call"><svg aria-hidden="true"><use href="#i-phone" /></svg>Call 713-766-5804</a>
+              <a class="btn btn-outline-dark hero-btn-call" href="tel:+17137665804" data-track="hero_call"><svg aria-hidden="true"><use href="#i-phone" /></svg>Call 713-766-5804</a>
             </div>
             <dl class="hero-stats rise" style="--d: 0.4s">
               <div><dt class="label-mono">Google</dt><dd>4.9★</dd></div><div><dt class="label-mono">In practice</dt><dd>Since 1993</dd></div><div><dt class="label-mono">Tuesdays</dt><dd>Until 7 pm</dd></div><div><dt class="label-mono">Saturdays</dt><dd>8 am–3 pm</dd></div>
             </dl>
           </div>
-          <div class="glass glass-interactive hero-card rise" style="--d: 0.5s" data-glass>
-            <div class="corner-marks" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-            <p class="label-mono eyebrow">New patients welcome</p>
-            <h2>Your first visit, without the guesswork.</h2>
-            <ul class="check-list">
-              <li><span class="check-ico"><svg aria-hidden="true"><use href="#i-check" /></svg></span>A full exam and the X-rays your dentist needs to see the whole picture</li><li><span class="check-ico"><svg aria-hidden="true"><use href="#i-check" /></svg></span>A clear plan: what needs attention now, and what can wait</li><li><span class="check-ico"><svg aria-hidden="true"><use href="#i-check" /></svg></span>Options and costs explained before any work begins</li>
-            </ul>
-            <div class="hero-card-foot">
-              <a class="btn btn-light" href="/book">Pick a day that works <svg aria-hidden="true"><use href="#i-arrow" /></svg></a>
-              <a class="label-mono" href="tel:+17137665804">Or call 713-766-5804</a>
+          <figure class="hero-figure rise" style="--d: 0.25s">
+            <div class="hero-photo">
+              <img src="/assets/img/hero-team.webp" srcset="/assets/img/hero-team-sm.webp 560w, /assets/img/hero-team.webp 945w" sizes="(max-width: 1023px) 100vw, 560px" width="945" height="733" alt="The Acadian Family Dental team with Dr. Perkins and Dr. Driver" fetchpriority="high" decoding="async" />
+              <figcaption class="hero-photo-cap">Photo: Keith Hall Photo</figcaption>
             </div>
-          </div>
+            <div class="hero-card">
+              <p class="label-mono eyebrow">New patients welcome</p>
+              <h2>Your first visit, without the guesswork.</h2>
+              <ul class="check-list">
+                <li><span class="check-ico"><svg aria-hidden="true"><use href="#i-check" /></svg></span>A full exam and the X-rays your dentist needs to see the whole picture</li><li><span class="check-ico"><svg aria-hidden="true"><use href="#i-check" /></svg></span>A clear plan: what needs attention now, and what can wait</li><li><span class="check-ico"><svg aria-hidden="true"><use href="#i-check" /></svg></span>Options and costs explained before any work begins</li>
+              </ul>
+              <a class="link-arrow" href="/book">Pick a day that works <svg aria-hidden="true"><use href="#i-arrow" /></svg></a>
+            </div>
+          </figure>
         </div>
       </section>
 

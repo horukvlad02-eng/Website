@@ -129,7 +129,7 @@ def build(out_dir):
     def ver(rel):
         with open(os.path.join(out_dir, rel), "rb") as fh:
             return hashlib.sha1(fh.read()).hexdigest()[:10]
-    assets = ["assets/styles.css", "assets/app.js", "assets/config.js",
+    assets = ["assets/styles.css", "assets/classic.css", "assets/app.js", "assets/config.js",
               "assets/i18n/en.js", "assets/i18n/es.js"]
     stamps = {a: ver(a) for a in assets}
     for f in written:
