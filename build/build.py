@@ -105,12 +105,15 @@ def build(out_dir):
     urls = []
     base = SITE["site_url"].rstrip("/")
     for p in sitemap:
-        for loc in (f"{base}/{p}", f"{base}/es/{p}"):
+        p = p.rstrip("/")  # match canonical URLs (vercel.json: trailingSlash false)
+        en_url = f"{base}/{p}" if p else f"{base}/"
+        es_url = f"{base}/es/{p}" if p else f"{base}/es/"
+        for loc in (en_url, es_url):
             urls.append(f"""  <url>
     <loc>{loc}</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="{base}/{p}"/>
-    <xhtml:link rel="alternate" hreflang="es" href="{base}/es/{p}"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="{base}/{p}"/>
+    <xhtml:link rel="alternate" hreflang="en" href="{en_url}"/>
+    <xhtml:link rel="alternate" hreflang="es" href="{es_url}"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="{en_url}"/>
   </url>""")
     sitemap_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
