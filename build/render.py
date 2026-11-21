@@ -381,8 +381,10 @@ def sec_values(C, locale):
     return f"""<section class="values" aria-label="{attr(C['home']['values_eyebrow'])}">
         <div class="wrap">
           <div class="card-soft values-card reveal">
-            <p class="label-mono">{esc(C['home']['values_eyebrow'])}</p>
-            <h2 class="values-title">{esc(C['home']['values_title'])}</h2>
+            <div class="values-head">
+              <p class="label-mono">{esc(C['home']['values_eyebrow'])}</p>
+              <h2 class="values-title">{esc(C['home']['values_title'])}</h2>
+            </div>
             <ul class="values-grid stagger">
               {cards}
             </ul>

@@ -225,6 +225,11 @@
   const servicesItem = servicesToggle && servicesToggle.closest(".nav-item");
   function setServices(open) {
     if (!servicesItem || !servicesMenu) return;
+    if (open) {
+      const hb = header.getBoundingClientRect().bottom,
+        ib = servicesItem.getBoundingClientRect().bottom;
+      servicesItem.style.setProperty("--menu-gap", Math.max(8, Math.round(hb - ib + 8)) + "px");
+    }
     servicesItem.classList.toggle("is-open", open);
     servicesToggle.setAttribute("aria-expanded", String(open));
     servicesMenu.hidden = !open;
@@ -662,13 +667,12 @@
   /* Mouse: on hover. Touch: press and hold ~180 ms (a scroll cancels). */
   /* Ported from the Centurion motion engine, with a stronger pop.     */
   /* ---------------------------------------------------------------- */
-  const TILT_SEL = [
-    ".svc", ".doc", ".team-card", ".review", ".comfort-card", ".pay-card", ".pay-detail",
-    ".team-strip > div", ".detail-list > li", ".tech-card", ".how-step", ".hero-card",
-    ".values-grid > .value", ".office-card", ".not-card", ".info-block", ".score",
-    ".service-row", ".area-list button", ".comfort-tile", ".doc-block-photo", ".hours", ".anatomy-figure", ".visit-photo",
-    ".team-photo-wide", ".page-hero-art > svg", ".page-hero-photo", ".ba-stats > div",
-  ].join(",");
+  // Two strengths. STRONG: the big clickable "trading cards" (services, dentists, payment).
+  // SOFT: supporting tiles get a gentle lift and a small tilt, so the page never feels busy.
+  // Lists, rows, photos and maps stay still on purpose.
+  const STRONG_SEL = [".svc", ".doc", ".team-card", ".doc-block-photo", ".comfort-card", ".pay-card", ".pay-detail", ".hero-card"].join(",");
+  const SOFT_SEL = [".review", ".value", ".tech-card", ".comfort-tile", ".how-step", ".info-block", ".not-card", ".office-card", ".detail-list > li"].join(",");
+  const TILT_SEL = STRONG_SEL + "," + SOFT_SEL;
   const NO_TILT = "form, [data-quiz], [data-planner], [data-ba], .map-card, .acc-item, [data-no-tilt]";
   const REST = [0, 0, 0, 1, 0, 0, 50, 50, 0, 0]; // rx, ry, lift, scale, glare, zoom, gx, gy, px, py
   const depthMap = new WeakMap();
@@ -690,14 +694,16 @@
     if (el.tagName !== "IMG" && el.tagName.toLowerCase() !== "svg") el.appendChild(glare);
     if (getComputedStyle(el).position === "static") el.style.position = "relative";
     const w = r.width;
+    const soft = !el.matches(STRONG_SEL);
     d = {
       el,
       glare,
       img: el.tagName === "IMG" ? null : el.querySelector(".doc-photo img, .team-photo img, .visit-photo img, img"),
       over: false,
       pressed: false,
-      maxDeg: Math.min(14, Math.max(3, (12 * 380) / w)),
-      pop: w < 300 ? 1.12 : w < 520 ? 1.07 : w < 800 ? 1.045 : 1.025,
+      soft,
+      maxDeg: soft ? Math.min(5, Math.max(2, (5 * 380) / w)) : Math.min(12, Math.max(3, (11 * 380) / w)),
+      pop: soft ? (w < 520 ? 1.025 : 1.015) : w < 300 ? 1.1 : w < 520 ? 1.07 : w < 800 ? 1.045 : 1.025,
       c: REST.slice(),
       t: REST.slice(),
     };
@@ -717,9 +723,9 @@
     d.t[9] = (y - 0.5) * 2;
   }
   function pose(d) {
-    d.t[2] = d.pressed ? 4 : 12;
+    d.t[2] = d.pressed ? 3 : d.soft ? 5 : 12;
     d.t[3] = d.pressed ? 1 + (d.pop - 1) * 0.6 : d.pop;
-    d.t[4] = 1;
+    d.t[4] = d.soft ? 0.6 : 1;
     d.t[5] = 1;
   }
   function release(d) {

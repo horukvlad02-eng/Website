@@ -4221,8 +4221,8 @@ a.svc:hover {
 /* Services dropdown: bridge the gap so the pointer never "leaves" on its way down,
    and a richer menu with an icon and one line per service. */
 .nav-menu {
-  top: calc(100% + 0.75rem);
-  left: -0.75rem;
+  top: calc(100% + var(--menu-gap, 0.75rem));
+  left: -0.6rem;
   min-width: 23rem;
   padding: 0.6rem;
   transform-origin: 2rem 0;
@@ -4233,8 +4233,19 @@ a.svc:hover {
   position: absolute;
   left: 0;
   right: 0;
-  top: -1rem;
-  height: 1rem;
+  top: calc(-1 * var(--menu-gap, 0.75rem) - 2px);
+  height: calc(var(--menu-gap, 0.75rem) + 2px);
+}
+.nav-menu ul {
+  grid-template-columns: 1fr;
+}
+.nav-menu a.nav-menu-item:hover {
+  transform: none;
+}
+.nav-menu li:last-child {
+  margin-top: 0.35rem;
+  padding-top: 0.35rem;
+  border-top: 1px solid oklch(1 0 0 / 9%);
 }
 @keyframes menu-pop {
   from {
@@ -4279,14 +4290,15 @@ a.svc:hover {
 }
 .nav-menu a.nav-menu-item:hover .nav-menu-ico {
   background: var(--brand);
+  border-color: var(--brand);
   color: var(--ink);
-  transform: scale(1.08) rotate(-4deg);
 }
-.nav-menu-all {
-  margin-top: 0.25rem;
-  border-top: 1px solid oklch(1 0 0 / 8%);
-  border-radius: 0 0 12px 12px !important;
-  padding-top: 0.75rem !important;
+.nav-menu a.nav-menu-all {
+  display: block;
+  padding: 0.7rem 0.7rem;
+}
+.nav-menu a.nav-menu-all:hover {
+  transform: none;
 }
 
 /* 3D cards (driven by app.js) ---------------------------------------- */
@@ -4367,3 +4379,46 @@ a.svc:hover {
 .comfort-tile small { color: oklch(1 0 0 / 68%); font-size: .875rem; line-height: 1.4; }
 @media (min-width: 900px) { .comfort-wide { grid-template-columns: 1.1fr 1fr; gap: 3rem; } }
 @media (max-width: 420px) { .comfort-tiles { grid-template-columns: 1fr; } }
+
+/* Values: sits in the white section (no overlap with the dark hero);
+   title on the left, four tiles on the right. */
+.values {
+  margin-top: 0;
+  padding-top: clamp(3.5rem, 2.5rem + 3vw, 5.5rem);
+}
+.values-card {
+  display: grid;
+  gap: 1.75rem;
+}
+.values-card .values-title {
+  margin-bottom: 0;
+}
+.values-grid {
+  margin-top: 0;
+  gap: 0.875rem;
+}
+.value {
+  position: relative;
+  padding: 1.15rem 1.2rem;
+  border-radius: 1rem;
+  background: var(--surface);
+  border: 1px solid oklch(0.2 0.03 250 / 8%);
+  transition: border-color 0.3s, background-color 0.3s;
+}
+.value:hover {
+  border-color: color-mix(in oklab, var(--brand) 45%, transparent);
+}
+.value p {
+  margin-top: 0.2rem;
+}
+@media (min-width: 1024px) {
+  .values-card {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 3rem;
+    align-items: center;
+  }
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
