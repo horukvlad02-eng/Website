@@ -465,6 +465,19 @@ def payment_page(locale, C):
               <p>{esc(C['payment']['cdg_body'])}</p>
             </article>
           </div>"""
+    COMFORT_TILES = {
+        "en": [("01", "Say it when you book", "The team plans the visit around it."),
+               ("02", "Blankets and pillows", "Ask for them at any point."),
+               ("03", "Each step explained", "Before it starts, not after."),
+               ("04", "Nitrous oxide or guided sedation", "Used when a patient needs it.")],
+        "es": [("01", "Dígalo al agendar", "El equipo planea la cita con eso en cuenta."),
+               ("02", "Mantas y almohadas", "Pídalas en cualquier momento."),
+               ("03", "Cada paso explicado", "Antes de empezar, no después."),
+               ("04", "Óxido nitroso o sedación guiada", "Cuando el paciente lo necesita.")],
+    }
+    comfort_tiles = "".join(
+        f'<li class="comfort-tile"><span class="mono">{n}</span><b>{esc(t)}</b><small>{esc(d)}</small></li>'
+        for n, t, d in COMFORT_TILES[locale])
     body = f"""{page_hero(C, locale, C['payment']['eyebrow'], C['payment']['title'], C['payment']['lead'],
         [(C['ui']['breadcrumb_home'], url(locale)), (C['payment']['eyebrow'], None)], path)}
       <section class="section">
@@ -473,13 +486,16 @@ def payment_page(locale, C):
       <section class="section bg-ink blueprint-grid">
         <div class="wrap">
           <div class="glass glass-dark comfort-wide reveal" data-glass>
-            <span class="ico">{icon('wind')}</span>
-            <h2>{esc(C['payment']['comfort_title'])}</h2>
-            <p>{esc(C['payment']['comfort_body'])}</p>
-            <div class="btn-row">
-              <a class="btn btn-primary" href="{url(locale, 'book/')}">{esc(C['ui']['cta_book'])}</a>
-              <a class="btn btn-outline-light" href="tel:{SITE['phone_tel']}">{icon('phone')}{esc(SITE['phone_display'])}</a>
+            <div class="comfort-wide-txt">
+              <span class="ico">{icon('wind')}</span>
+              <h2>{esc(C['payment']['comfort_title'])}</h2>
+              <p>{esc(C['payment']['comfort_body'])}</p>
+              <div class="btn-row">
+                <a class="btn btn-primary" href="{url(locale, 'book/')}">{esc(C['ui']['cta_book'])}</a>
+                <a class="btn btn-outline-light" href="tel:{SITE['phone_tel']}">{icon('phone')}{esc(SITE['phone_display'])}</a>
+              </div>
             </div>
+            <ul class="comfort-tiles">{comfort_tiles}</ul>
           </div>
         </div>
       </section>

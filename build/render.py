@@ -189,10 +189,23 @@ def topbar(C):
     </div>"""
 
 
+NAV_BLURB = {
+    "family-dentistry": ("Cleanings, exams and care for kids", "Limpiezas, exámenes y niños"),
+    "cosmetic-dentistry": ("Whitening, veneers and bonding", "Blanqueamiento, carillas, bonding"),
+    "dental-implants": ("Replace a missing tooth for good", "Reemplace un diente perdido"),
+    "restorative-dentistry": ("Fillings, crowns, bridges, root canals", "Empastes, coronas, puentes"),
+    "emergency-dentistry": ("Pain or a broken tooth? Call first", "¿Dolor o diente roto? Llame"),
+}
+
+
 def nav_html(C, locale):
     items = []
+    svc_by_slug = {x["slug"]: x for x in SERVICES}
     svc_items = "".join(
-        f'<li><a href="{url(locale, "services/" + s[0] + "/")}">{esc(s[1] if locale == "en" else s[2])}</a></li>'
+        f'<li><a class="nav-menu-item" href="{url(locale, "services/" + s[0] + "/")}">'
+        f'<span class="nav-menu-ico">{icon(svc_by_slug[s[0]]["icon"])}</span>'
+        f'<span class="nav-menu-txt"><b>{esc(s[1] if locale == "en" else s[2])}</b>'
+        f'<small>{esc(NAV_BLURB[s[0]][0 if locale == "en" else 1])}</small></span></a></li>'
         for s in SERVICE_NAV
     )
     items.append(

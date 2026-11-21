@@ -249,13 +249,20 @@
     }
   });
   if (servicesItem && matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    // A short grace period on leave: the pointer can cross the gap (or overshoot the menu edge)
+    // without the menu snapping shut. The CSS bridge (.nav-menu::before) covers the gap itself.
+    let closeTimer = 0;
     servicesItem.addEventListener("pointerenter", () => {
+      clearTimeout(closeTimer);
       servicesHover = true;
       syncServices();
     });
     servicesItem.addEventListener("pointerleave", () => {
-      servicesHover = false;
-      syncServices();
+      clearTimeout(closeTimer);
+      closeTimer = setTimeout(() => {
+        servicesHover = false;
+        syncServices();
+      }, 260);
     });
     servicesItem.addEventListener("focusout", (e) => {
       if (!servicesItem.contains(e.relatedTarget)) setServices(false);
@@ -646,6 +653,238 @@
       const fromUrl = new URLSearchParams(location.search).get("reason");
       if (fromUrl) preset(fromUrl, false);
     } catch {}
+  }
+
+
+  /* ---------------------------------------------------------------- */
+  /* 3D "trading card" depth (Steam-style): hover lifts the card above */
+  /* its neighbours, tilts it toward the pointer and sweeps a glare.   */
+  /* Mouse: on hover. Touch: press and hold ~180 ms (a scroll cancels). */
+  /* Ported from the Centurion motion engine, with a stronger pop.     */
+  /* ---------------------------------------------------------------- */
+  const TILT_SEL = [
+    ".svc", ".doc", ".team-card", ".review", ".comfort-card", ".pay-card", ".pay-detail",
+    ".team-strip > div", ".detail-list > li", ".tech-card", ".how-step", ".hero-card",
+    ".values-grid > .value", ".office-card", ".not-card", ".info-block", ".score",
+    ".service-row", ".area-list button", ".comfort-tile", ".doc-block-photo", ".hours", ".anatomy-figure", ".visit-photo",
+    ".team-photo-wide", ".page-hero-art > svg", ".page-hero-photo", ".ba-stats > div",
+  ].join(",");
+  const NO_TILT = "form, [data-quiz], [data-planner], [data-ba], .map-card, .acc-item, [data-no-tilt]";
+  const REST = [0, 0, 0, 1, 0, 0, 50, 50, 0, 0]; // rx, ry, lift, scale, glare, zoom, gx, gy, px, py
+  const depthMap = new WeakMap();
+  const moving = new Set();
+  let loopOn = false,
+    lastTs = 0,
+    current = null;
+
+  function depthFor(el) {
+    if (!el || reduceMotion) return null;
+    let d = depthMap.get(el);
+    if (d) return d;
+    if (el.closest(NO_TILT)) return null;
+    const r = el.getBoundingClientRect();
+    if (r.width < 90 || r.height < 60) return null;
+    const glare = document.createElement("span");
+    glare.className = "depth-glare";
+    glare.setAttribute("aria-hidden", "true");
+    if (el.tagName !== "IMG" && el.tagName.toLowerCase() !== "svg") el.appendChild(glare);
+    if (getComputedStyle(el).position === "static") el.style.position = "relative";
+    const w = r.width;
+    d = {
+      el,
+      glare,
+      img: el.tagName === "IMG" ? null : el.querySelector(".doc-photo img, .team-photo img, .visit-photo img, img"),
+      over: false,
+      pressed: false,
+      maxDeg: Math.min(14, Math.max(3, (12 * 380) / w)),
+      pop: w < 300 ? 1.12 : w < 520 ? 1.07 : w < 800 ? 1.045 : 1.025,
+      c: REST.slice(),
+      t: REST.slice(),
+    };
+    depthMap.set(el, d);
+    return d;
+  }
+  function aim(d, e) {
+    const b = d.el.getBoundingClientRect();
+    if (!b.width || !b.height) return;
+    const x = Math.min(1, Math.max(0, (e.clientX - b.left) / b.width));
+    const y = Math.min(1, Math.max(0, (e.clientY - b.top) / b.height));
+    d.t[1] = (x - 0.5) * 2 * d.maxDeg;
+    d.t[0] = -(y - 0.5) * 2 * d.maxDeg * 0.8;
+    d.t[6] = x * 100;
+    d.t[7] = y * 100;
+    d.t[8] = (x - 0.5) * 2;
+    d.t[9] = (y - 0.5) * 2;
+  }
+  function pose(d) {
+    d.t[2] = d.pressed ? 4 : 12;
+    d.t[3] = d.pressed ? 1 + (d.pop - 1) * 0.6 : d.pop;
+    d.t[4] = 1;
+    d.t[5] = 1;
+  }
+  function release(d) {
+    d.over = false;
+    d.pressed = false;
+    const gx = d.t[6],
+      gy = d.t[7];
+    d.t = REST.slice();
+    d.t[6] = gx;
+    d.t[7] = gy;
+    wake(d);
+  }
+  function wake(d) {
+    moving.add(d);
+    if (!loopOn) {
+      loopOn = true;
+      lastTs = 0;
+      requestAnimationFrame(tick);
+    }
+  }
+  function paint(d) {
+    const [rx, ry, lift, sc, ga, z, gx, gy, px, py] = d.c;
+    d.el.style.transform = `perspective(900px) translate3d(0,${(-lift).toFixed(2)}px,0) rotateX(${rx.toFixed(3)}deg) rotateY(${ry.toFixed(3)}deg) scale(${sc.toFixed(4)})`;
+    d.el.style.setProperty("--ga", ga.toFixed(3));
+    d.el.style.setProperty("--gx", gx.toFixed(1) + "%");
+    d.el.style.setProperty("--gy", gy.toFixed(1) + "%");
+    if (d.img) {
+      d.img.style.scale = (1 + 0.07 * z).toFixed(4);
+      d.img.style.translate = `${(-px * 9 * z).toFixed(2)}px ${(-py * 9 * z).toFixed(2)}px`;
+    }
+  }
+  function restStyles(d) {
+    d.el.style.transform = "";
+    d.el.style.removeProperty("--ga");
+    d.el.removeAttribute("data-depth-live");
+    if (d.img) {
+      d.img.style.scale = "";
+      d.img.style.translate = "";
+    }
+  }
+  function tick(ts) {
+    const dt = lastTs ? Math.min(0.05, (ts - lastTs) / 1000) : 1 / 60;
+    lastTs = ts;
+    moving.forEach((d) => {
+      const k = 1 - Math.exp(-(d.over ? 12 : 10) * dt);
+      let still = true;
+      for (let i = 0; i < d.c.length; i++) {
+        d.c[i] += (d.t[i] - d.c[i]) * k;
+        if (Math.abs(d.t[i] - d.c[i]) > (i === 3 ? 0.0005 : i >= 6 ? 0.5 : 0.02)) still = false;
+      }
+      if (still) {
+        moving.delete(d);
+        if (d.over) paint(d);
+        else {
+          d.c = REST.slice();
+          restStyles(d);
+        }
+      } else paint(d);
+    });
+    if (moving.size) requestAnimationFrame(tick);
+    else loopOn = false;
+  }
+  function engage(d, e) {
+    // Wait until the entrance animation has finished, so the two transforms never fight.
+    const rv = d.el.closest(".reveal");
+    if (rv && !rv.classList.contains("is-visible")) return false;
+    d.over = true;
+    d.el.setAttribute("data-depth-live", "");
+    aim(d, e);
+    pose(d);
+    wake(d);
+    return true;
+  }
+  const fine = matchMedia("(hover: hover) and (pointer: fine)").matches && !matchMedia("(any-pointer: coarse)").matches;
+  if (!reduceMotion) {
+    let queued = false,
+      last = null;
+    const frame = () => {
+      queued = false;
+      const e = last;
+      if (!e) return;
+      const el = e.target && e.target.closest ? e.target.closest(TILT_SEL) : null;
+      const d = el ? depthFor(el) : null;
+      if (current && current !== d) {
+        release(current);
+        current = null;
+      }
+      if (d) {
+        if (!d.over) {
+          if (engage(d, e)) current = d;
+        } else {
+          aim(d, e);
+          wake(d);
+          current = d;
+        }
+      }
+    };
+    if (fine) {
+      addEventListener(
+        "pointermove",
+        (e) => {
+          if (e.pointerType === "touch") return;
+          last = e;
+          if (!queued) {
+            queued = true;
+            requestAnimationFrame(frame);
+          }
+        },
+        { passive: true },
+      );
+      document.documentElement.addEventListener("pointerleave", () => {
+        if (current) release(current);
+        current = null;
+      });
+      addEventListener("pointerdown", (e) => {
+        if (current && e.pointerType === "mouse") {
+          current.pressed = true;
+          pose(current);
+          wake(current);
+        }
+      }, { passive: true });
+      addEventListener("pointerup", () => {
+        if (current && current.over) {
+          current.pressed = false;
+          pose(current);
+          wake(current);
+        }
+      }, { passive: true });
+    }
+    // Touch: press and hold to pick the card up; any movement first means a scroll.
+    let holdTimer = 0,
+      holdStart = null,
+      held = null;
+    const clearHold = () => {
+      clearTimeout(holdTimer);
+      holdTimer = 0;
+      holdStart = null;
+      if (held) {
+        release(held);
+        held = null;
+      }
+    };
+    addEventListener("pointerdown", (e) => {
+      if (e.pointerType !== "touch") return;
+      const el = e.target.closest && e.target.closest(TILT_SEL);
+      const d = el ? depthFor(el) : null;
+      if (!d) return;
+      clearHold();
+      holdStart = { x: e.clientX, y: e.clientY };
+      holdTimer = setTimeout(() => {
+        holdTimer = 0;
+        if (engage(d, e)) held = d;
+      }, 180);
+    }, { passive: true });
+    addEventListener("pointermove", (e) => {
+      if (e.pointerType !== "touch") return;
+      if (holdStart && !held && (Math.abs(e.clientX - holdStart.x) > 12 || Math.abs(e.clientY - holdStart.y) > 12)) return clearHold();
+      if (held) {
+        aim(held, e);
+        wake(held);
+      }
+    }, { passive: true });
+    addEventListener("pointerup", (e) => e.pointerType === "touch" && clearHold(), { passive: true });
+    addEventListener("pointercancel", clearHold, { passive: true });
+    addEventListener("scroll", () => holdTimer && clearHold(), { passive: true });
   }
 
   /* Analytics hook (Vercel Analytics / GA pick these up if installed) */
