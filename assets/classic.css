@@ -733,3 +733,46 @@ html.menu-open .callbar { opacity: 0 !important; pointer-events: none !important
   .logo-word b { font-size: 1.15rem; }
   .logo .logo-mark { width: 36px; height: 36px; }
 }
+
+/* Contrast fixes (audited: every text vs. its background, both themes) ------- */
+/* Outline buttons inside the dark cards must be light, not ink-on-dark. */
+.bg-ink.blueprint-grid :is(.comfort-wide, .np-dark) .btn-outline-light,
+.np-dark .btn-outline-light {
+  color: #fff;
+  border-color: oklch(1 0 0 / 34%);
+  background: transparent;
+}
+.bg-ink.blueprint-grid :is(.comfort-wide, .np-dark) .btn-outline-light:hover,
+.np-dark .btn-outline-light:hover { background: oklch(1 0 0 / 10%); border-color: oklch(1 0 0 / 55%); }
+.np-dark .eyebrow { color: oklch(0.8 0.1 45); }
+.doc-portrait .since,
+.doc-photo .since,
+.np-dark .since {
+  color: #fff;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  background: oklch(0.18 0.02 200 / 72%);
+}
+/* Photo credit chip on the hero photo */
+.hero-photo-cap { background: oklch(0.18 0.03 248 / 72%); color: #fff; }
+/* Light accent backgrounds in dark theme need dark text */
+html[data-theme="dark"] .skip-link,
+html[data-theme="dark"] .ba-label.r,
+html[data-theme="dark"] .demo-banner,
+html[data-theme="dark"] .demo-banner :is(a, b, strong, span, button) { color: oklch(0.2 0.03 240); }
+/* Footer small print: readable, still quiet */
+.footer .logo-word small { color: oklch(1 0 0 / 62%); }
+.footer-credit { color: oklch(1 0 0 / 60%); }
+.muted-light,
+.footer-bottom span,
+.footer-legal a,
+.footer-legal span { color: oklch(1 0 0 / 64%); }
+.range-ticks { color: oklch(1 0 0 / 66%); }
+.hours tr.closed td:last-child { color: oklch(1 0 0 / 60%); }
+.bg-ink.blueprint-grid .np-dark.reveal > .eyebrow { color: oklch(0.8 0.1 45); }
+.doc-block-photo .since {
+  color: #fff;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  background: oklch(0.18 0.02 200 / 72%);
+}
